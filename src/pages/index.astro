@@ -342,14 +342,16 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
       max-width: none;
       margin-inline: calc(-1 * var(--gutter));
       aspect-ratio: auto;
-      height: min(54svh, 440px);
+      /* Sized so the rating, headline and button all sit above the sticky Book bar on the first screen. */
+      height: 300px;
+      height: clamp(190px, calc(100svh - 404px), 440px);
     }
 
     .hero__art::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(250, 245, 239, 0) 52%, rgba(250, 245, 239, 0.85) 82%, var(--ivory) 100%);
+      background: linear-gradient(to bottom, rgba(250, 245, 239, 0) 60%, rgba(250, 245, 239, 0.85) 86%, var(--ivory) 100%);
       pointer-events: none;
     }
 
@@ -373,7 +375,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
     .hero__text {
       flex: none;
       position: relative;
-      margin-top: -64px;
+      margin-top: -56px;
       gap: 14px;
     }
 
