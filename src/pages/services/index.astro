@@ -3,16 +3,29 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { goalFilters, services } from '../../data/facials';
+import PromoBanner from '../../components/PromoBanner.astro';
+import {
+  categories,
+  packageAddOnNote,
+  packageAddOns,
+  packageDeposit,
+  packages,
+  packageTerms,
+  services,
+} from '../../data/facials';
 import { images } from '../../data/images';
 import { site } from '../../data/site';
 
-// Same order as the booking menu's "choose by goal" list.
-const order = ['first', 'glow', 'deep', 'teen', 'men', 'relax'];
-const cards = order.map((g) => services.find((s) => s.goal === g)!);
+const groups = categories.map((c) => ({ ...c, items: services.filter((s) => s.category === c.id) }));
+const filters = [
+  { id: 'all', label: 'everything' },
+  ...categories.map((c) => ({ id: c.id, label: c.filter })),
+  { id: 'packages', label: 'packages' },
+];
 ---
 
 <Base path="/services/">
+  <PromoBanner />
   <section class="wrap page-top stack" style="gap: clamp(28px, 4vw, 48px)">
     <div class="page-head">
       <div class="stack">
@@ -20,64 +33,122 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
         <h1 class="display h-page">Choose your <em>facial</em></h1>
       </div>
       <p class="lede">
-        Every facial, with its price and length up front. New here? Start with the{' '}
+        Every service on the booking menu, with its price, length and deposit up front. New here? Start with the{' '}
         <a href="/services/new-client-signature/">New Client Signature Facial</a>.
       </p>
     </div>
 
-    <div class="chips" role="group" aria-label="Filter facials by goal" data-filter>
+    <div class="chips" role="group" aria-label="Filter the menu" data-filter>
       <span class="chips__lead">I’m looking for</span>
       {
-        goalFilters.map((g, i) => (
-          <button class="chip" type="button" data-goal={g.id} aria-pressed={i === 0 ? 'true' : 'false'}>
-            {g.label}
+        filters.map((f, i) => (
+          <button class="chip" type="button" data-goal={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {f.label}
           </button>
         ))
       }
     </div>
 
-    <div class="cards">
-      {
-        cards.map((s) => (
-          <article class="svc" data-card={s.goal}>
-            <a class="svc__photo" href={`/services/${s.slug}/`} tabindex="-1">
-              <Image
-                src={images[s.image].src}
-                alt={images[s.image].alt}
-                widths={[420, 800]}
-                sizes="(min-width: 1100px) 400px, (min-width: 740px) 50vw, 100vw"
-                style={`object-position: ${s.focus}`}
-              />
-              <span class="svc__goal">{s.goalLabel}</span>
-            </a>
-            <div class="svc__body">
-              <div class="svc__head">
-                <h2>
-                  <a href={`/services/${s.slug}/`}>{s.name}</a>
-                </h2>
-                <span class="svc__price">{s.price}</span>
-              </div>
-              <p class="svc__time">{s.time}</p>
-              <p class="svc__desc">{s.cardDesc}</p>
-              {s.cardNote && <p class="small muted">{s.cardNote}</p>}
-              <div class="actions">
-                <a class="btn btn--sm" href={site.bookingUrl}>
-                  Book <Arrow />
+    {
+      groups.map((g) => (
+        <section class="group" id={g.id} data-group={g.id}>
+          <h2 class="display h-sub">{g.name}</h2>
+          <div class="cards">
+            {g.items.map((s) => (
+              <article class="svc">
+                <a class="svc__photo" href={`/services/${s.slug}/`} tabindex="-1">
+                  <Image
+                    src={images[s.image].src}
+                    alt={images[s.image].alt}
+                    widths={[420, 800]}
+                    sizes="(min-width: 1100px) 400px, (min-width: 740px) 50vw, 100vw"
+                    style={`object-position: ${s.focus}`}
+                  />
                 </a>
-                <a class="link" href={`/services/${s.slug}/`}>
-                  See this facial
-                </a>
+                <div class="svc__body">
+                  <div class="svc__head">
+                    <h3>
+                      <a href={`/services/${s.slug}/`}>{s.name}</a>
+                    </h3>
+                    <span class="svc__price">{s.price}</span>
+                  </div>
+                  <p class="svc__time">
+                    {s.time}
+                    {s.deposit && ` · ${s.deposit}`}
+                  </p>
+                  <p class="svc__desc">{s.lead}</p>
+                  {s.bestFor && <p class="small muted">Best for: {s.bestFor}.</p>}
+                  <div class="actions">
+                    <a class="btn btn--sm" href={site.bookingUrl}>
+                      Book <Arrow />
+                    </a>
+                    <a class="link" href={`/services/${s.slug}/`}>
+                      See details<span class="sr-only">: {s.name}</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <section class="group" id="packages" data-group="packages">
+      <h2 class="display h-sub">Packages</h2>
+      <div class="cards">
+        {
+          packages.map((p) => (
+            <article class="svc" id={p.id}>
+              <div class="svc__photo">
+                <Image
+                  src={images[p.image].src}
+                  alt={images[p.image].alt}
+                  widths={[420, 800]}
+                  sizes="(min-width: 1100px) 400px, (min-width: 740px) 50vw, 100vw"
+                />
               </div>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+              <div class="svc__body">
+                <div class="svc__head">
+                  <h3>{p.name}</h3>
+                  <span class="svc__price">{p.price}</span>
+                </div>
+                <p class="svc__time">
+                  {p.sessions} · {packageDeposit}
+                </p>
+                <p class="svc__desc">{p.desc}</p>
+                <p class="small muted">{p.value}</p>
+                <div class="actions">
+                  <a class="btn btn--sm" href={site.bookingUrl}>
+                    Book <Arrow />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+        <div class="addons">
+          <h3>Package add-ons</h3>
+          <dl>
+            {
+              packageAddOns.map((a) => (
+                <div>
+                  <dt>{a.name}</dt>
+                  <dd>{a.desc}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="small muted">{packageAddOnNote}</p>
+          <p class="small muted">{packageTerms}</p>
+        </div>
+      </div>
+    </section>
 
     <p class="muted" style="max-width: 760px">
       Book takes you to my booking site, where you pick your time. Open days aren’t always open times, so check there
-      for what’s available. First-visit questions are on the <a href="/faq/">FAQ</a>, and there’s a longer note on
-      picking a first facial in the <a href="/blog/choosing-your-first-facial/">journal</a>.
+      for what’s available. The booking screen has the final price and deposit for each service. First-visit questions
+      are on the <a href="/faq/">FAQ</a>.
     </p>
   </section>
   <CtaBand />
@@ -100,9 +171,21 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
     max-width: 460px;
   }
 
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    scroll-margin-top: 24px;
+    transition: opacity 0.4s ease;
+  }
+
+  .group.is-dim {
+    display: none;
+  }
+
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
     gap: 28px;
   }
 
@@ -113,11 +196,7 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
     border: 1px solid #e6dccd;
     border-radius: 28px;
     overflow: hidden;
-    transition: opacity 0.4s ease;
-  }
-
-  .svc.is-dim {
-    opacity: 0.28;
+    scroll-margin-top: 24px;
   }
 
   .svc__photo {
@@ -138,19 +217,6 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
     transform: scale(1.04);
   }
 
-  .svc__goal {
-    position: absolute;
-    left: 18px;
-    top: 18px;
-    padding: 7px 14px;
-    border-radius: 999px;
-    background: var(--cream);
-    color: var(--ink);
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
   .svc__body {
     flex: 1;
     display: flex;
@@ -166,14 +232,14 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
     gap: 14px;
   }
 
-  .svc__head h2 {
+  .svc__head h3 {
     font-family: var(--serif);
     font-weight: 500;
     font-size: 30px;
     line-height: 1.05;
   }
 
-  .svc__head h2 a {
+  .svc__head h3 a {
     text-decoration: none;
   }
 
@@ -187,7 +253,7 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
 
   .svc__time {
     font-size: 13px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -196,18 +262,51 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
     flex: 1;
     color: var(--text);
   }
+
+  .addons {
+    padding: 28px;
+    background: var(--sand);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .addons h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.05;
+  }
+
+  .addons dl {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .addons dt {
+    font-weight: 500;
+  }
+
+  .addons dd {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-strong);
+  }
 </style>
 
 <script>
-  // Goal filter: highlights matching facials. Nothing is removed from the page.
+  // Category filter. Every service stays in the HTML; picking a category hides the other groups.
   document.querySelectorAll<HTMLElement>('[data-filter]').forEach((bar) => {
     const chips = Array.from(bar.querySelectorAll<HTMLButtonElement>('[data-goal]'));
-    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
+    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-group]'));
     chips.forEach((chip) =>
       chip.addEventListener('click', () => {
         const goal = chip.dataset.goal;
         chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-        cards.forEach((card) => card.classList.toggle('is-dim', goal !== 'all' && card.dataset.card !== goal));
+        groups.forEach((g) => g.classList.toggle('is-dim', goal !== 'all' && g.dataset.group !== goal));
       }),
     );
   });

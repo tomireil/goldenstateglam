@@ -11,15 +11,15 @@ The menu is a set of cosmetic facials. It is not a medical visit, and it does no
 
 ## Start with one goal
 
-**Cleansing.** The [Signature Deep Cleanse Facial](/services/signature-deep-cleanse/) is $180 and 90 minutes. Choose it when you already want a thorough cleanse. It includes cleansing, exfoliation, extractions when appropriate, hydration, and finishing SPF. New clients have a $50 deposit on the published menu. The [Men’s Deep Clean Facial](/services/mens-deep-clean/) is $180 and 90 minutes, with attention to skin that is sensitive from shaving. The [Teen Skin Clear Facial](/services/teen-skin-clear/) is $90 and 50 minutes. Contact me about guardian requirements before you book it.
+**Cleansing.** The [Signature Deep Cleanse Facial](/services/signature-deep-cleanse/) is $180 and 90 minutes. Choose it when you already want a thorough cleanse. It includes cleansing, exfoliation, extractions when appropriate, hydration, and finishing SPF. New clients have a $50 deposit on the published menu. The [Men’s Deep Clean Facial](/services/mens-deep-clean/) is $180 and 90 minutes, with attention to skin that is sensitive from shaving. The [Clear Skin Facial](/services/clear-skin-facial/) is $160 and 75 minutes, for breakouts and congestion.
 
 **Hydration.** The [Korean Glass Skin Facial](/services/korean-glass-skin/) is $165 and 75 minutes, with serum, a hydrating mask, and facial massage.
 
-**Relaxation.** [Facial massage and relaxation](/services/facial-massage-relaxation/) is the slower end of the menu. The Lymphatic Drainage Facial Massage is $110 and 70 minutes, with a $50 deposit. The Deep Relax & Sleep Ritual is $180 and 90 minutes, with an $80 deposit for new clients. Facial Sculpting Therapy is $150 and 80 minutes. It is self-care, with massage, warm towels, and aromatherapy. It is not a treatment for anxiety or sleep disorders.
+**Relaxation.** [Facial massage and relaxation](/services/#glow) is the slower end of the menu. The Lymphatic Drainage Facial Massage is $110 and 70 minutes, with a $50 deposit. The Deep Relax & Sleep Ritual is $180 and 90 minutes, with an $80 deposit for new clients. Facial Sculpting Therapy is $150 and 80 minutes. It is self-care, with massage, warm towels, and aromatherapy. It is not a treatment for anxiety or sleep disorders.
 
 ## Match the time you actually have
 
-A facial that looks right on paper is the wrong booking if you need to leave early. The New Client Signature Facial is 80 minutes. Korean Glass Skin is 75 minutes. Signature Deep Cleanse is 90 minutes. Teen Skin Clear is 50 minutes. The Deep Relax ritual is 90 minutes. Give yourself the full block, plus a few minutes to arrive and settle.
+A facial that looks right on paper is the wrong booking if you need to leave early. The New Client Signature Facial is 80 minutes. Korean Glass Skin is 75 minutes. Signature Deep Cleanse is 90 minutes. The Clear Skin Facial is 75 minutes. The Deep Relax ritual is 90 minutes. Give yourself the full block, plus a few minutes to arrive and settle.
 
 The studio is open Monday, Wednesday, Friday, and Saturday, 10 AM–6 PM. Tuesday, Thursday, and Sunday are closed. An open day does not mean every hour is free. Check the booking site for a time.
 

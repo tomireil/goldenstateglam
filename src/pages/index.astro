@@ -8,9 +8,14 @@ import FaqList from '../components/FaqList.astro';
 import { images } from '../data/images';
 import { cities, reviews, site, visitSteps } from '../data/site';
 import { faqJsonLd, homeFaqs } from '../data/faqs';
+import { priceFrom, priceTo, services } from '../data/facials';
+import PromoBanner from '../components/PromoBanner.astro';
+
+const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. Facials, peels and skin treatments from ${priceFrom} to ${priceTo} at one studio. Book online.`;
 ---
 
-<Base path="/" jsonLd={[faqJsonLd(homeFaqs)]}>
+<Base path="/" jsonLd={[faqJsonLd(homeFaqs)]} description={description}>
+  <PromoBanner />
   <!-- Hero -->
   <section class="wrap hero">
     <div class="hero__text">
@@ -61,15 +66,15 @@ import { faqJsonLd, homeFaqs } from '../data/faqs';
         <h2 class="display h-section">The facial your skin has been <em>waiting for</em></h2>
       </div>
       <p class="muted">
-        Seven facials, from a first-visit signature to deep cleansing, glass skin and facial massage. Choose yours
-        below.
+        Seven facials to start with. The <a href="/services/">full menu</a> has {services.length} services, including
+        peels, massage-led facials and packages.
       </p>
     </div>
     <FacialGallery />
     <div class="menu-section__foot">
       <span>
         New here? Start with the <a href="/services/new-client-signature/">New Client Signature Facial</a>. It’s $150
-        and 80 minutes.
+        and 80 minutes. <a href="/services/">See the full menu</a>.
       </span>
       <a class="link" href={site.smsHref}>Still deciding? Text me and I’ll help you choose</a>
     </div>

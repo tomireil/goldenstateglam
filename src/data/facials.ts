@@ -1,17 +1,681 @@
-// The facial menu. Prices, lengths and deposits match the published booking menu.
-// `galleryItems` drives the homepage picker. `services` drives /services/ and each detail page.
+// The service menu.
+//
+// SOURCE OF TRUTH: the GlossGenius booking menu at https://goldenstateglam.glossgenius.com/services
+// Every name, price, length, deposit and description here is taken from it. When the booking menu changes,
+// change this file to match. Don't add services here that can't be booked there.
+//
+// Last synced with GlossGenius: 2026-11-27.
 
 export type ImageKey =
   | 'facialHands'
   | 'facialMask'
   | 'glassSkin'
   | 'mensFacial'
-  | 'teenSkin'
   | 'stillLife'
   | 'facialSculpt'
   | 'facialMassage'
   | 'glowHands'
-  | 'studioCover';
+  | 'studioCover'
+  | 'newClient'
+  | 'clearSkin'
+  | 'sculptDrain'
+  | 'backReset'
+  | 'chemicalPeel'
+  | 'italianPeel'
+  | 'exopeel'
+  | 'exosome'
+  | 'microneedling'
+  | 'package3'
+  | 'package6';
+
+export type CategoryId = 'signature' | 'glow' | 'body' | 'peels' | 'premium' | 'advanced';
+
+// Category names as they appear on the booking menu. "Advanced treatments" is ours: those two have no category there.
+export const categories: { id: CategoryId; name: string; filter: string }[] = [
+  { id: 'signature', name: 'Signature & Deep Cleansing', filter: 'signature and deep cleansing' },
+  { id: 'glow', name: 'Hydration & Glow', filter: 'hydration and glow' },
+  { id: 'body', name: 'Body Skin Treatments', filter: 'body treatments' },
+  { id: 'peels', name: 'Peelings', filter: 'peels' },
+  { id: 'premium', name: 'Exopeel & Dermoaroma', filter: 'premium peels' },
+  { id: 'advanced', name: 'Advanced treatments', filter: 'advanced treatments' },
+];
+
+export interface Service {
+  slug: string;
+  name: string;
+  short: string;
+  category: CategoryId;
+  price: string;
+  /** Numeric price for structured data. */
+  offerPrice: string;
+  time: string;
+  deposit?: string;
+  image: ImageKey;
+  /** object-position for cropped photos */
+  focus: string;
+  /** One-line summary from the booking menu. */
+  lead: string;
+  /** Further intro paragraphs from the booking menu. */
+  intro?: string[];
+  includes: string[];
+  expect: string[];
+  goodToKnow: string[];
+  bestFor?: string;
+  /** Variants the client picks between when booking (the Italian peel systems). */
+  options?: { name: string; desc: string; bestFor: string }[];
+  /** Homepage picker: pill label and short tag. Only the featured facials have these. */
+  need?: string;
+  tag?: string;
+}
+
+const peelAftercare =
+  'Stop retinol and exfoliating acids five days before your visit. Afterward, avoid sun, heavy sweating, and picking for a week, and wear sunscreen every day.';
+const peelNotFor = 'Not suitable during pregnancy, on sunburned skin, or within six months of isotretinoin.';
+
+export const services: Service[] = [
+  // ---- Signature & Deep Cleansing
+  {
+    slug: 'new-client-signature',
+    name: 'New Client Signature Facial',
+    short: 'New Client Signature',
+    category: 'signature',
+    price: '$150',
+    offerPrice: '150.00',
+    time: '80 min',
+    deposit: '$50 deposit',
+    image: 'newClient',
+    focus: '50% 45%',
+    lead: 'New to Golden State Glam? Start here.',
+    intro: [
+      'We begin with a short consultation and a close look at your skin. Then you get a full facial built around what your skin needs that day.',
+    ],
+    includes: [
+      'Consultation and skin assessment',
+      'Double cleanse',
+      'Gentle exfoliation',
+      'Nourishing mask',
+      'Facial massage',
+      'Hydration and SPF',
+      'A home care plan',
+    ],
+    expect: [
+      'Clean, soft, hydrated skin the same day, with no downtime.',
+      'You leave knowing which facial fits you best and how often to come.',
+    ],
+    goodToKnow: [
+      'Come with or without makeup.',
+      'When you book, tell us about any allergies, prescriptions, or recent skin treatments.',
+    ],
+    bestFor: 'first visits, and anyone not sure which facial to choose',
+    need: 'A first visit',
+    tag: 'Start here',
+  },
+  {
+    slug: 'signature-deep-cleanse',
+    name: 'Signature Deep Cleanse',
+    short: 'Signature Deep Cleanse',
+    category: 'signature',
+    price: '$180',
+    offerPrice: '180.00',
+    time: '90 min',
+    deposit: '$50 deposit for new clients',
+    image: 'facialMask',
+    focus: '32% 50%',
+    lead: 'Our signature facial for deeply clean, refreshed skin.',
+    includes: [
+      'Double cleanse',
+      'Professional exfoliation',
+      'Hydrodermabrasion when it suits your skin',
+      'Extractions where needed',
+      'A targeted mask',
+      'Facial massage',
+      'Hydration with SPF',
+    ],
+    expect: [
+      'Clearer, smoother, brighter looking skin after the first visit.',
+      'Slight redness after extractions usually fades within a few hours.',
+    ],
+    goodToKnow: [
+      'Skip retinol and exfoliating acids for three days before your visit.',
+      'Most clients return every four to six weeks.',
+    ],
+    bestFor: 'congested pores, blackheads, oily skin, and uneven texture',
+    need: 'A deep clean',
+    tag: 'Deep clean',
+  },
+  {
+    slug: 'clear-skin-facial',
+    name: 'Clear Skin Facial',
+    short: 'Clear Skin Facial',
+    category: 'signature',
+    price: '$160',
+    offerPrice: '160.00',
+    time: '75 min',
+    deposit: '$50 deposit for new clients',
+    image: 'clearSkin',
+    focus: '50% 35%',
+    lead: 'A facial for breakouts and congestion.',
+    includes: [
+      'Skin assessment',
+      'Deep cleanse',
+      'Superficial exfoliation',
+      'Gentle extractions',
+      'A calming mask',
+      'LED light when appropriate',
+      'A simple home routine',
+    ],
+    expect: [
+      'Less visible congestion and calmer looking skin after the first visit.',
+      'Some redness after extractions is normal and settles within a day.',
+    ],
+    goodToKnow: [
+      'Breakout prone skin responds best to a series. Most clients start with six visits, two weeks apart.',
+      'This is a cosmetic treatment, and severe or painful acne is best seen by a dermatologist first.',
+      'Tell us if you use prescription acne medication.',
+    ],
+    bestFor: 'oily, congested, and breakout prone skin',
+    need: 'Clearer skin',
+    tag: 'Breakouts',
+  },
+  {
+    slug: 'mens-deep-clean',
+    name: 'Men’s Deep Clean Facial',
+    short: 'Men’s Deep Clean',
+    category: 'signature',
+    price: '$180',
+    offerPrice: '180.00',
+    time: '90 min',
+    deposit: '$80 deposit for new clients',
+    image: 'mensFacial',
+    focus: '60% 40%',
+    lead: 'A no fuss facial made for men’s skin.',
+    includes: [
+      'Double cleanse',
+      'Exfoliation',
+      'Extractions',
+      'A mask',
+      'Hydration with SPF',
+      'Extra attention to the beard and shaving areas',
+    ],
+    expect: ['Skin looks cleaner and feels calmer.', 'Mild redness after extractions fades within a few hours.'],
+    goodToKnow: ['Shave the day before, not the morning of your visit.', 'Beards are welcome.'],
+    bestFor: 'clogged pores, razor irritation, and a first facial',
+    need: 'Something for men',
+    tag: 'For men',
+  },
+
+  // ---- Hydration & Glow
+  {
+    slug: 'korean-glass-skin',
+    name: 'Korean Glass Skin Facial',
+    short: 'Korean Glass Skin',
+    category: 'glow',
+    price: '$165',
+    offerPrice: '165.00',
+    time: '75 min',
+    deposit: '$50 deposit for new clients',
+    image: 'glassSkin',
+    focus: '60% 40%',
+    lead: 'A hydration focused facial for a smooth, dewy finish.',
+    includes: [
+      'Cleanse',
+      'Gentle exfoliation',
+      'Layered hydrating serums',
+      'A soothing treatment',
+      'A nourishing mask',
+      'Moisturizer with SPF',
+    ],
+    expect: [
+      'Plump, luminous skin the same day.',
+      'Nothing harsh is used, so there is no redness and no downtime.',
+    ],
+    goodToKnow: ['Gentle enough for sensitive skin.', 'A good choice in winter, after travel, or before photos.'],
+    bestFor: 'dull, dehydrated, or rough feeling skin',
+    need: 'Glow and hydration',
+    tag: 'Glow',
+  },
+  {
+    slug: 'lift-firm-facial',
+    name: 'Lift & Firm Facial',
+    short: 'Lift & Firm Facial',
+    category: 'glow',
+    price: '$185',
+    offerPrice: '185.00',
+    time: '75 min',
+    deposit: '$50 deposit for new clients',
+    image: 'glowHands',
+    focus: '55% 25%',
+    lead: 'A firming facial for skin that has lost some bounce.',
+    includes: [
+      'Cleanse',
+      'Enzyme exfoliation',
+      'A peptide treatment',
+      'A lifting facial massage',
+      'LED light',
+      'A firming mask',
+      'SPF',
+    ],
+    expect: ['Skin looks tighter and more awake the same day.', 'The effect builds with regular visits.'],
+    goodToKnow: ['No needles and no downtime.', 'Book it three to five days before an event.'],
+    bestFor: 'fine lines, dullness, and early signs of aging',
+    need: 'A lift',
+    tag: 'Firming',
+  },
+  {
+    slug: 'lymphatic-drainage-facial-massage',
+    name: 'Lymphatic Drainage Facial Massage',
+    short: 'Lymphatic Drainage Facial Massage',
+    category: 'glow',
+    price: '$110',
+    offerPrice: '110.00',
+    time: '70 min',
+    deposit: '$50 deposit',
+    image: 'facialSculpt',
+    focus: '60% 40%',
+    lead: 'Relax, refresh, and rediscover your natural glow.',
+    intro: [
+      'A relaxing hands-on facial experience combining gentle lymphatic-style massage and customized facial sculpting techniques.',
+    ],
+    includes: [
+      'Gentle cleansing',
+      'Gentle lymphatic-style massage',
+      'Customized facial sculpting techniques',
+      'Moisturizing skincare',
+      'A calming finishing ritual',
+    ],
+    expect: [
+      'This treatment focuses on releasing the feeling of facial tension, temporarily reducing the appearance of puffiness, and promoting a refreshed, well-rested look.',
+    ],
+    goodToKnow: ['Not a medical lymphatic drainage treatment or a permanent facial lifting procedure.'],
+    bestFor: 'facial puffiness, tension, stress, and clients who enjoy hands-on facial massage',
+  },
+  {
+    slug: 'deep-relax-sleep-ritual',
+    name: 'Deep Relax & Sleep Ritual',
+    short: 'Deep Relax & Sleep Ritual',
+    category: 'glow',
+    price: '$180',
+    offerPrice: '180.00',
+    time: '90 min',
+    deposit: '$80 deposit for new clients',
+    image: 'facialMassage',
+    focus: '50% 45%',
+    lead: 'A deeply immersive relaxation experience designed to calm your body and mind.',
+    intro: [
+      'This signature ritual releases tension, soothes the nervous system, and gently guides you into a peaceful, sleep-like state. If you’re stressed, this is your reset.',
+    ],
+    includes: [
+      'Gentle cleansing',
+      'Slow facial massage, lifting and calming',
+      'Neck and shoulder massage',
+      'Scalp and face massage',
+      'Hand and ear massage',
+      'Warm towels and aromatherapy',
+      'A firming face mask',
+    ],
+    expect: [
+      'Guided sleep meditation with soft sound therapy and high-vibration music helps your mind fully disconnect and enter a deep state of rest.',
+      'You feel relaxed, recharged, and restored with a deep sense of calm.',
+    ],
+    goodToKnow: ['More than a facial: it’s your escape from stress and a reset for your entire body.'],
+    bestFor:
+      'feeling tired or overwhelmed, stress or anxiety, tension in the face, neck, or shoulders, and anyone who struggles to relax',
+    need: 'Pure relaxation',
+    tag: 'Relax',
+  },
+  {
+    slug: 'facial-sculpting-therapy',
+    name: 'Facial Sculpting Therapy',
+    short: 'Facial Sculpting Therapy',
+    category: 'glow',
+    price: '$150',
+    offerPrice: '150.00',
+    time: '80 min',
+    deposit: '$50 deposit for new clients',
+    image: 'facialHands',
+    focus: '50% 40%',
+    lead: 'A luxurious approach to smoother, firmer-looking, radiant skin.',
+    intro: [
+      'This personalized facial is created to address the visible appearance of dryness, fine lines, dullness, and loss of skin suppleness.',
+    ],
+    includes: [
+      'Gentle exfoliation',
+      'Peptide-rich skincare',
+      'A nourishing treatment mask',
+      'Relaxing facial massage',
+      'Hydrating finishing products',
+    ],
+    expect: [
+      'Each step is selected to support moisture retention and enhance the appearance of smoother, more refreshed skin.',
+    ],
+    goodToKnow: ['Your experience may include any of the steps listed, chosen for your skin.'],
+    bestFor: 'mature skin, visible fine lines, dullness, and loss of radiance',
+  },
+  {
+    slug: 'sculpt-drain-facial',
+    name: 'Sculpt & Drain Facial',
+    short: 'Sculpt & Drain Facial',
+    category: 'glow',
+    price: '$150',
+    offerPrice: '150.00',
+    time: '60 min',
+    deposit: '$50 deposit',
+    image: 'sculptDrain',
+    focus: '50% 40%',
+    lead: 'A hands on facial built around massage.',
+    includes: [
+      'Warm towels',
+      'Cleanse',
+      'Gua sha',
+      'Lymphatic style massage for the face, neck, and shoulders',
+      'A cooling mask',
+      'SPF',
+    ],
+    expect: [
+      'Less puffiness, a more defined jawline, and a face that feels relaxed.',
+      'Results are temporary and build with regular visits.',
+    ],
+    goodToKnow: [
+      'This is a cosmetic massage, not medical lymphatic drainage.',
+      'Drink plenty of water afterward.',
+      'Not recommended over active breakouts or irritated skin.',
+    ],
+    bestFor: 'puffiness, facial tension, and stress',
+  },
+
+  // ---- Body Skin Treatments
+  {
+    slug: 'back-reset',
+    name: 'Back Reset',
+    short: 'Back Reset',
+    category: 'body',
+    price: '$160',
+    offerPrice: '160.00',
+    time: '60 min',
+    deposit: '$50 deposit for new clients',
+    image: 'backReset',
+    focus: '50% 50%',
+    lead: 'The same care as a facial, for your back.',
+    includes: [
+      'Deep cleanse',
+      'An enzyme or light peel',
+      'Steam',
+      'Extractions',
+      'High frequency or LED light',
+      'A purifying mask',
+      'Hydration',
+    ],
+    expect: ['Skin feels smoother and looks clearer.', 'Mild redness can last a few hours.'],
+    goodToKnow: [
+      'Wear a loose top to your appointment.',
+      'Skip heavy workouts and hot showers for the rest of the day.',
+      'Book one to two weeks before a wedding or vacation.',
+    ],
+    bestFor: 'back breakouts, clogged pores, and rough texture',
+  },
+
+  // ---- Peelings
+  {
+    slug: 'chemical-peel',
+    name: 'Chemical Peel',
+    short: 'Chemical Peel',
+    category: 'peels',
+    price: '$120',
+    offerPrice: '120.00',
+    time: '45 min',
+    deposit: '$50 deposit for new clients',
+    image: 'chemicalPeel',
+    focus: '50% 40%',
+    lead: 'A professional peel that lifts away the dull outer layer of skin.',
+    includes: [
+      'Skin assessment',
+      'Cleanse and prep',
+      'A peel chosen for your skin',
+      'A calming finish',
+      'SPF',
+      'Aftercare instructions',
+    ],
+    expect: [
+      'Light tingling during the peel.',
+      'Mild flaking for two to five days, then smoother and more even looking skin.',
+    ],
+    goodToKnow: [peelAftercare, peelNotFor],
+    bestFor: 'dullness, uneven tone, fine lines, and marks left by breakouts',
+  },
+
+  // ---- Exopeel & Dermoaroma
+  {
+    slug: 'advanced-italian-skin-renewal',
+    name: 'Advanced Italian Skin Renewal',
+    short: 'Advanced Italian Skin Renewal',
+    category: 'premium',
+    price: 'from $220',
+    offerPrice: '220.00',
+    time: '80 min',
+    deposit: '$80 deposit for new clients',
+    image: 'italianPeel',
+    focus: '50% 40%',
+    lead: 'A step up from a standard peel, using a professional Italian peeling system.',
+    includes: [
+      'Skin assessment',
+      'Cleanse and prep',
+      'A peel formula matched to your concern',
+      'A calming finish',
+      'SPF',
+      'Aftercare instructions',
+    ],
+    expect: [
+      'Tingling or warmth during the peel.',
+      'Flaking for three to seven days, then a visibly more even tone and smoother texture.',
+    ],
+    goodToKnow: [
+      'If you are new to peels, we start with a facial or a Chemical Peel first.',
+      peelAftercare,
+      peelNotFor,
+    ],
+    bestFor: 'stubborn uneven tone, dark spots, and rough texture',
+    options: [
+      {
+        name: 'Radiance Brightening Peel',
+        desc: 'Reveal a brighter, more even-looking complexion. Radiance is a specialized professional peeling formulation combining exfoliating and brightening ingredients, including azelaic acid, azeloglycine, encapsulated retinol, and resorcinol. Developed for concerns involving uneven skin tone, visible discoloration, and signs of photoaging.',
+        bestFor: 'uneven-looking pigmentation, dullness, visible dark spots, and signs of sun-related skin aging',
+      },
+      {
+        name: 'Restructa Skin Texture & Clarity',
+        desc: 'Refine your texture. Reveal your natural glow. Restructa is an advanced professional peel formulated with lactic, mandelic, shikimic, and pyruvic acids, combined with skin-conditioning ingredients. Designed to improve the appearance of rough skin texture, visible congestion, enlarged-looking pores, and dullness.',
+        bestFor: 'oily, combination, congested, and uneven-looking skin',
+      },
+      {
+        name: 'Juvena Advanced Age-Defying Renewal',
+        desc: 'Advanced skin renewal for a smoother, more youthful-looking complexion. Juvena is an intensive professional peeling formulation combining trichloroacetic acid (TCA), retinol, exfoliating acids, PDRN, and peptides. Developed for mature and photoaged skin, it is intended to improve the appearance of rough texture, fine lines, and uneven skin tone.',
+        bestFor: 'mature, photoaged, and uneven-textured skin following professional assessment',
+      },
+      {
+        name: 'Intima Specialized Body Brightening Peel',
+        desc: 'Targeted care for a more even-looking skin tone. Intima is a specialized Dermoaroma peeling formulation developed for selected areas of the body affected by visible discoloration and uneven skin tone. Its formula combines TCA with selected exfoliating and brightening ingredients. Designed for localized cosmetic concerns, including areas such as the underarms, elbows, and knees.',
+        bestFor: 'localized uneven skin tone and visible body pigmentation, following professional evaluation',
+      },
+    ],
+  },
+  {
+    slug: 'exopeel-premium-skin-renewal',
+    name: 'Exopeel Premium Skin Renewal',
+    short: 'Exopeel Premium Skin Renewal',
+    category: 'premium',
+    price: '$450',
+    offerPrice: '450.00',
+    time: '105 min',
+    deposit: '$80 deposit for new clients',
+    image: 'exopeel',
+    focus: '50% 50%',
+    lead: 'Our most advanced peel.',
+    intro: [
+      'Exopeel is a professional peel from Europe designed to renew the surface of the skin. Every treatment starts with a skin assessment, so the protocol is chosen for your skin alone.',
+    ],
+    includes: [
+      'Skin assessment',
+      'Cleanse and prep',
+      'The Exopeel protocol selected for you',
+      'A calming finish',
+      'SPF',
+      'Aftercare instructions',
+    ],
+    expect: [
+      'Skin may feel tight for a day or two, followed by several days of peeling.',
+      'As it settles, texture looks softer, tone looks more even, and fine lines look less noticeable.',
+    ],
+    goodToKnow: [
+      'Plan this at least two weeks before any event.',
+      'New clients start with a New Client Signature Facial.',
+      peelAftercare,
+      peelNotFor,
+    ],
+    bestFor: 'clients who want a visible change in tone and texture and can plan for a few days of recovery',
+  },
+
+  // ---- Advanced treatments (no category on the booking menu)
+  {
+    slug: 'exosome-therapy-microneedling',
+    name: 'Exosome Therapy + Microneedling',
+    short: 'Exosome Therapy + Microneedling',
+    category: 'advanced',
+    price: '$300',
+    offerPrice: '300.00',
+    time: '90 min',
+    image: 'exosome',
+    focus: '50% 40%',
+    lead: 'Next-level skin regeneration for a visible, radiant glow.',
+    intro: [
+      'A luxury facial powered by advanced exosome technology to repair, strengthen, and rejuvenate your skin at a cellular level.',
+    ],
+    includes: [
+      'Deep cleanse and gentle exfoliation',
+      'Hydro or deep pore cleansing, if needed',
+      'Advanced exosome infusion with targeted delivery',
+      'Relaxing facial and scalp massage',
+      'LED light therapy to enhance results',
+      'A hydrating jelly mask',
+      'Finishing skincare and SPF protection',
+    ],
+    expect: [
+      'Your skin looks smoother, firmer, and visibly more radiant, with a healthy glow that comes from within.',
+    ],
+    goodToKnow: [
+      'What it does: boosts collagen and skin renewal, improves texture, tone, and elasticity, reduces fine lines and signs of fatigue, enhances hydration and natural glow, and strengthens overall skin health.',
+    ],
+  },
+  {
+    slug: 'microneedling',
+    name: 'Microneedling',
+    short: 'Microneedling',
+    category: 'advanced',
+    price: '$320',
+    offerPrice: '320.00',
+    time: '120 min',
+    deposit: '$80 deposit for new clients',
+    image: 'microneedling',
+    focus: '50% 45%',
+    lead: 'A premium skin renewal treatment that combines advanced microneedling with exosome, collagen or peptides therapy.',
+    intro: [
+      'Advanced microneedling combined with exosome therapy to boost collagen, accelerate skin repair, and deliver smoother, firmer, and more radiant skin.',
+    ],
+    includes: [
+      'Cleansing and skin preparation',
+      'Gentle exfoliation',
+      'Numbing',
+      'Scalp massage',
+      'Customized microneedling treatment',
+      'Exosome infusion',
+      'A calming mask with facial massage',
+      'LED therapy',
+      'Finishing skincare',
+    ],
+    expect: ['Refined texture, reduced fine lines and acne scars, minimized pores, improved tone, and a healthy glow.'],
+    goodToKnow: ['Suitable for all skin types.'],
+  },
+];
+
+export const serviceBySlug = (slug: string) => services.find((s) => s.slug === slug)!;
+
+// ---- Packages
+
+export interface Package {
+  id: string;
+  name: string;
+  price: string;
+  sessions: string;
+  desc: string;
+  value: string;
+  image: ImageKey;
+}
+
+export const packages: Package[] = [
+  {
+    id: 'signature-skin-refresh',
+    name: 'Signature Skin Refresh: 3 Sessions',
+    price: '$510',
+    sessions: 'Three 90-minute treatments',
+    desc: 'Consistency is the foundation of beautiful skin. Enjoy three Signature Deep Cleanse Facials, each tailored to your skin’s needs: professional cleansing, gentle exfoliation, extractions when appropriate, customized masks, and hydration. Perfect for maintaining clearer-looking, smoother, refreshed skin.',
+    value: 'Regular value $540. You save $30.',
+    image: 'package3',
+  },
+  {
+    id: 'signature-skin-maintenance',
+    name: 'Signature Skin Maintenance: 6 Sessions',
+    price: '$990',
+    sessions: 'Six 90-minute treatments',
+    desc: 'Make professional skincare part of your long-term routine. A six-session series of our Signature Deep Cleanse Facial, customized at every visit to manage visible congestion, maintain hydration, and support a refreshed complexion, with skincare guidance throughout your program.',
+    value: 'Regular value $1,080. You save $90.',
+    image: 'package6',
+  },
+];
+
+export const packageDeposit = '$80 deposit for new clients';
+export const packageTerms =
+  'Appointments are scheduled according to individual skin needs. Package terms, expiration, cancellation rules, and eligible services are provided before purchase.';
+
+export const packageAddOns = [
+  {
+    name: 'LED Light Therapy',
+    desc: 'Add noninvasive LED light therapy to complement your facial and support a refreshed, healthy-looking complexion.',
+  },
+  {
+    name: 'Extra Hydrating Mask',
+    desc: 'A customized moisture-rich treatment mask to give dry or dehydrated skin an extra boost of comfort.',
+  },
+  {
+    name: 'Extended Facial Massage',
+    desc: 'Enjoy 15 additional minutes of relaxing facial massage to help release tension and enhance your treatment experience.',
+  },
+  {
+    name: 'Gentle Lip & Eye Care',
+    desc: 'A targeted moisturizing treatment for the delicate lip and eye areas, designed to leave the skin feeling softer and more comfortable.',
+  },
+];
+export const packageAddOnNote = 'Add-ons are selected according to individual skin needs and treatment compatibility.';
+
+// ---- Current promotion on the booking menu. The site hides it automatically after `ends`.
+
+export const promo = {
+  name: 'Black Friday special',
+  dates: 'November 23 to 30',
+  starts: '2026-11-23',
+  ends: '2026-11-30',
+  text: 'Special promotional pricing is valid for appointments scheduled between November 23 and November 30, 2026. Appointments booked outside these dates are not eligible for Black Friday pricing. Regular service prices will apply.',
+  from: 'from $80',
+  services: [
+    'New Client Signature Facial',
+    'Back Reset',
+    'Facial Sculpting Therapy',
+    'Microneedling',
+    'Lymphatic Drainage Facial Massage',
+    'Advanced Italian Skin Renewal',
+    'Lift & Firm Facial',
+    'Men’s Deep Clean Facial',
+  ],
+};
+
+// ---- Homepage picker: the seven facials most people choose between. The full menu is on /services/.
 
 export interface GalleryItem {
   id: string;
@@ -26,623 +690,28 @@ export interface GalleryItem {
   href: string;
 }
 
-export const galleryItems: GalleryItem[] = [
-  {
-    id: 'new-client-signature',
-    name: 'New Client Signature Facial',
-    price: '$150',
-    time: '80 min',
-    tag: 'Start here',
-    need: 'A first visit',
-    desc: 'Your first visit starts with a short consultation and a close look at your skin. Then you get a full facial built around what it needs that day.',
-    image: 'facialHands',
-    focus: '50% 40%',
-    href: '/services/new-client-signature/',
-  },
-  {
-    id: 'signature-deep-cleanse',
-    name: 'Signature Deep Cleanse Facial',
-    price: '$180',
-    time: '90 min',
-    tag: 'Deep clean',
-    need: 'A deep clean',
-    desc: 'A thorough deep-cleansing facial: cleansing, exfoliation, extractions when your skin calls for them, then hydration and SPF to finish.',
-    image: 'facialMask',
-    focus: '32% 50%',
-    href: '/services/signature-deep-cleanse/',
-  },
-  {
-    id: 'korean-glass-skin',
-    name: 'Korean Glass Skin Facial',
-    price: '$165',
-    time: '75 min',
-    tag: 'Glow',
-    need: 'Glow and hydration',
-    desc: 'The hydration facial. Serum, a hydrating mask and facial massage for a dewy, refreshed look.',
-    image: 'glassSkin',
-    focus: '60% 40%',
-    href: '/services/korean-glass-skin/',
-  },
-  {
-    id: 'mens-deep-clean',
-    name: 'Men’s Deep Clean Facial',
-    price: '$180',
-    time: '90 min',
-    tag: 'For men',
-    need: 'Something for men',
-    desc: 'A deep-cleansing facial for men: cleansing, exfoliation, hydration and a soothing finish, with extra care for skin that’s sensitive from shaving.',
-    image: 'mensFacial',
-    focus: '60% 40%',
-    href: '/services/mens-deep-clean/',
-  },
-  {
-    id: 'teen-skin-clear',
-    name: 'Teen Skin Clear Facial',
-    price: '$90',
-    time: '50 min',
-    tag: 'For teens',
-    need: 'A teen’s first facial',
-    desc: 'A gentle first facial for teen skin, with cleansing, exfoliation and lightweight hydration.',
-    image: 'teenSkin',
-    focus: '35% 35%',
-    href: '/services/teen-skin-clear/',
-  },
-  {
-    id: 'facial-massage-relaxation',
-    name: 'Facial Massage & Relaxation',
-    price: 'from $110',
-    time: '70 to 90 min',
-    tag: 'Relax',
-    need: 'Pure relaxation',
-    desc: 'A slow, massage-led facial, often with time for your scalp, neck or shoulders.',
-    // The picker's info card covers the lower part of the photo, so this one needs its subject up top.
-    image: 'glowHands',
-    focus: '55% 25%',
-    href: '/services/facial-massage-relaxation/',
-  },
-  {
-    id: 'facial-sculpting-therapy',
-    name: 'Facial Sculpting Therapy',
-    price: '$150',
-    time: '80 min',
-    tag: 'Sculpt',
-    need: 'A lift and sculpt',
-    desc: 'Facial sculpting techniques paired with a scalp and neck massage.',
-    image: 'facialSculpt',
-    focus: '60% 40%',
-    href: '/services/facial-sculpting-therapy/',
-  },
-];
-
-export interface Ritual {
-  id: string;
-  name: string;
-  price: string;
-  time: string;
-  desc: string;
-  deposit?: string;
-}
-
-export interface Service {
-  slug: string;
-  name: string;
-  short: string;
-  price: string;
-  time: string;
-  deposit?: string;
-  goal: string;
-  goalLabel: string;
-  cardDesc: string;
-  cardNote?: string;
-  image: ImageKey;
-  focus: string;
-  eyebrow: string;
-  intro: string[];
-  pull?: string;
-  includes: string[];
-  who: string[];
-  before: string[];
-  rituals?: Ritual[];
-  steps?: { title: string; text: string }[];
-  after?: string[];
-  faqs?: { q: string; a: string }[];
-  related: { label: string; href: string }[];
-  /** Set on ritual pages: the facial they belong to, plus their own search title and description. */
-  parent?: { name: string; href: string };
-  metaTitle?: string;
-  metaDescription?: string;
-  /** "When to choose it" paragraphs in Veronika's voice. May contain links. */
-  story?: string[];
-  /** Numeric price for structured data. Leave out when the price is set at booking. */
-  offerPrice?: string;
-}
-
-export const services: Service[] = [
-  {
-    slug: 'new-client-signature',
-    name: 'New Client Signature Facial',
-    short: 'New Client Signature',
-    price: '$150',
-    time: '80 min',
-    goal: 'first',
-    goalLabel: 'First visit',
-    cardDesc:
-      'Your first visit starts with a short consultation and a close look at your skin. Then you get a full facial built around what it needs that day.',
-    image: 'facialHands',
-    focus: '50% 40%',
-    eyebrow: 'Where to begin',
-    intro: [
-      'New here, or not sure which facial fits? Start with this one. We begin with a short consultation and a close look at your skin. Then I give you a full facial built around what it needs that day. You also leave knowing which facial suits you best and how often to come.',
-    ],
-    pull: 'You leave with clean, soft, hydrated skin, and there’s no downtime.',
-    includes: [
-      'A short consultation and a close look at your skin',
-      'A full facial built around what your skin needs that day',
-    ],
-    who: ['It’s your first visit.', 'You’re not sure which facial to choose.'],
-    before: [
-      'Come with makeup or without it.',
-      'When you book, tell me about allergies, prescriptions or recent skin treatments.',
-      'This is cosmetic skincare, not a medical treatment.',
-    ],
-    related: [{ label: 'First facial from Sacramento', href: '/blog/first-facial-from-sacramento-fair-oaks/' }],
-  },
-  {
-    slug: 'signature-deep-cleanse',
-    name: 'Signature Deep Cleanse Facial',
-    short: 'Signature Deep Cleanse',
-    price: '$180',
-    time: '90 min',
-    deposit: '$50 deposit for new clients',
-    goal: 'deep',
-    goalLabel: 'Deep cleanse',
-    cardDesc:
-      'A thorough deep-cleansing facial: cleansing, exfoliation, extractions when your skin calls for them, then hydration and SPF to finish.',
-    cardNote: '$50 deposit for new clients',
-    image: 'facialMask',
-    focus: '32% 50%',
-    eyebrow: 'Deep cleansing facial',
-    intro: [
-      'You might wash your face every day and still wish for a more thorough cleanse. But if your skin also feels dry, cleansing alone may not be what you’re looking for. My Signature Deep Cleanse Facial brings exfoliation and hydration into one visit, with extractions when appropriate. If that’s the balance you have in mind, I’d love to welcome you to my Fair Oaks studio.',
-    ],
-    includes: [
-      'Cleansing',
-      'Exfoliation',
-      'Extractions when appropriate for your skin that day',
-      'Hydration',
-      'Finishing SPF',
-    ],
-    who: [
-      'You want a thorough cleanse and a full 90 minutes, not a rushed appointment.',
-      'You already know cleansing is the goal.',
-      'You’re comfortable discussing whether extractions make sense for your skin.',
-    ],
-    before: [
-      'Extractions are included only when they are appropriate. They are not automatic.',
-      'The published menu lists a $50 deposit for new clients. Review the booking terms before you confirm.',
-      'This is cosmetic skincare. It is not a medical treatment, and it does not promise a particular result.',
-    ],
-    related: [
-      { label: 'Are facial extractions automatic?', href: '/blog/facial-extractions-fair-oaks/' },
-      { label: 'What to know before a facial on retinol', href: '/blog/retinol-before-facial-fair-oaks/' },
-    ],
-  },
-  {
-    slug: 'korean-glass-skin',
-    name: 'Korean Glass Skin Facial',
-    short: 'Korean Glass Skin',
-    price: '$165',
-    time: '75 min',
-    goal: 'glow',
-    goalLabel: 'Glow and hydration',
-    cardDesc: 'The hydration facial. Serum, a hydrating mask and facial massage for a dewy, refreshed look.',
-    image: 'glassSkin',
-    focus: '60% 40%',
-    eyebrow: 'Hydration facial',
-    intro: [
-      'A dewy look might be what caught your eye. Perhaps you’re thinking less about adding another makeup product and more about a facial that focuses on hydration. My Korean Glass Skin Facial includes serum infusion and a hydrating mask with facial massage. If that’s the kind of care you have in mind, bring your questions. We can talk about whether this facial fits what you’re looking for.',
-    ],
-    includes: ['Cleansing', 'Exfoliation', 'Serum', 'A hydrating mask', 'Relaxing facial massage'],
-    who: [
-      'You want hydration, serum, a mask and facial massage more than a deep cleanse.',
-      'You can set aside 75 minutes.',
-      'A dewy, refreshed look appeals to you, and you know skin does not respond the same way for everyone.',
-      'Extractions are not the reason for the visit. The Signature Deep Cleanse is the facial that lists them.',
-    ],
-    before: [
-      'The published price is $165 and the visit is 75 minutes.',
-      '“Glass skin” names the style of the facial. It is not a promise that skin will look a certain way afterward.',
-    ],
-    steps: [
-      {
-        title: 'Cleansing',
-        text: 'The visit starts by cleansing the skin so the later steps sit on a clean surface. Tell me about sensitivities before this step if a product has bothered you before.',
-      },
-      {
-        title: 'Exfoliation',
-        text: 'A layer of dead surface cells is loosened. How strong that feels depends on your skin that day. Say so if it feels like too much.',
-      },
-      {
-        title: 'Serum',
-        text: 'Serum goes on after exfoliation. The published menu describes this as serum application for a hydration-focused facial, not as a medical treatment.',
-      },
-      {
-        title: 'Hydrating mask',
-        text: 'A hydrating mask stays on while you rest. This is a cosmetic mask. It is not listed as a peel or a device treatment.',
-      },
-      {
-        title: 'Facial massage',
-        text: 'The visit closes with relaxing facial massage. The published length is 75 minutes.',
-      },
-    ],
-    after: [
-      'The published steps do not include a finishing SPF. If you go outside afterward, use the sunscreen you already own.',
-      'Leave strong exfoliants and new products for another day unless I suggest otherwise for your skin.',
-      'A dewy look is the aim of the facial, not a result it can promise. How skin looks later varies from person to person.',
-    ],
-    faqs: [
-      {
-        q: 'How much is the Korean Glass Skin Facial, and how long is it?',
-        a: 'The published price is $165 and the visit is 75 minutes. Confirm the price and length on the booking screen. This page does not list a deposit for this facial.',
-      },
-      {
-        q: 'Will my skin look like glass afterward?',
-        a: 'The name describes a dewy look, not a guaranteed finish. The facial focuses on hydration, with serum infusion and a hydrating mask with facial massage. How your skin looks afterward varies.',
-      },
-      {
-        q: 'Does this facial include extractions?',
-        a: 'Extractions are not on the published step list for Korean Glass Skin. If cleansing and extractions are the goal, read the Signature Deep Cleanse Facial, which is $180 and 90 minutes.',
-      },
-    ],
-    related: [{ label: 'What a hydration-focused facial includes', href: '/blog/hydration-focused-facials/' }],
-  },
-  {
-    slug: 'mens-deep-clean',
-    name: 'Men’s Deep Clean Facial',
-    short: 'Men’s Deep Clean',
-    price: '$180',
-    time: '90 min',
-    goal: 'men',
-    goalLabel: 'Men',
-    cardDesc:
-      'A deep-cleansing facial for men: cleansing, exfoliation, hydration and a soothing finish, with extra care for skin that’s sensitive from shaving.',
-    image: 'mensFacial',
-    focus: '60% 40%',
-    eyebrow: 'Facial for men',
-    intro: [
-      'When shaving is part of your routine, choosing a deep-cleansing facial may bring up a second question: what about the areas that already feel sensitive? My Men’s Deep Clean Facial takes shaving-related sensitivity into account, with a soothing mask and hydrating finishing care alongside the cleanse. You don’t have to leave that part of your routine out of the conversation. Tell me what shaving feels like for your skin.',
-    ],
-    includes: [
-      'Cleansing chosen for your skin that day',
-      'Exfoliation',
-      'Extractions when appropriate',
-      'Hydration',
-      'A soothing finish',
-    ],
-    who: [
-      'You want a facial that takes shaving into account.',
-      'Cleansing and comfort matter more than a trend-led treatment.',
-      'You can allow 90 minutes.',
-    ],
-    before: [
-      'The published price is $180 and the visit is 90 minutes.',
-      'Mention shaving habits, razor irritation or products you use so the steps can be adjusted.',
-    ],
-    related: [
-      {
-        label: 'Men’s facial for shaving-sensitive skin near Carmichael',
-        href: '/blog/mens-facial-shaving-sensitive-carmichael/',
-      },
-    ],
-  },
-  {
-    slug: 'teen-skin-clear',
-    name: 'Teen Skin Clear Facial',
-    short: 'Teen Skin Clear',
-    price: '$90',
-    time: '50 min',
-    goal: 'teen',
-    goalLabel: 'Acne-prone and teen skin',
-    cardDesc: 'A gentle first facial for teen skin, with cleansing, exfoliation and lightweight hydration.',
-    cardNote: 'Text me about the guardian policy before you book',
-    image: 'teenSkin',
-    focus: '35% 35%',
-    eyebrow: 'Facial for teens',
-    intro: [
-      'For a teen’s first facial, the question may be how to give their skin attention without choosing something that feels too much. My Teen Skin Clear Facial is a gentle, customized option with light enzyme exfoliation and lightweight hydration. It’s designed as an introduction to professional skincare for teens. If you’re considering it for your teen, contact me about suitability and guardian requirements before booking.',
-    ],
-    includes: [
-      'Gentle cleansing',
-      'Exfoliation suited to a younger client',
-      'Extractions when appropriate',
-      'Lightweight hydration',
-    ],
-    who: [
-      'A teen is ready for a first, low-pressure professional facial.',
-      'The goal is a gentle cleanse and simple hydration, not a long ritual.',
-      'A parent or guardian can confirm the booking rules before the appointment is made.',
-    ],
-    before: [
-      'The published price is $90 and the visit is 50 minutes.',
-      'This facial does not treat or clear a medical skin condition. It is a cosmetic visit.',
-      'Contact me about suitability and guardian requirements before making an appointment.',
-    ],
-    related: [{ label: 'Are facial extractions automatic?', href: '/blog/facial-extractions-fair-oaks/' }],
-  },
-  {
-    slug: 'facial-massage-relaxation',
-    name: 'Facial Massage & Relaxation',
-    short: 'Facial Massage & Relaxation',
-    price: 'from $110',
-    time: '70 to 90 min',
-    goal: 'relax',
-    goalLabel: 'Relaxation',
-    cardDesc: 'A slow, massage-led facial, often with time for your scalp, neck or shoulders.',
-    cardNote: 'Includes Facial Sculpting Therapy, $150 · 80 min',
-    image: 'stillLife',
-    focus: '50% 78%',
-    eyebrow: 'Facial massage',
-    intro: [
-      'The part of a facial you’re looking forward to might be the massage, not the exfoliation. That changes what makes a visit feel right for you. At my Fair Oaks studio, I offer massage-focused options including the Deep Relax & Sleep Ritual, with facial and scalp massage and warm towels. You’re welcome to book for the massage itself. The different rituals are here when you’re ready to find yours.',
-    ],
-    includes: [
-      'Hands-on facial massage',
-      'Time for the scalp, neck or shoulders, depending on the ritual',
-      'Mask or finishing care as described for that ritual',
-    ],
-    who: [
-      'Rest is the point of the visit, more than extractions or a deep cleanse.',
-      'You want massage of the face, and often the scalp, neck or shoulders.',
-      'You can choose a shorter massage or the 90-minute Deep Relax ritual.',
-    ],
-    before: [
-      'Read the booking terms for any ritual that lists a deposit.',
-      'Ask for the current price and length of the Gua Sha ritual when you book.',
-    ],
-    rituals: [
-      {
-        id: 'deep-relax-sleep-ritual',
-        name: 'Deep Relax & Sleep Ritual',
-        price: '$180',
-        time: '90 min',
-        desc: 'Slow facial, scalp, neck and shoulder massage, warm towels, aromatherapy and a firming mask.',
-        deposit: '$80 deposit for new clients',
-      },
-      {
-        id: 'lymphatic-drainage-facial-massage',
-        name: 'Lymphatic Drainage Facial Massage',
-        price: '$110',
-        time: '70 min',
-        desc: 'Gentle, rhythmic facial massage paired with cooling mask care and customized serums, for a refreshed, relaxed experience.',
-        deposit: '$50 deposit',
-      },
-      {
-        id: 'facial-sculpting-therapy',
-        name: 'Facial Sculpting Therapy',
-        price: '$150',
-        time: '80 min',
-        desc: 'A massage-focused facial combining sculpting techniques, scalp and neck massage, a hydrating mask and finishing care, for a relaxed, refreshed appearance.',
-      },
-      {
-        id: 'gua-sha-sculpt-glow-ritual',
-        name: 'Gua Sha Sculpt & Glow Ritual',
-        price: 'Ask when you book',
-        time: 'Length set at booking',
-        desc: 'A relaxing ritual with Gua Sha massage, warm towels, hydrating products, scalp and neck massage and a cooling mask.',
-      },
-    ],
-    related: [{ label: 'How to choose your first facial', href: '/blog/choosing-your-first-facial/' }],
-  },
-];
-
-export const goalFilters = [
-  { id: 'all', label: 'everything' },
-  { id: 'first', label: 'a first visit' },
-  { id: 'glow', label: 'glow and hydration' },
-  { id: 'deep', label: 'a deep cleanse' },
-  { id: 'teen', label: 'acne-prone and teen skin' },
-  { id: 'men', label: 'something for men' },
-  { id: 'relax', label: 'relaxation' },
-];
-
-// ---------------------------------------------------------------------------
-// Massage rituals. Each one has its own page under /services/, so people who search for it by name land on it.
-// Everything here comes from the published menu. Nothing is claimed beyond it.
-
-const massageParent = { name: 'Facial Massage & Relaxation', href: '/services/facial-massage-relaxation/' };
-const notMedical = 'This is a cosmetic and relaxation service, not a medical treatment, and it does not promise a particular result.';
-const medicalFaq = {
-  q: 'Is this a medical or therapeutic treatment?',
-  a: 'No. Facials and massage here are cosmetic and relaxation services, not medical treatments. Results vary. For a medical concern, see a qualified healthcare professional.',
+// The picker's info card covers the lower part of each photo, so a few facials use a photo with the subject up top.
+const galleryPhoto: Record<string, { image: ImageKey; focus: string }> = {
+  'new-client-signature': { image: 'facialHands', focus: '50% 40%' },
+  'deep-relax-sleep-ritual': { image: 'facialSculpt', focus: '60% 30%' },
 };
 
-export const ritualPages: Service[] = [
-  {
-    slug: 'deep-relax-sleep-ritual',
-    name: 'Deep Relax & Sleep Ritual',
-    short: 'Deep Relax & Sleep Ritual',
-    price: '$180',
-    time: '90 min',
-    deposit: '$80 deposit for new clients',
-    offerPrice: '180.00',
-    goal: 'relax',
-    goalLabel: 'Relaxation',
-    cardDesc: 'Slow facial, scalp, neck and shoulder massage, warm towels, aromatherapy and a firming mask.',
-    image: 'facialMassage',
-    focus: '50% 45%',
-    eyebrow: 'Facial massage ritual',
-    intro: [
-      'The Deep Relax & Sleep Ritual is 90 minutes of slow facial, scalp, neck and shoulder massage, with warm towels, aromatherapy and a firming mask. Book it when rest is the whole point of the visit.',
-    ],
-    includes: ['Slow facial massage', 'Scalp, neck and shoulder massage', 'Warm towels', 'Aromatherapy', 'A firming mask'],
-    who: [
-      'Rest is the point of the visit, more than extractions or a deep cleanse.',
-      'You want massage of the face, scalp, neck and shoulders in one visit.',
-      'You can set aside 90 minutes.',
-    ],
-    before: [
-      'The published price is $180 and the visit is 90 minutes.',
-      'The published menu lists an $80 deposit for new clients. Review the booking terms before you confirm.',
-      notMedical,
-    ],
-    faqs: [
-      {
-        q: 'How much is the Deep Relax & Sleep Ritual, and how long is it?',
-        a: 'The published price is $180 and the visit is 90 minutes. Confirm the price and length on the booking screen.',
-      },
-      {
-        q: 'Is there a deposit?',
-        a: 'The published menu lists an $80 deposit for new clients. Whatever the booking screen shows is the one to follow.',
-      },
-      medicalFaq,
-    ],
-    related: [{ label: 'All massage rituals', href: massageParent.href }],
-    parent: massageParent,
-    story: [
-      "This is the ritual I’d point you to when you want to switch off. It runs 90 minutes, and it’s the one that takes in your shoulders as well as your face, scalp and neck. The pace is slow on purpose, with warm towels and aromatherapy along the way and a firming mask to finish.",
-      "You don’t need a skin goal to book it. Wanting an hour and a half of quiet is reason enough. If you’d like something shorter and lighter, look at the <a href=\"/services/lymphatic-drainage-facial-massage/\">Lymphatic Drainage Facial Massage</a>. If you’d rather the massage stay focused on your face, <a href=\"/services/facial-sculpting-therapy/\">Facial Sculpting Therapy</a> is the closer fit.",
-    ],
-    metaTitle: 'Deep Relax & Sleep Ritual in Fair Oaks | Golden State Glam',
-    metaDescription:
-      'Deep Relax & Sleep Ritual in Fair Oaks: $180 for 90 minutes. Slow facial, scalp, neck and shoulder massage with warm towels and a firming mask. Book online.',
-  },
-  {
-    slug: 'lymphatic-drainage-facial-massage',
-    name: 'Lymphatic Drainage Facial Massage',
-    short: 'Lymphatic Drainage Facial Massage',
-    price: '$110',
-    time: '70 min',
-    deposit: '$50 deposit',
-    offerPrice: '110.00',
-    goal: 'relax',
-    goalLabel: 'Relaxation',
-    cardDesc: 'Gentle, rhythmic facial massage paired with cooling mask care and customized serums.',
-    image: 'glowHands',
-    focus: '55% 30%',
-    eyebrow: 'Facial massage ritual',
-    intro: [
-      'Lymphatic Drainage Facial Massage is a gentle, rhythmic facial massage paired with cooling mask care and customized serums, for a refreshed, relaxed experience. It runs 70 minutes.',
-    ],
-    includes: ['Gentle, rhythmic facial massage', 'Cooling mask care', 'Customized serums'],
-    who: [
-      'You want a gentle, massage-focused visit.',
-      'A refreshed, relaxed feeling matters more to you than a deep cleanse.',
-      'You have 70 minutes.',
-    ],
-    before: [
-      'The published price is $110 and the visit is 70 minutes.',
-      'The published menu lists a $50 deposit. Review the booking terms before you confirm.',
-      notMedical,
-    ],
-    faqs: [
-      {
-        q: 'How much is the Lymphatic Drainage Facial Massage, and how long is it?',
-        a: 'The published price is $110 and the visit is 70 minutes. Confirm the price and length on the booking screen.',
-      },
-      {
-        q: 'Is there a deposit?',
-        a: 'The published menu lists a $50 deposit. Whatever the booking screen shows is the one to follow.',
-      },
-      medicalFaq,
-    ],
-    related: [{ label: 'All massage rituals', href: massageParent.href }],
-    parent: massageParent,
-    story: [
-      "Choose this one when you want something gentle. The massage is light and rhythmic, and it’s paired with cooling mask care and serums I choose for your skin that day. At 70 minutes it also fits into a busier day more easily than the longer rituals.",
-      "This is a cosmetic, relaxing facial massage. It isn’t a medical lymphatic treatment, so if a doctor has recommended lymphatic drainage for a health reason, that’s a conversation to have with them. Want a longer, slower visit? That’s the <a href=\"/services/deep-relax-sleep-ritual/\">Deep Relax &amp; Sleep Ritual</a>.",
-    ],
-    metaTitle: 'Lymphatic Drainage Facial Massage in Fair Oaks | Golden State Glam',
-    metaDescription:
-      'Lymphatic Drainage Facial Massage in Fair Oaks: $110 for 70 minutes. Gentle, rhythmic facial massage with cooling mask care and customized serums. Book online.',
-  },
-  {
-    slug: 'facial-sculpting-therapy',
-    name: 'Facial Sculpting Therapy',
-    short: 'Facial Sculpting Therapy',
-    price: '$150',
-    time: '80 min',
-    offerPrice: '150.00',
-    goal: 'relax',
-    goalLabel: 'Relaxation',
-    cardDesc: 'Sculpting techniques, scalp and neck massage, a hydrating mask and finishing care.',
-    image: 'facialSculpt',
-    focus: '60% 40%',
-    eyebrow: 'Facial massage ritual',
-    intro: [
-      'Facial Sculpting Therapy is a massage-focused facial that combines sculpting techniques with scalp and neck massage, a hydrating mask and finishing care, for a relaxed, refreshed appearance. It runs 80 minutes.',
-    ],
-    includes: ['Facial sculpting techniques', 'Scalp and neck massage', 'A hydrating mask', 'Finishing care'],
-    who: [
-      'You want hands-on massage of the face more than a deep cleanse.',
-      'Scalp and neck massage sounds like part of a good visit.',
-      'You have 80 minutes.',
-    ],
-    before: [
-      'The published price is $150 and the visit is 80 minutes.',
-      'The published menu does not list a deposit for this ritual. The booking screen is the one to follow.',
-      '“Sculpting” names the style of massage. ' + notMedical,
-    ],
-    faqs: [
-      {
-        q: 'How much is Facial Sculpting Therapy, and how long is it?',
-        a: 'The published price is $150 and the visit is 80 minutes. Confirm the price and length on the booking screen.',
-      },
-      {
-        q: 'Will my face look sculpted afterward?',
-        a: 'The name describes the massage techniques, not a guaranteed result. The aim is a relaxed, refreshed appearance, and how skin looks afterward varies from person to person.',
-      },
-      medicalFaq,
-    ],
-    related: [{ label: 'All massage rituals', href: massageParent.href }],
-    parent: massageParent,
-    story: [
-      "Book this one when facial massage is the part you look forward to most. Here it’s the main event, not an extra: sculpting techniques on the face, with scalp and neck massage alongside, then a hydrating mask and finishing care.",
-      "“Sculpting” describes how I work with my hands. It isn’t a promise to change the shape of your face, and how refreshed you look afterward varies from person to person. If a tool appeals to you more than hands, ask me about the <a href=\"/services/gua-sha-sculpt-glow-ritual/\">Gua Sha Sculpt &amp; Glow Ritual</a>.",
-    ],
-    metaTitle: 'Facial Sculpting Therapy in Fair Oaks | Golden State Glam',
-    metaDescription:
-      'Facial Sculpting Therapy in Fair Oaks: $150 for 80 minutes. Sculpting massage techniques with scalp and neck massage and a hydrating mask. Book online.',
-  },
-  {
-    slug: 'gua-sha-sculpt-glow-ritual',
-    name: 'Gua Sha Sculpt & Glow Ritual',
-    short: 'Gua Sha Sculpt & Glow Ritual',
-    price: 'Ask me',
-    time: 'Price and length set at booking',
-    goal: 'relax',
-    goalLabel: 'Relaxation',
-    cardDesc: 'Gua Sha massage, warm towels, hydrating products, scalp and neck massage and a cooling mask.',
-    image: 'facialSculpt',
-    focus: '50% 75%',
-    eyebrow: 'Facial massage ritual',
-    intro: [
-      'The Gua Sha Sculpt & Glow Ritual is a relaxing ritual with Gua Sha massage, warm towels, hydrating products, scalp and neck massage and a cooling mask. Its price and length are set when you book, so ask me for the current details.',
-    ],
-    includes: ['Gua Sha massage', 'Warm towels', 'Hydrating products', 'Scalp and neck massage', 'A cooling mask'],
-    who: [
-      'You’re curious about Gua Sha as part of a facial.',
-      'You want a relaxing, massage-led visit.',
-      'You’re happy to ask about price and length before you book.',
-    ],
-    before: [
-      'Ask for the current price and length when you book. Call or text (916) 304-3810.',
-      notMedical,
-    ],
-    faqs: [
-      {
-        q: 'How much is the Gua Sha Sculpt & Glow Ritual?',
-        a: 'The price and length are set when you book. Call or text (916) 304-3810 and ask for the current details.',
-      },
-      medicalFaq,
-    ],
-    related: [{ label: 'All massage rituals', href: massageParent.href }],
-    parent: massageParent,
-    story: [
-      "Gua Sha is a smooth, flat tool that’s swept over the skin, and in this ritual it does the massage work. Around it you get warm towels, hydrating products, scalp and neck massage and a cooling mask. It’s a good pick if you’ve been curious about Gua Sha and want to try it with someone else guiding the pressure.",
-      "I set the price and length of this one when you book, so text me first and I’ll tell you what’s current. If you’d rather have the massage done by hand, <a href=\"/services/facial-sculpting-therapy/\">Facial Sculpting Therapy</a> is the sister ritual.",
-    ],
-    metaTitle: 'Gua Sha Sculpt & Glow Ritual in Fair Oaks | Golden State Glam',
-    metaDescription:
-      'Gua Sha Sculpt & Glow Ritual in Fair Oaks: Gua Sha facial massage, warm towels, scalp and neck massage and a cooling mask. Ask for current price and length.',
-  },
-];
+export const galleryItems: GalleryItem[] = services
+  .filter((s) => s.need)
+  .map((s) => ({
+    id: s.slug,
+    name: s.name,
+    price: s.price,
+    time: s.time,
+    tag: s.tag!,
+    need: s.need!,
+    desc: `${s.lead} ${s.expect[0]}`,
+    image: galleryPhoto[s.slug]?.image ?? s.image,
+    focus: galleryPhoto[s.slug]?.focus ?? s.focus,
+    href: `/services/${s.slug}/`,
+  }));
+
+// Lowest and highest single-service prices, for "from $X" lines and structured data.
+const amounts = services.map((s) => Number(s.offerPrice));
+export const priceFrom = `$${Math.min(...amounts)}`;
+export const priceTo = `$${Math.max(...amounts)}`;

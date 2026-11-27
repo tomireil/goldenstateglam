@@ -11,7 +11,7 @@ Say you’re in Midtown Sacramento, looking at my menu on your phone. The Korean
 
 ## Why not just pick a facial from the menu?
 
-You can read the menu, and you should. It has hydration facials, a deep cleanse, a men’s facial, a teen facial and massage-focused visits. Each page says who it’s for.
+You can read the menu, and you should. It has hydration facials, a deep cleanse, a men’s facial, a facial for breakouts and massage-focused visits. Each page says who it’s for.
 
 But a description can’t see your skin. On a first visit, you’re choosing from words, not from a look at your skin. That’s why first-time clients start with the New Client Signature Facial.
 

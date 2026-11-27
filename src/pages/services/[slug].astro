@@ -4,87 +4,102 @@ import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import FaqList from '../../components/FaqList.astro';
-import { ritualPages, services } from '../../data/facials';
-import { faqJsonLd } from '../../data/faqs';
+import { categories, services, type Service } from '../../data/facials';
+import { faqJsonLd, type Faq } from '../../data/faqs';
 import { images } from '../../data/images';
 import { site } from '../../data/site';
 
 export function getStaticPaths() {
-  const facials = services.map((service, i) => ({
-    params: { slug: service.slug },
-    // The next three facials on the menu, wrapping around.
-    props: { service, others: [1, 2, 3].map((n) => services[(i + n) % services.length]) },
-  }));
-  // Massage rituals use the same template and point to each other.
-  const rituals = ritualPages.map((service) => ({
-    params: { slug: service.slug },
-    props: { service, others: ritualPages.filter((r) => r.slug !== service.slug) },
-  }));
-  return [...facials, ...rituals];
+  return services.map((service) => {
+    // Up to three others from the same category, then the rest of the menu.
+    const same = services.filter((s) => s.category === service.category && s.slug !== service.slug);
+    const rest = services.filter((s) => s.category !== service.category);
+    return { params: { slug: service.slug }, props: { service, others: [...same, ...rest].slice(0, 3) } };
+  });
+}
+
+interface Props {
+  service: Service;
+  others: Service[];
 }
 
 const { service: s, others } = Astro.props;
 const path = `/services/${s.slug}/`;
+const pageUrl = `${site.url}${path}`;
+const category = categories.find((c) => c.id === s.category)!;
+
 const tabs = [
   { id: 'includes', label: 'What it includes', items: s.includes },
-  { id: 'who', label: 'Who it’s for', items: s.who },
-  { id: 'before', label: 'Before you book', items: s.before },
+  { id: 'expect', label: 'What to expect', items: s.expect },
+  { id: 'know', label: 'Good to know', items: s.goodToKnow },
 ];
-const jsonLd: object[] = s.faqs ? [faqJsonLd(s.faqs)] : [];
 
-// Ritual pages are new, so their structured data is generated here in the same shape the facial pages use.
-if (s.parent) {
-  const pageUrl = `${site.url}${path}`;
-  jsonLd.push(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: s.name,
-      serviceType: 'Facial',
-      description: s.intro.join(' '),
-      url: pageUrl,
-      provider: { '@id': `${site.url}/#business` },
-      areaServed: { '@type': 'City', name: 'Fair Oaks', containedInPlace: { '@type': 'State', name: 'California' } },
-      ...(s.offerPrice
-        ? { offers: { '@type': 'Offer', priceCurrency: 'USD', price: s.offerPrice, url: site.bookingUrl } }
-        : {}),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
-        { '@type': 'ListItem', position: 2, name: 'Facials', item: `${site.url}/services/` },
-        { '@type': 'ListItem', position: 3, name: s.parent.name, item: `${site.url}${s.parent.href}` },
-        { '@type': 'ListItem', position: 4, name: s.name, item: pageUrl },
-      ],
-    },
-  );
-}
+// Questions answered from the booking menu's own numbers.
+const priceAnswer = s.price.startsWith('from')
+  ? `The published price starts at ${s.price.replace('from ', '')} and the visit is ${s.time}. The final price depends on the option you choose.`
+  : `The published price is ${s.price} and the visit is ${s.time}.`;
+const faqs: Faq[] = [
+  {
+    q: `How much is the ${s.name}, and how long is it?`,
+    a: `${priceAnswer} Confirm the price and length on the booking screen.`,
+  },
+  {
+    q: 'Is there a deposit?',
+    a: s.deposit
+      ? `The booking menu lists a ${s.deposit}. Whatever the booking screen shows is the one to follow.`
+      : 'The booking menu does not list a deposit for this service. Whatever the booking screen shows is the one to follow.',
+  },
+];
+
+const title = `${s.name} in Fair Oaks | ${site.name}`;
+const descBase = `${s.name} in Fair Oaks: ${s.price} for ${s.time}. ${s.lead}`;
+const description = `${descBase}${descBase.length < 132 ? ' Book online.' : ''}`;
+
+const jsonLd = [
+  faqJsonLd(faqs),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: s.name,
+    serviceType: category.name,
+    description: [s.lead, ...(s.intro ?? [])].join(' '),
+    url: pageUrl,
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: { '@type': 'City', name: 'Fair Oaks', containedInPlace: { '@type': 'State', name: 'California' } },
+    offers: { '@type': 'Offer', priceCurrency: 'USD', price: s.offerPrice, url: site.bookingUrl },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Facials', item: `${site.url}/services/` },
+      { '@type': 'ListItem', position: 3, name: s.name, item: pageUrl },
+    ],
+  },
+];
 ---
 
-<Base path={path} jsonLd={jsonLd} title={s.metaTitle} description={s.metaDescription}>
+<Base path={path} jsonLd={jsonLd} title={title} description={description}>
   <section class="wrap detail">
-    <div class="detail__text stack" style="gap: 26px">
+    <div class="detail__text stack" style="gap: 24px">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a><span aria-hidden="true">/</span><a href="/services/">Facials</a><span aria-hidden="true"
           >/</span
-        >{
-          s.parent && (
-            <>
-              <a href={s.parent.href}>{s.parent.name}</a>
-              <span aria-hidden="true">/</span>
-            </>
-          )
-        }<span>{s.short}</span>
+        ><span>{s.short}</span>
       </nav>
-      <p class="eyebrow eyebrow--rule">{s.eyebrow}</p>
+      <p class="eyebrow eyebrow--rule">{category.name}</p>
       <h1 class="display h-page">{s.name} <em>in Fair Oaks</em></h1>
-      {s.intro.map((p) => <p class="lede">{p}</p>)}
-      {s.pull && <p class="pull">{s.pull}</p>}
+      <p class="pull">{s.lead}</p>
+      {s.intro?.map((p) => <p class="lede">{p}</p>)}
+      {s.bestFor && (
+        <p class="best">
+          <span>Best for</span> {s.bestFor}.
+        </p>
+      )}
 
       <div class="tabs" data-tabs>
-        <div class="tabs__bar" role="tablist" aria-label="About this facial">
+        <div class="tabs__bar" role="tablist" aria-label="About this service">
           {
             tabs.map((t, i) => (
               <button
@@ -126,12 +141,12 @@ if (s.parent) {
         style={`object-position: ${s.focus}`}
       />
       <div class="detail__book card">
-        <div class:list={['detail__price', { 'detail__price--words': !s.price.includes('$') }]}>
+        <div class:list={['detail__price', { 'detail__price--words': s.price.startsWith('from') }]}>
           <span>{s.price}</span>
           <small>{s.time}</small>
         </div>
-        {s.deposit && <p class="small muted">{s.deposit}</p>}
-        <a class="btn btn--lg btn--block" href={site.bookingUrl}>{s.parent ? 'Book this ritual' : 'Book this facial'} <Arrow /></a>
+        <p class="small muted">{s.deposit ?? 'No deposit listed'}</p>
+        <a class="btn btn--lg btn--block" href={site.bookingUrl}>Book this <Arrow /></a>
         <div class="detail__where small">
           <span>{site.street}</span>
           <a class="link" href={site.smsHref}>Text me first</a>
@@ -141,45 +156,22 @@ if (s.parent) {
   </section>
 
   {
-    s.story && (
-      <section class="bg-sand">
-        <div class="wrap section story">
-          <h2 class="display h-section">
-            When to <em>choose it</em>
-          </h2>
-          <div class="stack" style="gap: 18px">
-            {s.story.map((para) => (
-              <p class="lede" style="color: var(--text-strong)" set:html={para} />
-            ))}
-            <p class="small muted">{site.owner}, {site.ownerTitle.toLowerCase()}</p>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  {
-    s.rituals && (
+    s.options && (
       <section class="bg-sand">
         <div class="wrap section stack" style="gap: 36px">
           <h2 class="display h-section">
-            Choose your <em>ritual</em>
+            Choose your <em>peel</em>
           </h2>
-          <div class="rituals">
-            {s.rituals.map((r) => (
-              <article class="ritual" id={r.id}>
-                <div class="ritual__head">
-                  <h3>
-                    <a href={`/services/${r.id}/`}>{r.name}</a>
-                  </h3>
-                  <span>{r.price}</span>
-                </div>
-                <p class="ritual__time">{r.time}</p>
-                <p>{r.desc}</p>
-                {r.deposit && <p class="small muted">Deposit listed on the menu: {r.deposit}.</p>}
-                <a class="link" href={`/services/${r.id}/`}>
-                  See this ritual<span class="sr-only">: {r.name}</span>
-                </a>
+          <p class="lede" style="color: var(--text-strong)">
+            You pick one of these when you book. The price starts at {s.price.replace('from ', '')} and depends on the
+            peel.
+          </p>
+          <div class="options">
+            {s.options.map((o) => (
+              <article class="option">
+                <h3>{o.name}</h3>
+                <p>{o.desc}</p>
+                <p class="small muted">Best for: {o.bestFor}.</p>
               </article>
             ))}
           </div>
@@ -188,68 +180,23 @@ if (s.parent) {
     )
   }
 
-  {
-    s.steps && (
-      <section class="bg-sand">
-        <div class="wrap section stack" style="gap: 36px">
-          <h2 class="display h-section">
-            What to <em>expect</em>
-          </h2>
-          <ol class="expect">
-            {s.steps.map((st) => (
-              <li>
-                <h3>{st.title}</h3>
-                <p>{st.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-    )
-  }
-
-  {
-    (s.after || s.faqs) && (
-      <section class="wrap section extra">
-        {s.after && (
-          <div class="stack">
-            <h2 class="display h-sub">
-              After the <em>appointment</em>
-            </h2>
-            <ul class="checklist">
-              {s.after.map((a) => (
-                <li>{a}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {s.faqs && (
-          <div class="stack">
-            <h2 class="display h-sub">
-              Questions about <em>{s.parent ? 'this ritual' : 'this facial'}</em>
-            </h2>
-            <FaqList items={s.faqs} />
-          </div>
-        )}
-      </section>
-    )
-  }
-
-  <section class="wrap visit-note">
-    <h2 class="display h-sub">Visiting the <em>studio</em></h2>
-    <div class="stack" style="gap: 14px">
+  <section class="wrap section extra">
+    <div class="stack">
+      <h2 class="display h-sub">Price and <em>deposit</em></h2>
+      <FaqList items={faqs} />
+    </div>
+    <div class="stack">
+      <h2 class="display h-sub">Visiting the <em>studio</em></h2>
       <p class="muted">
-        {s.name} is given at one studio: {site.fullAddress}. Clients visit from Folsom, El Dorado Hills, Carmichael
-        and Sacramento. {site.hoursLong}.
+        {s.name} is given at one studio: {site.fullAddress}. Clients visit from Folsom, El Dorado Hills, Carmichael and
+        Sacramento. {site.hoursLong}.
+      </p>
+      <p class="muted small">
+        Services here are cosmetic skincare, not medical treatment, and results vary. For a medical skin concern, see
+        a qualified healthcare professional.
       </p>
       <p class="actions">
-        {
-          s.related.map((r) => (
-            <a class="link" href={r.href}>
-              {r.label}
-            </a>
-          ))
-        }
+        <a class="link" href="/faq/">First-visit questions</a>
         <a class="link" href={site.mapsUrl}>Get directions</a>
       </p>
     </div>
@@ -258,8 +205,8 @@ if (s.parent) {
   <section class="bg-sand">
     <div class="wrap section stack" style="gap: 40px">
       <div class="others__head">
-        <h2 class="display h-section">{s.parent ? 'Other massage' : 'Other'} <em>{s.parent ? 'rituals' : 'facials'}</em></h2>
-        <a class="link" href={s.parent ? s.parent.href : '/services/'}>{s.parent ? 'All massage rituals' : 'All facials'}</a>
+        <h2 class="display h-section">More from <em>the menu</em></h2>
+        <a class="link" href="/services/">The full menu</a>
       </div>
       <div class="others">
         {
@@ -276,7 +223,9 @@ if (s.parent) {
               </span>
               <span class="other__row">
                 <span class="other__name">{o.name}</span>
-                <span class="other__meta">{o.price.includes('$') ? `${o.price} · ${o.time}` : 'Ask when you book'}</span>
+                <span class="other__meta">
+                  {o.price} · {o.time}
+                </span>
               </span>
             </a>
           ))
@@ -300,6 +249,18 @@ if (s.parent) {
   .detail__text {
     flex: 1 1 520px;
     min-width: 0;
+  }
+
+  .best {
+    color: var(--text-strong);
+  }
+
+  .best span {
+    margin-right: 8px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   .detail__aside {
@@ -339,8 +300,8 @@ if (s.parent) {
   }
 
   .detail__price--words {
-    flex-direction: column;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 6px 16px;
   }
 
   .detail__price small {
@@ -394,14 +355,13 @@ if (s.parent) {
     min-height: 190px;
   }
 
-  .rituals {
+  .options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 20px;
   }
 
-  .ritual {
-    scroll-margin-top: 24px;
+  .option {
     padding: 28px;
     background: var(--cream);
     border-radius: 24px;
@@ -411,68 +371,11 @@ if (s.parent) {
     color: var(--text);
   }
 
-  .ritual__head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 4px 14px;
-    flex-wrap: wrap;
-    color: var(--ink);
-  }
-
-  .ritual__head h3 a {
-    text-decoration: none;
-  }
-
-  .ritual__head h3 {
+  .option h3 {
     font-family: var(--serif);
     font-weight: 500;
     font-size: 27px;
     line-height: 1.05;
-  }
-
-  .ritual__head span {
-    flex: none;
-    font-family: var(--serif);
-    font-size: 24px;
-    color: var(--bronze);
-    text-align: right;
-  }
-
-  .ritual__time {
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .expect {
-    counter-reset: step;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
-    gap: 28px;
-  }
-
-  .expect li {
-    counter-increment: step;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    color: var(--text-strong);
-  }
-
-  .expect li::before {
-    content: counter(step, decimal-leading-zero);
-    font-family: var(--serif);
-    font-size: 40px;
-    line-height: 1;
-    color: var(--bronze);
-  }
-
-  .expect h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 26px;
     color: var(--ink);
   }
 
@@ -481,20 +384,6 @@ if (s.parent) {
     grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
     gap: 48px clamp(40px, 6vw, 80px);
     align-items: start;
-  }
-
-  .story {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-    gap: 24px clamp(40px, 6vw, 80px);
-    align-items: start;
-  }
-
-  .visit-note {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-    gap: 20px clamp(40px, 6vw, 80px);
-    padding-bottom: var(--section);
   }
 
   .others__head {
@@ -538,9 +427,10 @@ if (s.parent) {
 
   .other__row {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
+    gap: 4px 12px;
   }
 
   .other__name {

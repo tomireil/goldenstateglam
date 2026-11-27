@@ -1,0 +1,76 @@
+---
+// The current promotion from the booking menu. It is left out of builds made after it ends,
+// and a small script hides it for visitors if the build is older than the end date.
+import Arrow from './Arrow.astro';
+import { promo } from '../data/facials';
+import { site } from '../data/site';
+
+// End of the last day, Pacific time.
+const endsAt = new Date(`${promo.ends}T23:59:59-08:00`).getTime();
+const live = Date.now() <= endsAt;
+---
+
+{
+  live && (
+    <aside class="promo" data-promo-ends={endsAt} aria-label={promo.name}>
+      <div class="wrap promo__inner">
+        <div class="promo__text">
+          <p class="promo__title">
+            <strong>{promo.name}</strong> · {promo.dates} · {promo.from}
+          </p>
+          <p class="promo__body">
+            {promo.text} Included: {promo.services.join(', ')}.
+          </p>
+        </div>
+        <a class="btn btn--light btn--sm" href={site.bookingUrl}>
+          Book the special <Arrow />
+        </a>
+      </div>
+    </aside>
+  )
+}
+
+<style>
+  .promo {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+
+  .promo__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 40px;
+    padding-block: 18px;
+  }
+
+  .promo__text {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+
+  .promo__title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.2vw, 28px);
+    line-height: 1.15;
+    color: var(--champagne);
+  }
+
+  .promo__title strong {
+    font-weight: 500;
+    color: var(--ivory);
+  }
+
+  .promo__body {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--on-dark);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-promo-ends]').forEach((el) => {
+    if (Date.now() > Number(el.dataset.promoEnds)) el.hidden = true;
+  });
+</script>

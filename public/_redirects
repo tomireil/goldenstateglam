@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects. Old addresses that Google already knows, sent to their replacements.
+/services/teen-skin-clear/            /services/clear-skin-facial/     301
+/services/teen-skin-clear             /services/clear-skin-facial/     301
+/services/facial-massage-relaxation/  /services/#glow                  301
+/services/facial-massage-relaxation   /services/#glow                  301
+/services/gua-sha-sculpt-glow-ritual/ /services/sculpt-drain-facial/   301

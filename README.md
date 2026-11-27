@@ -24,7 +24,7 @@ npm run build    # production build into dist/
 | What | Where |
 | --- | --- |
 | Address, phone, hours, booking link, reviews | `src/data/site.ts` |
-| Facial menu: names, prices, lengths, descriptions | `src/data/facials.ts` |
+| Service menu: names, prices, lengths, deposits, descriptions, packages, current promotion | `src/data/facials.ts` |
 | FAQ questions and answers | `src/data/faqs.ts` |
 | Page titles, descriptions, structured data | `src/data/seo.json` |
 | Journal posts (one Markdown file each) | `src/content/blog/` |
@@ -52,7 +52,9 @@ The post page, the journal list, the sitemap and the post's structured data are 
 
 ## Rules worth keeping
 
-- **Prices, lengths and deposits** must match the GlossGenius booking menu. Change them in `src/data/facials.ts` and `src/data/faqs.ts` together.
+- **GlossGenius is the source of truth for the menu.** `src/data/facials.ts` mirrors https://goldenstateglam.glossgenius.com/services. When a service, price, length, deposit or description changes there, change it here. Service pages, the menu page, the FAQ answers, the structured data and `llms.txt` all read from that one file. Don't list anything that can't be booked.
+- **Promotions** (`promo` in `facials.ts`) hide themselves after their end date. Replace or clear it when a new one starts.
+- **Old addresses** that Google knows are redirected in `public/_redirects`. Add a line there whenever a service page is renamed or removed.
 - **All content stays in the HTML.** The facial picker, tabs and FAQ lists only show or hide content that is already on the page, so search engines and AI tools can read everything.
 - **FAQ structured data is generated from the visible FAQ text** (`faqJsonLd` in `src/data/faqs.ts`). Don't hand-write it.
 - **`llms.txt` updates itself.** It is built from `site.ts`, `facials.ts`, `faqs.ts` and the journal posts, so changing those is enough.

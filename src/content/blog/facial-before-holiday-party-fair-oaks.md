@@ -43,7 +43,7 @@ I can’t promise that. My facials are cosmetic skincare, not medical treatment,
 There’s no single number. Book early enough to have choices, tell me your event date and ask about timing for the facial you choose.
 
 **Which facial is shorter?**
-Times are on each facial page. Korean Glass Skin is 75 minutes. The [Signature Deep Cleanse Facial](/services/signature-deep-cleanse/) is 90 minutes. Teen Skin Clear is 50 minutes.
+Times are on each facial page. Korean Glass Skin is 75 minutes. The [Signature Deep Cleanse Facial](/services/signature-deep-cleanse/) is 90 minutes. The Clear Skin Facial is 75 minutes.
 
 **Should I start a new product the week of my event?**
 The AAD suggests testing new products for seven to 10 days first, so start well before the event or wait until after.

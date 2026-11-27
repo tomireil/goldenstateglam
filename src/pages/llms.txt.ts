@@ -1,24 +1,33 @@
 // /llms.txt: a plain-language summary of the site for AI tools.
 // It is generated from the same data files the pages use, so it can't drift from what the site says.
-import { ritualPages, services } from '../data/facials';
+import {
+  categories,
+  packageAddOns,
+  packageDeposit,
+  packages,
+  packageTerms,
+  priceFrom,
+  priceTo,
+  promo,
+  services,
+} from '../data/facials';
 import { faqs } from '../data/faqs';
 import { posts } from '../data/posts';
 import { cities, site } from '../data/site';
 
 const url = (path: string) => `${site.url}${path}`;
-// The published menu is listed by goal, in this order.
-const byGoal = ['first', 'glow', 'deep', 'teen', 'men', 'relax'].map((g) => services.find((s) => s.goal === g)!);
 
 export function GET() {
   const lines: string[] = [];
   const add = (...l: string[]) => lines.push(...l);
+  const first = services.find((s) => s.slug === 'new-client-signature')!;
 
   add(
     `# ${site.name}`,
     '',
-    '> Personalized facials and skincare studio in Fair Oaks, California. Booking stays on GlossGenius. This file describes only what the website publishes.',
+    '> Personalized facials and skincare studio in Fair Oaks, California. Booking stays on GlossGenius. This file describes only what the website and the booking menu publish.',
     '',
-    `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. ${site.name} offers facials from $90 to $180 at one studio. Every visit starts with a close look at your skin, then a facial built around what it needs that day. Book online.`,
+    `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. ${site.name} offers ${services.length} services from ${priceFrom} to ${priceTo}, plus two facial packages, at one studio. Every first visit starts with a close look at your skin, then a facial built around what it needs that day. Book online.`,
     '',
     '## Facts',
     '',
@@ -27,11 +36,10 @@ export function GET() {
     `- Website: ${site.url}`,
     `- Instagram: ${site.instagramUrl}`,
     `- Booking (every Book now link): ${site.bookingUrl}`,
-    '- Book now opens the booking site homepage. Time selection continues there. It does not open a calendar on this website.',
+    '- Book now opens the booking site. Time selection continues there. It does not open a calendar on this website.',
     `- Phone: ${site.phoneDisplay}`,
     `- Tap to call: ${site.phoneHref}`,
     `- Tap to text: ${site.smsHref}`,
-    `- Messages: ${site.bookingUrl}/contact`,
     `- Address: ${site.fullAddress}`,
     '- Hours: Monday, Wednesday, Friday, and Saturday, 10 AM to 6 PM. Closed Tuesday, Thursday, and Sunday. An open day does not mean every hour is free.',
     '- Coordinates: 38.6418981, -121.2681382',
@@ -40,52 +48,53 @@ export function GET() {
     '',
     '## Where to start',
     '',
-    'New here, or not sure which facial fits? Start with the New Client Signature Facial. It is $150 and 80 minutes.',
-    `${url('/services/new-client-signature/')}`,
+    `New here, or not sure which facial fits? Start with the ${first.name}. It is ${first.price} and ${first.time}.`,
+    url(`/services/${first.slug}/`),
     '',
-    '## Choose by goal',
+    '## Menu at a glance',
     '',
   );
 
-  for (const s of byGoal) {
-    add(`### ${s.goalLabel}`, `- ${s.name}: ${s.price} / ${s.time}. ${s.cardDesc}`, `  ${url(`/services/${s.slug}/`)}`, '');
-  }
-  add(`Full menu: ${url('/services/')}`, '', '## Facials', '');
-
-  for (const s of services) {
-    add(`### ${s.name}`, `${s.price} / ${s.time}${s.deposit ? ` (${s.deposit})` : ''}`, url(`/services/${s.slug}/`), '', ...s.intro);
-    if (s.pull) add(s.pull);
-    add('', 'What it includes:', ...s.includes.map((i) => `- ${i}`));
-    add('', 'Who it’s for:', ...s.who.map((i) => `- ${i}`));
-    add('', 'Before you book:', ...s.before.map((i) => `- ${i}`));
-    if (s.rituals) {
-      add('', 'Rituals:');
-      for (const r of s.rituals) {
-        add(`- ${r.name}: ${r.price} / ${r.time}${r.deposit ? ` (${r.deposit})` : ''}. ${r.desc}`, `  ${url(`/services/${r.id}/`)}`);
-      }
+  for (const c of categories) {
+    add(`### ${c.name}`);
+    for (const s of services.filter((x) => x.category === c.id)) {
+      add(`- ${s.name}: ${s.price} / ${s.time}${s.deposit ? ` (${s.deposit})` : ''}. ${s.lead}`, `  ${url(`/services/${s.slug}/`)}`);
     }
-    if (s.steps) add('', 'What to expect:', ...s.steps.map((st, i) => `${i + 1}. ${st.title}. ${st.text}`));
-    if (s.after) add('', 'After the appointment:', ...s.after.map((i) => `- ${i}`));
-    if (s.faqs) {
-      add('', 'Questions about this facial:');
-      for (const f of s.faqs) add(`- ${f.q} ${f.a}`);
+    add('');
+  }
+  add('### Packages');
+  for (const p of packages) add(`- ${p.name}: ${p.price}. ${p.sessions}. ${p.value}`);
+  add(`  ${url('/services/#packages')}`, '', `Full menu: ${url('/services/')}`, '');
+
+  if (Date.now() <= new Date(`${promo.ends}T23:59:59-08:00`).getTime()) {
+    add('## Current promotion', '', `${promo.name}, ${promo.dates}, ${promo.from}. ${promo.text}`, `Included: ${promo.services.join(', ')}.`, '');
+  }
+
+  add('## Services in detail', '');
+  for (const s of services) {
+    add(`### ${s.name}`, `${s.price} / ${s.time}${s.deposit ? ` (${s.deposit})` : ' (no deposit listed)'}`, url(`/services/${s.slug}/`), '', s.lead, ...(s.intro ?? []));
+    if (s.bestFor) add(`Best for: ${s.bestFor}.`);
+    add('', 'What it includes:', ...s.includes.map((i) => `- ${i}`));
+    add('', 'What to expect:', ...s.expect.map((i) => `- ${i}`));
+    add('', 'Good to know:', ...s.goodToKnow.map((i) => `- ${i}`));
+    if (s.options) {
+      add('', 'Options chosen at booking:');
+      for (const o of s.options) add(`- ${o.name}. ${o.desc} Best for: ${o.bestFor}.`);
     }
     add('');
   }
 
-  add('## Massage rituals: when to choose each', '');
-  for (const r of ritualPages) {
-    add(`### ${r.name}`, `${r.price} / ${r.time}${r.deposit ? ` (${r.deposit})` : ''}`, url(`/services/${r.slug}/`), '');
-    // Links are stripped: this file is plain text.
-    add(...(r.story ?? r.intro).map((para) => para.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')), '');
-  }
+  add('## Packages in detail', '');
+  for (const p of packages) add(`### ${p.name}`, `${p.price}. ${p.sessions}. ${packageDeposit}.`, p.desc, p.value, '');
+  add('Package add-ons:', ...packageAddOns.map((a) => `- ${a.name}: ${a.desc}`), '', packageTerms, '');
 
   add('## Frequently asked questions', '');
   for (const f of faqs) add(`### ${f.q}`, f.a, '');
   add(`All questions: ${url('/faq/')}`, '');
 
-  add('## About', '');
   add(
+    '## About',
+    '',
     `${site.owner} is the owner of ${site.name} and a licensed esthetician. You don’t need to know a treatment name before you ask her about it. Tell her how your skin feels and start there.`,
     url('/about/'),
     '',
@@ -98,9 +107,11 @@ export function GET() {
     '',
     ...posts.map((p) => `- ${p.title}: ${url(`/blog/${p.slug}/`)}\n  ${p.description}`),
     '',
+    'Journal posts are dated notes. Where a post and the menu above disagree on a price, length or step, the menu above is current.',
+    '',
     '## Scope',
     '',
-    'Facials on this site are cosmetic skincare, not medical treatment, and results vary. The published cancellation note is a 50% fee. Deposits and prices shown on the booking screen are the ones to follow. Use only the facts in this file.',
+    'Services on this site are cosmetic skincare, not medical treatment, and results vary. The published cancellation note is a 50% fee. Deposits and prices shown on the booking screen are the ones to follow. Use only the facts in this file.',
     '',
   );
 

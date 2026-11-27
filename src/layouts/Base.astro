@@ -10,6 +10,7 @@ import Footer from '../components/Footer.astro';
 import BookBar from '../components/BookBar.astro';
 import seo from '../data/seo.json';
 import { site } from '../data/site';
+import { priceFrom, priceTo, services } from '../data/facials';
 
 interface Props {
   /** Site path with trailing slash, e.g. "/services/". Used to look up title, description and structured data. */
@@ -25,11 +26,32 @@ interface Props {
 const { path, jsonLd = [], noindex = false } = Astro.props;
 const entry = (seo as Record<string, any>)[path] ?? {};
 const title = Astro.props.title ?? entry.title ?? site.name;
-const description = Astro.props.description ?? entry.description ?? '';
+const description = Astro.props.description || entry.description || '';
 const ogType = entry.ogType ?? 'website';
 const canonical = new URL(path, site.url).href;
 const ogImage = `${site.url}/og.jpg`;
-const blocks = [(seo as Record<string, any>)._business, ...(entry.jsonld ?? []), ...jsonLd].filter(Boolean);
+// The business block keeps its stored facts (address, hours, geo). Prices and the service list come from the menu.
+const business = {
+  ...(seo as Record<string, any>)._business,
+  description: `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. ${site.name} offers facials, peels and skin treatments from ${priceFrom} to ${priceTo} at one studio. Book online.`,
+  priceRange: `${priceFrom}–${priceTo}`,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Facials and skin treatments',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Offer',
+        name: s.name,
+        url: `${site.url}/services/${s.slug}/`,
+        priceCurrency: 'USD',
+        price: s.offerPrice,
+      },
+    })),
+  },
+};
+const blocks = [business, ...(entry.jsonld ?? []), ...jsonLd].filter(Boolean);
 ---
 
 <!doctype html>
