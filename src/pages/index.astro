@@ -17,15 +17,15 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
   <!-- Hero -->
   <section class="wrap hero">
     <div class="hero__text">
+      <a class="hero__rating" href={site.reviewsUrl} aria-label="Read the Google reviews"><Stars /></a>
       <h1 class="display h-hero">Personalized facials and skincare in <em>Fair Oaks</em></h1>
       <p class="lede">
         Every visit starts with a close look at your skin, then a facial built around what it needs that day.
       </p>
       <div class="actions">
         <a class="btn btn--lg" href={site.bookingUrl}>Book your facial <Arrow /></a>
-        <a class="link" href="#facials">Find the right facial for you</a>
+        <a class="link hero__find" href="#facials">Find the right facial for you</a>
       </div>
-      <a class="hero__rating" href={site.reviewsUrl} aria-label="Read the Google reviews"><Stars /></a>
     </div>
     <div class="hero__art">
       <div class="hero__ring" aria-hidden="true"></div>
@@ -35,7 +35,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         src={images.newClient.src}
         alt={images.newClient.alt}
         widths={[420, 640, 840]}
-        sizes="(min-width: 980px) 420px, 70vw"
+        sizes="(min-width: 980px) 420px, (min-width: 700px) 70vw, 100vw"
         loading="eager"
         fetchpriority="high"
       />
@@ -322,6 +322,82 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
+  }
+
+  /* Phones: photo first and full width, text over its faded lower edge. */
+  @media (max-width: 699px) {
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding-top: 0;
+      padding-bottom: 28px;
+    }
+
+    .hero__art {
+      order: -1;
+      flex: none;
+      width: auto;
+      max-width: none;
+      margin-inline: calc(-1 * var(--gutter));
+      aspect-ratio: auto;
+      height: min(54svh, 440px);
+    }
+
+    .hero__art::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(250, 245, 239, 0) 52%, rgba(250, 245, 239, 0.85) 82%, var(--ivory) 100%);
+      pointer-events: none;
+    }
+
+    .hero__art :global(.hero__main) {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      box-shadow: none;
+      object-position: 50% 62%;
+    }
+
+    .hero__ring,
+    .hero__disc,
+    .hero__quote,
+    .hero__art :global(.hero__small) {
+      display: none;
+    }
+
+    .hero__text {
+      flex: none;
+      position: relative;
+      margin-top: -64px;
+      gap: 14px;
+    }
+
+    .hero__text .h-hero {
+      font-size: clamp(38px, 11vw, 46px);
+      line-height: 1;
+    }
+
+    .hero__text .lede,
+    .hero__find {
+      display: none;
+    }
+
+    .hero__rating {
+      min-height: 32px;
+    }
+
+    .hero__text .actions {
+      margin-top: 6px;
+    }
+
+    .hero__text .actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   /* menu */
