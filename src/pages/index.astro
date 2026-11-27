@@ -61,8 +61,11 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
   <section id="about">
     <div class="wrap section split">
       <div class="stack">
-        <p class="eyebrow">Meet your esthetician</p>
-        <h2 class="display h-page">Veronika <em>Reil</em></h2>
+        <!-- One heading: "Meet your esthetician Veronika Reil". The label and the name are styled separately. -->
+        <h2 class="about__title">
+          <span class="eyebrow">Meet your esthetician</span>{' '}
+          <span class="display h-page">Veronika <em>Reil</em></span>
+        </h2>
         <p class="lede" style="color: var(--text-strong)">
           I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. Tell me how your skin feels and
           we’ll start there.
@@ -330,6 +333,14 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
 
   .menu-band .menu-section {
     padding-block: clamp(48px, 6vw, 88px);
+  }
+
+  .about__title {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    font: inherit;
+    letter-spacing: normal;
   }
 
   .menu-section {
