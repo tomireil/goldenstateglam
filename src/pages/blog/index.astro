@@ -1,0 +1,215 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { images } from '../../data/images';
+import { formatDate, posts } from '../../data/posts';
+
+const [latest, ...rest] = posts;
+---
+
+<Base path="/blog/">
+  <section class="wrap journal stack" style="gap: clamp(32px, 4vw, 56px)">
+    <div class="journal__head">
+      <div class="stack">
+        <p class="eyebrow eyebrow--rule">Journal</p>
+        <h1 class="display h-page">Facial notes from my <em>Fair Oaks studio</em></h1>
+      </div>
+      <p class="lede">
+        Practical notes on choosing, timing and preparing for a facial. Nothing here is medical advice.
+      </p>
+    </div>
+
+    <a class="feature" href={`/blog/${latest.slug}/`}>
+      <span class="feature__photo">
+        <Image
+          src={images.facialMask.src}
+          alt=""
+          widths={[640, 1200]}
+          sizes="(min-width: 980px) 640px, 100vw"
+          loading="eager"
+          style="object-position: 30% 50%"
+        />
+      </span>
+      <span class="feature__body">
+        <span class="feature__kicker">Latest · <time datetime={latest.pubDate.toISOString()}>{formatDate(latest.pubDate)}</time></span>
+        <span class="feature__title">{latest.title}</span>
+        <span class="feature__desc">{latest.description}</span>
+        <span class="feature__more">Read the note <Arrow /></span>
+      </span>
+    </a>
+
+    <div class="posts">
+      {
+        rest.map((p) => (
+          <a class="post" href={`/blog/${p.slug}/`}>
+            <time datetime={p.pubDate.toISOString()}>{formatDate(p.pubDate)}</time>
+            <span class="post__text">
+              <span class="post__title">{p.title}</span>
+              <span class="post__desc">{p.description}</span>
+            </span>
+            <span class="post__go" aria-hidden="true">
+              <Arrow />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<style>
+  .journal {
+    padding-block: clamp(28px, 4vw, 56px) var(--section);
+  }
+
+  .journal__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px 64px;
+  }
+
+  .journal__head > p {
+    max-width: 400px;
+  }
+
+  .feature {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: clamp(24px, 3vw, 36px);
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--ivory);
+    text-decoration: none;
+  }
+
+  .feature:hover {
+    color: var(--ivory);
+  }
+
+  .feature__photo {
+    flex: 1 1 420px;
+    min-width: 0;
+    min-height: clamp(260px, 36vw, 440px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature__photo :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .feature:hover .feature__photo :global(img) {
+    transform: scale(1.04);
+  }
+
+  .feature__body {
+    flex: 1 1 400px;
+    min-width: 0;
+    padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .feature__kicker {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--champagne);
+  }
+
+  .feature__title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.6vw, 52px);
+    line-height: 1.04;
+  }
+
+  .feature__desc {
+    color: var(--on-dark);
+  }
+
+  .feature__more {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--champagne);
+  }
+
+  .posts {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+
+  .post {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 40px;
+    padding-block: 30px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: padding 0.25s ease;
+  }
+
+  .post:hover {
+    padding-left: 14px;
+    color: var(--ink);
+  }
+
+  .post time {
+    flex: 0 0 170px;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .post__text {
+    flex: 1 1 380px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .post__title {
+    font-family: var(--serif);
+    font-size: clamp(26px, 2.8vw, 34px);
+    line-height: 1.08;
+  }
+
+  .post__desc {
+    color: var(--text);
+    max-width: 640px;
+  }
+
+  .post__go {
+    flex: none;
+    align-self: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 760px) {
+    .post__go {
+      display: flex;
+    }
+  }
+</style>

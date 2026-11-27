@@ -1,0 +1,17 @@
+---
+import Arrow from './Arrow.astro';
+import { site } from '../data/site';
+---
+
+<section class="wrap" style="padding-bottom: var(--section)">
+  <div class="cta">
+    <div class="cta__text">
+      <h2 class="display h-sub">I’d love to welcome you to my <em>Fair Oaks studio</em></h2>
+      <p style="color: var(--text-strong)">{site.street} · {site.hoursShort}</p>
+    </div>
+    <div class="actions">
+      <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>
+      <a class="btn btn--outline" href={site.smsHref}>Text me</a>
+    </div>
+  </div>
+</section>

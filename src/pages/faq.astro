@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import { faqJsonLd, faqs } from '../data/faqs';
+import { site } from '../data/site';
+---
+
+<Base path="/faq/" jsonLd={[faqJsonLd(faqs)]}>
+  <section class="wrap faq-page">
+    <div class="faq-page__side stack" style="gap: 24px">
+      <p class="eyebrow eyebrow--rule">First visit</p>
+      <h1 class="display h-page">Facial questions, <em>answered plainly</em></h1>
+      <div class="ask">
+        <h2>Don’t see your question?</h2>
+        <p>Call or text {site.phoneDisplay} and ask me before you book.</p>
+        <div class="actions">
+          <a class="btn btn--sm" href={site.smsHref}>Text me</a>
+          <a class="btn btn--sm btn--outline" href={site.bookingUrl}>Book now</a>
+        </div>
+      </div>
+    </div>
+    <div class="faq-page__list">
+      <FaqList items={faqs} />
+      <p class="small muted" style="margin-top: 22px">
+        These answers use the studio’s published address, hours, prices and cancellation fee.{' '}
+        <a href="/contact/">Contact and map</a>
+      </p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<style>
+  .faq-page {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 40px clamp(40px, 6vw, 80px);
+    padding-block: clamp(28px, 4vw, 56px) var(--section);
+  }
+
+  .faq-page__side {
+    flex: 1 1 340px;
+    min-width: 0;
+  }
+
+  .faq-page__list {
+    flex: 1.4 1 480px;
+    min-width: 0;
+  }
+
+  .ask {
+    margin-top: 8px;
+    padding: 30px 32px;
+    background: var(--sand);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: var(--text-strong);
+  }
+
+  .ask h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+</style>

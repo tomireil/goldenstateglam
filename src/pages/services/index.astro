@@ -1,0 +1,214 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { goalFilters, services } from '../../data/facials';
+import { images } from '../../data/images';
+import { site } from '../../data/site';
+
+// Same order as the booking menu's "choose by goal" list.
+const order = ['first', 'glow', 'deep', 'teen', 'men', 'relax'];
+const cards = order.map((g) => services.find((s) => s.goal === g)!);
+---
+
+<Base path="/services/">
+  <section class="wrap page-top stack" style="gap: clamp(28px, 4vw, 48px)">
+    <div class="page-head">
+      <div class="stack">
+        <p class="eyebrow eyebrow--rule">Facial menu</p>
+        <h1 class="display h-page">Choose your <em>facial</em></h1>
+      </div>
+      <p class="lede">
+        Every facial, with its price and length up front. New here? Start with the{' '}
+        <a href="/services/new-client-signature/">New Client Signature Facial</a>.
+      </p>
+    </div>
+
+    <div class="chips" role="group" aria-label="Filter facials by goal" data-filter>
+      <span class="chips__lead">I’m looking for</span>
+      {
+        goalFilters.map((g, i) => (
+          <button class="chip" type="button" data-goal={g.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {g.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="cards">
+      {
+        cards.map((s) => (
+          <article class="svc" data-card={s.goal}>
+            <a class="svc__photo" href={`/services/${s.slug}/`} tabindex="-1" aria-hidden="true">
+              <Image
+                src={images[s.image].src}
+                alt=""
+                widths={[420, 800]}
+                sizes="(min-width: 1100px) 400px, (min-width: 740px) 50vw, 100vw"
+                style={`object-position: ${s.focus}`}
+              />
+              <span class="svc__goal">{s.goalLabel}</span>
+            </a>
+            <div class="svc__body">
+              <div class="svc__head">
+                <h2>
+                  <a href={`/services/${s.slug}/`}>{s.name}</a>
+                </h2>
+                <span class="svc__price">{s.price}</span>
+              </div>
+              <p class="svc__time">{s.time}</p>
+              <p class="svc__desc">{s.cardDesc}</p>
+              {s.cardNote && <p class="small muted">{s.cardNote}</p>}
+              <div class="actions">
+                <a class="btn btn--sm" href={site.bookingUrl}>
+                  Book <Arrow />
+                </a>
+                <a class="link" href={`/services/${s.slug}/`}>
+                  See this facial
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="muted" style="max-width: 760px">
+      Book takes you to my booking site, where you pick your time. Open days aren’t always open times, so check there
+      for what’s available. First-visit questions are on the <a href="/faq/">FAQ</a>, and there’s a longer note on
+      picking a first facial in the <a href="/blog/choosing-your-first-facial/">journal</a>.
+    </p>
+  </section>
+  <CtaBand />
+</Base>
+
+<style>
+  .page-top {
+    padding-block: clamp(28px, 4vw, 56px) var(--section);
+  }
+
+  .page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px 64px;
+  }
+
+  .page-head > p {
+    max-width: 460px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: 28px;
+  }
+
+  .svc {
+    display: flex;
+    flex-direction: column;
+    background: var(--cream);
+    border: 1px solid #e6dccd;
+    border-radius: 28px;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
+  }
+
+  .svc.is-dim {
+    opacity: 0.28;
+  }
+
+  .svc__photo {
+    position: relative;
+    display: block;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .svc__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .svc:hover .svc__photo :global(img) {
+    transform: scale(1.04);
+  }
+
+  .svc__goal {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .svc__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 26px 28px 28px;
+  }
+
+  .svc__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .svc__head h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.05;
+  }
+
+  .svc__head h2 a {
+    text-decoration: none;
+  }
+
+  .svc__price {
+    flex: none;
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+    color: var(--bronze);
+  }
+
+  .svc__time {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .svc__desc {
+    flex: 1;
+    color: var(--text);
+  }
+</style>
+
+<script>
+  // Goal filter: highlights matching facials. Nothing is removed from the page.
+  document.querySelectorAll<HTMLElement>('[data-filter]').forEach((bar) => {
+    const chips = Array.from(bar.querySelectorAll<HTMLButtonElement>('[data-goal]'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        const goal = chip.dataset.goal;
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        cards.forEach((card) => card.classList.toggle('is-dim', goal !== 'all' && card.dataset.card !== goal));
+      }),
+    );
+  });
+</script>

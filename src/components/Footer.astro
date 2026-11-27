@@ -1,0 +1,22 @@
+---
+import { nav, site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div>
+      <div class="site-footer__name">Golden State <em>Glam</em></div>
+      <p style="margin-top: 14px">{site.fullAddress}</p>
+      <p>{site.hoursLong}</p>
+      <p>
+        <a href={site.phoneHref}>Call {site.phoneDisplay}</a> · <a href={site.smsHref}>Text {site.phoneDisplay}</a>
+      </p>
+    </div>
+    <nav class="site-footer__links" aria-label="Footer">
+      {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      <a href={site.instagramUrl}>Instagram</a>
+      <a href={site.bookingUrl}>Book now</a>
+    </nav>
+    <div>© {new Date().getFullYear()} {site.name}</div>
+  </div>
+</footer>

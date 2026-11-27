@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+const { label = `${site.rating} on Google · ${site.reviewCount} reviews` } = Astro.props;
+const star = 'M8 1.5l2 4.2 4.6.6-3.4 3.2.9 4.5L8 11.8 3.9 14l.9-4.5L1.4 6.3 6 5.7z';
+---
+
+<span class="stars">
+  <svg width="94" height="18" viewBox="0 0 84 16" role="img" aria-label="5 out of 5 stars">
+    {[0, 17, 34, 51, 68].map((x) => <path transform={`translate(${x})`} d={star} />)}
+  </svg>
+  <span>{label}</span>
+</span>

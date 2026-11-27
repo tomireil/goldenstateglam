@@ -1,0 +1,163 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const ways = [
+  { kicker: 'Fastest', title: 'Book online', note: 'Pick a facial and a time', href: site.bookingUrl, dark: true },
+  { kicker: 'Have a question', title: 'Text me', note: site.phoneDisplay, href: site.smsHref },
+  { kicker: 'Prefer to talk', title: 'Call', note: site.phoneDisplay, href: site.phoneHref },
+  { kicker: 'Follow along', title: 'Instagram', note: site.instagramHandle, href: site.instagramUrl },
+];
+---
+
+<Base path="/contact/">
+  <section class="wrap contact">
+    <div class="contact__text stack" style="gap: 24px">
+      <p class="eyebrow eyebrow--rule">Contact</p>
+      <h1 class="display h-page">Come see me in <em>Fair Oaks</em></h1>
+      <p class="lede">
+        Book a facial online, or text me if you have a question first. I’m Veronika Reil, the licensed esthetician
+        you’ll see at every visit.
+      </p>
+      <div class="ways">
+        {
+          ways.map((w) => (
+            <a class:list={['way', { 'way--dark': w.dark }]} href={w.href}>
+              <span class="way__kicker">{w.kicker}</span>
+              <span class="way__title">{w.title}</span>
+              <span class="way__note">{w.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p><a class="link" href={site.reviewsUrl}>Read my Google reviews</a></p>
+    </div>
+
+    <div class="place">
+      <iframe
+        title={`Map of ${site.name} at ${site.street}, Fair Oaks, California`}
+        src={site.osmEmbed}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="place__body">
+        <h2>{site.street}</h2>
+        <p>{site.cityLine}</p>
+        <p>{site.hoursShort}</p>
+        <p>Clients visit from Folsom, El Dorado Hills, Carmichael and Sacramento.</p>
+        <p class="actions">
+          <a class="link" href={site.mapsUrl}>Open in Google Maps</a>
+          <a class="link" href={site.osmUrl}>Open in OpenStreetMap</a>
+        </p>
+        <p class="small">Map data © OpenStreetMap contributors.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 48px clamp(36px, 5vw, 72px);
+    padding-block: clamp(28px, 4vw, 56px) var(--section);
+  }
+
+  .contact__text {
+    flex: 1 1 460px;
+    min-width: 0;
+  }
+
+  .ways {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .way {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px 26px;
+    border-radius: 24px;
+    background: var(--sand);
+    color: var(--ink);
+    text-decoration: none;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .way:hover {
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 36px -18px rgba(43, 26, 23, 0.45);
+  }
+
+  .way__kicker {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .way__title {
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  .way__note {
+    font-size: 15px;
+    color: var(--text-strong);
+  }
+
+  .way--dark,
+  .way--dark:hover {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+
+  .way--dark .way__kicker {
+    color: var(--champagne);
+  }
+
+  .way--dark .way__note {
+    color: var(--on-dark);
+  }
+
+  .place {
+    flex: 1 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 32px;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  .place iframe {
+    flex: 1;
+    width: 100%;
+    min-height: 360px;
+    border: 0;
+  }
+
+  .place__body {
+    padding: 28px 32px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--text);
+  }
+
+  .place__body h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+</style>

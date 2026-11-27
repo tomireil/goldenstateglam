@@ -1,0 +1,657 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Stars from '../components/Stars.astro';
+import FacialGallery from '../components/FacialGallery.astro';
+import FaqList from '../components/FaqList.astro';
+import { images } from '../data/images';
+import { cities, reviews, site, visitSteps } from '../data/site';
+import { faqJsonLd, homeFaqs } from '../data/faqs';
+---
+
+<Base path="/" jsonLd={[faqJsonLd(homeFaqs)]}>
+  <!-- Hero -->
+  <section class="wrap hero">
+    <div class="hero__text">
+      <p class="eyebrow eyebrow--rule">{site.owner} · {site.ownerTitle}</p>
+      <h1 class="display h-hero">Personalized facials and skincare in <em>Fair Oaks</em></h1>
+      <p class="lede">
+        Every visit starts with a close look at your skin, then a facial built around what it needs that day.
+      </p>
+      <div class="actions">
+        <a class="btn btn--lg" href={site.bookingUrl}>Book your facial <Arrow /></a>
+        <a class="link" href="#facials">Find the right facial for you</a>
+      </div>
+      <a class="hero__rating" href={site.reviewsUrl} aria-label="Read the Google reviews"><Stars /></a>
+    </div>
+    <div class="hero__art">
+      <div class="hero__ring" aria-hidden="true"></div>
+      <div class="hero__disc" aria-hidden="true"></div>
+      <Image
+        class="hero__main arch"
+        src={images.facialHands.src}
+        alt={images.facialHands.alt}
+        widths={[420, 536]}
+        sizes="(min-width: 980px) 420px, 70vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <Image
+        class="hero__small"
+        src={images.stillLife.src}
+        alt={images.stillLife.alt}
+        widths={[240, 480]}
+        sizes="240px"
+        loading="eager"
+      />
+      <figure class="hero__quote card">
+        <blockquote>“{reviews[0].text}”</blockquote>
+        <figcaption>{reviews[0].name} · Google</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Facial menu -->
+  <section id="facials" class="wrap section menu-section" style="padding-top: clamp(24px, 3vw, 40px)">
+    <div class="menu-section__head">
+      <div class="stack" style="gap: 16px">
+        <p class="eyebrow">The facial menu</p>
+        <h2 class="display h-section">The facial your skin has been <em>waiting for</em></h2>
+      </div>
+      <p class="muted">
+        Seven facials, from a first-visit signature to deep cleansing, glass skin and facial massage. Choose yours
+        below.
+      </p>
+    </div>
+    <FacialGallery />
+    <div class="menu-section__foot">
+      <span>
+        New here? Start with the <a href="/services/new-client-signature/">New Client Signature Facial</a>. It’s $150
+        and 80 minutes.
+      </span>
+      <a class="link" href={site.smsHref}>Still deciding? Text me and I’ll help you choose</a>
+    </div>
+  </section>
+
+  <!-- What to expect -->
+  <section id="visit" class="bg-ink">
+    <div class="wrap section split">
+      <div class="visit__photo framed arch">
+        <Image
+          src={images.facialMask.src}
+          alt={images.facialMask.alt}
+          widths={[480, 840]}
+          sizes="(min-width: 980px) 420px, 90vw"
+          style="object-position: 30% 50%"
+        />
+      </div>
+      <div class="stack" style="gap: 30px">
+        <div class="stack" style="gap: 16px">
+          <p class="eyebrow">Your visit</p>
+          <h2 class="display h-section">What to expect at <em>your facial</em></h2>
+        </div>
+        <ol class="steps" data-steps>
+          {
+            visitSteps.map((s, i) => (
+              <li class:list={['step', { 'is-active': i === 0 }]}>
+                <button type="button" class="step__tab" aria-pressed={i === 0 ? 'true' : 'false'}>
+                  <span class="step__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="step__label">{s.label}</span>
+                </button>
+                <p class="step__text">{s.text}</p>
+              </li>
+            ))
+          }
+          <li class="steps__track" aria-hidden="true"><span data-steps-fill></span></li>
+        </ol>
+        <p class="small" style="color: var(--on-dark)">Steps vary a little from facial to facial.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="bg-sand">
+    <div class="wrap section split">
+      <div class="stack">
+        <p class="eyebrow">Meet your esthetician</p>
+        <h2 class="display h-page">Veronika <em>Reil</em></h2>
+        <p class="lede" style="color: var(--text-strong)">
+          I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. You don’t need to know a single
+          treatment name to book with me. Tell me how your skin feels and we’ll start there. And if you’re not sure
+          which facial fits, just ask.
+        </p>
+        <div class="actions">
+          <a class="btn" href={site.smsHref}>Text me your question</a>
+          <a class="link" href="/about/">About Veronika</a>
+        </div>
+      </div>
+      <div class="about__photo framed">
+        <Image
+          src={images.studioCover.src}
+          alt={images.studioCover.alt}
+          widths={[480, 920]}
+          sizes="(min-width: 980px) 460px, 90vw"
+          style="object-position: 78% 50%"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="wrap section stack" style="gap: clamp(32px, 4vw, 56px)">
+    <div class="reviews__head">
+      <a href={site.reviewsUrl} style="text-decoration: none"><Stars /></a>
+      <h2 class="display h-section">Kind words from <em>clients</em></h2>
+    </div>
+    <div class="reviews">
+      {
+        reviews.map((r, i) => (
+          <figure class:list={['review', { 'review--dark': i === 1 }]}>
+            <div class="review__mark" aria-hidden="true">
+              “
+            </div>
+            <blockquote>{r.text}</blockquote>
+            <figcaption>{r.name} · Google review</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Before you book -->
+  <section id="faq" class="bg-sand">
+    <div class="wrap section faq-section">
+      <div class="stack" style="gap: 18px">
+        <p class="eyebrow">First visit</p>
+        <h2 class="display h-section">Before you <em>book</em></h2>
+        <p style="color: var(--text-strong); max-width: 380px">
+          Three things worth knowing before a first facial. The rest are on the FAQ page.
+        </p>
+        <a class="link" href="/faq/">See all facial questions</a>
+      </div>
+      <FaqList items={homeFaqs} />
+    </div>
+  </section>
+
+  <!-- Cities -->
+  <div class="strip" aria-label="Clients visit from these nearby cities">
+    <div class="strip__track">
+      {
+        [0, 1].map((n) => (
+          <ul aria-hidden={n === 1 ? 'true' : undefined}>
+            {[...cities, ...cities].map((c) => (
+              <li>{c}</li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Studio -->
+  <section id="studio" class="wrap section">
+    <div class="studio">
+      <Image
+        class="studio__photo"
+        src={images.stillLife.src}
+        alt={images.stillLife.alt}
+        widths={[640, 1200]}
+        sizes="(min-width: 980px) 600px, 100vw"
+      />
+      <div class="studio__body stack">
+        <h2 class="display h-sub">I’d love to welcome you to my <em>Fair Oaks studio</em></h2>
+        <address>
+          <strong>{site.fullAddress}</strong>
+          <span>{site.hoursLong}</span>
+          <span class="small">Open days aren’t always open times. Check the booking site to see what’s available.</span>
+          <span class="small">Clients visit from Folsom, El Dorado Hills, Carmichael and Sacramento.</span>
+        </address>
+        <div class="actions">
+          <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>
+          <a class="btn btn--outline" href={site.smsHref}>Text me</a>
+          <a class="link" href={site.mapsUrl}>Get directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* hero */
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px clamp(36px, 5vw, 64px);
+    padding-block: clamp(20px, 3vw, 32px) clamp(56px, 8vw, 96px);
+  }
+
+  .hero__text {
+    flex: 1 1 480px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .hero__rating {
+    align-self: flex-start;
+    text-decoration: none;
+  }
+
+  .hero__art {
+    flex: 1 1 400px;
+    min-width: 0;
+    position: relative;
+    aspect-ratio: 568 / 640;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .hero__ring {
+    position: absolute;
+    right: 4%;
+    top: 4%;
+    width: 74%;
+    height: 94%;
+    border: 1px solid var(--gold);
+    border-radius: 999px 999px 28px 28px;
+  }
+
+  .hero__disc {
+    position: absolute;
+    left: 6%;
+    bottom: 10%;
+    width: 46%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--sand-deep);
+  }
+
+  .hero__art :global(.hero__main) {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 74%;
+    height: 94%;
+    object-fit: cover;
+    box-shadow: 0 40px 80px -40px rgba(43, 26, 23, 0.5);
+  }
+
+  .hero__art :global(.hero__small) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid var(--ivory);
+  }
+
+  .hero__quote {
+    position: absolute;
+    left: 0;
+    top: 12%;
+    width: min(46%, 260px);
+    padding: 18px 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero__quote blockquote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(15px, 1.5vw, 20px);
+    line-height: 1.25;
+  }
+
+  .hero__quote figcaption {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* menu */
+  .menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 4vw, 44px);
+  }
+
+  .menu-section__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px 48px;
+  }
+
+  .menu-section__head > p {
+    max-width: 380px;
+  }
+
+  .menu-section__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 32px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  /* visit */
+  .visit__photo {
+    flex: 0 1 420px;
+    height: clamp(380px, 46vw, 520px);
+    margin-inline: auto;
+  }
+
+  .visit__photo::before {
+    transform: translate(-18px, 18px);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 8px;
+  }
+
+  .step {
+    display: contents;
+  }
+
+  .step__tab {
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-height: 84px;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    color: #c4b6a6;
+    transition: color 0.3s ease;
+  }
+
+  .step.is-active .step__tab,
+  .step.is-done .step__tab {
+    color: var(--champagne);
+  }
+
+  .step__num {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.4vw, 40px);
+    line-height: 1;
+  }
+
+  .step__label {
+    font-size: clamp(11px, 1.2vw, 14px);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .steps__track {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    height: 2px;
+    margin-top: 6px;
+    background: #5a443c;
+    border-radius: 1px;
+  }
+
+  .steps__track span {
+    display: block;
+    height: 2px;
+    width: 25%;
+    background: var(--champagne);
+    transition: width 0.5s ease;
+  }
+
+  .step__text {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    margin-top: 26px;
+    min-height: 3.6em;
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.2;
+    text-wrap: balance;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease;
+  }
+
+  .step.is-active .step__text {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* about */
+  .about__photo {
+    flex: 0 1 460px;
+    height: clamp(380px, 48vw, 540px);
+    margin-inline: auto;
+    border-radius: 28px;
+  }
+
+  /* reviews */
+  .reviews__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 28px;
+  }
+
+  /* phones: swipe through the reviews instead of stacking three tall cards */
+  @media (max-width: 759px) {
+    .reviews {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(var(--gutter) * -1);
+      padding: 0 var(--gutter) 28px;
+      scroll-padding-left: var(--gutter);
+      scrollbar-width: none;
+    }
+
+    .reviews::-webkit-scrollbar {
+      display: none;
+    }
+
+    .review {
+      flex: none;
+      width: min(82vw, 320px);
+      padding: 30px 26px;
+      scroll-snap-align: start;
+    }
+
+    .review blockquote {
+      font-size: 23px;
+    }
+  }
+
+  .review {
+    padding: 40px 36px;
+    background: var(--cream);
+    border: 1px solid #e6dccd;
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .review--dark {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--ivory);
+    box-shadow: 0 30px 60px -30px rgba(43, 26, 23, 0.7);
+  }
+
+  .review__mark {
+    font-family: var(--serif);
+    font-size: 84px;
+    line-height: 0.6;
+    padding-top: 22px;
+    color: var(--gold);
+  }
+
+  .review--dark .review__mark {
+    color: #f1d9b0;
+  }
+
+  .review blockquote {
+    flex: 1;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.25;
+  }
+
+  .review figcaption {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .review--dark figcaption {
+    color: var(--champagne);
+  }
+
+  /* faq */
+  .faq-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 40px 80px;
+  }
+
+  .faq-section > :first-child {
+    flex: 1 1 320px;
+    min-width: 0;
+  }
+
+  .faq-section > :last-child {
+    flex: 1.5 1 480px;
+    min-width: 0;
+  }
+
+  /* city strip */
+  .strip {
+    background: var(--ink);
+    color: var(--champagne);
+    overflow: hidden;
+    padding-block: 18px;
+  }
+
+  .strip__track {
+    display: flex;
+    width: max-content;
+    animation: strip 38s linear infinite;
+  }
+
+  .strip ul {
+    display: flex;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 24px;
+    white-space: nowrap;
+  }
+
+  .strip li::after {
+    content: '✦';
+    margin-inline: 22px;
+    font-style: normal;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  @keyframes strip {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* studio */
+  .studio {
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--sand);
+    border-radius: clamp(24px, 3vw, 36px);
+    overflow: hidden;
+  }
+
+  .studio :global(.studio__photo) {
+    flex: 1 1 380px;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    max-height: 560px;
+    object-fit: cover;
+  }
+
+  .studio__body {
+    flex: 1 1 440px;
+    min-width: 0;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 64px) clamp(24px, 4.5vw, 56px);
+  }
+
+  .studio address {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-style: normal;
+    color: var(--text-strong);
+  }
+
+  .studio address strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+</style>
+
+<script>
+  // "What to expect" stepper. All four steps are in the HTML; this only switches which one shows.
+  document.querySelectorAll<HTMLElement>('[data-steps]').forEach((root) => {
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.step'));
+    const fill = root.querySelector<HTMLElement>('[data-steps-fill]');
+    const canHover = window.matchMedia('(hover: hover)');
+
+    function show(index: number) {
+      steps.forEach((s, i) => {
+        s.classList.toggle('is-active', i === index);
+        s.classList.toggle('is-done', i < index);
+        s.querySelector('button')?.setAttribute('aria-pressed', String(i === index));
+      });
+      if (fill) fill.style.width = `${((index + 1) / steps.length) * 100}%`;
+    }
+
+    steps.forEach((s, i) => {
+      const tab = s.querySelector('button');
+      tab?.addEventListener('click', () => show(i));
+      tab?.addEventListener('mouseenter', () => {
+        if (canHover.matches) show(i);
+      });
+    });
+  });
+</script>

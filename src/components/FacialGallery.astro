@@ -1,0 +1,403 @@
+---
+// The facial picker. Every facial's name, price, length and description is in the HTML from the start,
+// so search engines and AI tools read all seven. The script only changes which one is expanded.
+//
+// Desktop: seven photo panels side by side; hover or click opens one.
+// Phone: stacked photo bands; tap opens one in place. Picking from a pill opens it right under the pills.
+import { Image } from 'astro:assets';
+import Arrow from './Arrow.astro';
+import { galleryItems } from '../data/facials';
+import { images } from '../data/images';
+import { site } from '../data/site';
+---
+
+<div class="gallery" data-gallery>
+  <div class="gallery__pills" role="group" aria-label="What does your skin need?" data-pills>
+    <span class="chips__lead">My skin needs</span>
+    {
+      galleryItems.map((f, i) => (
+        <button class="chip" type="button" data-pill={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+          {f.need}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="gallery__list">
+    {
+      galleryItems.map((f, i) => (
+        <article class:list={['panel', { 'is-open': i === 0 }]} data-panel={f.id} data-name={f.name} data-price={f.price}>
+          <Image
+            class="panel__img"
+            src={images[f.image].src}
+            alt={images[f.image].alt}
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 900px) 620px, 100vw"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            style={`object-position: ${f.focus}`}
+          />
+          <div class="panel__scrim" aria-hidden="true" />
+          <button class="panel__tab" type="button" data-tab={f.id} aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`facial-${f.id}`}>
+            <span class="panel__num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="panel__name">{f.name}</span>
+            <span class="panel__price">{f.price}</span>
+          </button>
+          <div class="panel__card" id={`facial-${f.id}`}>
+            <div class="panel__meta">
+              <span>
+                {String(i + 1).padStart(2, '0')} · {f.tag}
+              </span>
+              <span>{f.time}</span>
+            </div>
+            <div class="panel__head">
+              <h3>{f.name}</h3>
+              <span class="panel__cost">{f.price}</span>
+            </div>
+            <p>{f.desc}</p>
+            <div class="actions">
+              <a class="btn btn--sm" href={site.bookingUrl}>
+                Book this facial <Arrow />
+              </a>
+              <a class="link" href={f.href}>
+                Learn more<span class="sr-only"> about the {f.name}</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* pills: a swipeable row on phones, a wrapping row on desktop */
+  .gallery__pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 2px var(--gutter) 6px;
+    scroll-behavior: smooth;
+    scroll-margin-top: 20px;
+    scrollbar-width: none;
+  }
+
+  .gallery__pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery__pills .chips__lead {
+    display: none;
+  }
+
+  .gallery__pills .chip {
+    flex: none;
+  }
+
+  .gallery__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .panel {
+    position: relative;
+    height: 76px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--sand-deep);
+    transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-margin: 16px 0 100px;
+  }
+
+  .panel.is-open {
+    height: 540px;
+  }
+
+  .panel.is-top {
+    order: -1;
+  }
+
+  .panel :global(.panel__img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .panel__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(43, 26, 23, 0.58);
+    transition: opacity 0.4s ease;
+  }
+
+  .panel.is-open .panel__scrim {
+    opacity: 0;
+  }
+
+  .panel__tab {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 76px;
+    padding: 0 20px;
+    border: 0;
+    background: transparent;
+    color: var(--ivory);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    transition: opacity 0.3s ease;
+  }
+
+  .panel.is-open .panel__tab {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .panel__num {
+    flex: none;
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--champagne);
+  }
+
+  .panel__name {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--serif);
+    font-size: 23px;
+    line-height: 1.05;
+  }
+
+  .panel__price {
+    flex: none;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  .panel__card {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 22px;
+    background: var(--cream);
+    border-radius: 18px;
+    box-shadow: 0 24px 50px -24px rgba(43, 26, 23, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0s linear 0.3s;
+  }
+
+  .panel.is-open .panel__card {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.35s ease 0.3s,
+      visibility 0s linear 0s;
+  }
+
+  .panel__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .panel__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .panel__head h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 1.04;
+  }
+
+  .panel__cost {
+    flex: none;
+    font-family: var(--serif);
+    font-size: 27px;
+    line-height: 1;
+    color: var(--bronze);
+  }
+
+  .panel__card p {
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  @media (min-width: 900px) {
+    .gallery {
+      gap: 40px;
+    }
+
+    .gallery__pills {
+      flex-wrap: wrap;
+      gap: 10px;
+      overflow: visible;
+      margin-inline: 0;
+      padding: 0;
+    }
+
+    .gallery__pills .chips__lead {
+      display: inline;
+    }
+
+    .gallery__list {
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .panel {
+      flex: 0 0 96px;
+      min-width: 0;
+      height: 580px;
+      border-radius: 24px;
+      transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .panel.is-open {
+      flex: 1 1 0%;
+      height: 580px;
+    }
+
+    .panel.is-top {
+      order: 0;
+    }
+
+    .panel__tab {
+      inset: 0;
+      height: auto;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 0;
+    }
+
+    .panel__num {
+      font-size: 22px;
+    }
+
+    .panel__name {
+      flex: none;
+      writing-mode: vertical-rl;
+      text-orientation: sideways;
+      transform: rotate(180deg);
+      font-size: 27px;
+      white-space: nowrap;
+    }
+
+    .panel__card {
+      left: 24px;
+      right: auto;
+      bottom: 24px;
+      width: 500px;
+      max-width: calc(100vw - 2 * var(--gutter) - 48px);
+      padding: 28px 30px;
+      gap: 12px;
+      border-radius: 20px;
+    }
+
+    .panel__meta {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+    }
+
+    .panel__head h3,
+    .panel__cost {
+      font-size: 34px;
+    }
+
+    .panel__card p {
+      font-size: 17px;
+    }
+  }
+</style>
+
+<script>
+  // Opens one facial at a time. Without this script the first facial stays open and every "Learn more" link still works.
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+    const panels = Array.from(gallery.querySelectorAll<HTMLElement>('[data-panel]'));
+    const pills = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-pill]'));
+    const rail = gallery.querySelector<HTMLElement>('[data-pills]');
+    const bookbarPick = document.querySelector<HTMLElement>('[data-bookbar-pick]');
+    const isPhone = window.matchMedia('(max-width: 899px)');
+    const canHover = window.matchMedia('(hover: hover) and (min-width: 900px)');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function open(id: string, from: 'pill' | 'panel') {
+      const target = panels.find((p) => p.dataset.panel === id);
+      if (!target) return;
+      const already = target.classList.contains('is-open');
+
+      panels.forEach((p) => {
+        const on = p === target;
+        p.classList.toggle('is-open', on);
+        p.querySelector('[data-tab]')?.setAttribute('aria-expanded', String(on));
+        // Phones only: a facial chosen from a pill opens directly under the pills.
+        if (from === 'pill') p.classList.toggle('is-top', on);
+      });
+
+      pills.forEach((b) => {
+        const on = b.dataset.pill === id;
+        b.setAttribute('aria-pressed', String(on));
+        if (on && rail && isPhone.matches) rail.scrollLeft = Math.max(0, b.offsetLeft - 20);
+      });
+
+      if (bookbarPick) bookbarPick.textContent = `${target.dataset.name} · ${target.dataset.price}`;
+
+      // Phones: after a pill pick, if the opened facial would sit below the fold, bring the pills to the top.
+      if (from === 'pill' && isPhone.matches && rail) {
+        window.requestAnimationFrame(() => {
+          if (target.getBoundingClientRect().top + 300 > window.innerHeight) {
+            rail.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      // Phones: a facial opened in place may shift as the one above it closes, so keep it in view.
+      if (from === 'panel' && isPhone.matches && !already) {
+        window.setTimeout(
+          () => target.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'nearest' }),
+          600,
+        );
+      }
+    }
+
+    panels.forEach((p) => {
+      const id = p.dataset.panel!;
+      p.querySelector('[data-tab]')?.addEventListener('click', () => open(id, 'panel'));
+      p.addEventListener('mouseenter', () => {
+        if (canHover.matches) open(id, 'panel');
+      });
+    });
+    pills.forEach((b) => b.addEventListener('click', () => open(b.dataset.pill!, 'pill')));
+
+    const first = panels.find((p) => p.classList.contains('is-open'));
+    if (first && bookbarPick) bookbarPick.textContent = `${first.dataset.name} · ${first.dataset.price}`;
+  });
+</script>

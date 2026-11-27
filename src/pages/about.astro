@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { images } from '../data/images';
+import { hours, site } from '../data/site';
+---
+
+<Base path="/about/">
+  <section class="wrap about split">
+    <div class="about__photo framed arch">
+      <Image
+        src={images.studioCover.src}
+        alt={images.studioCover.alt}
+        widths={[480, 920]}
+        sizes="(min-width: 980px) 460px, 90vw"
+        loading="eager"
+        style="object-position: 78% 50%"
+      />
+    </div>
+    <div class="stack" style="gap: 24px">
+      <p class="eyebrow eyebrow--rule">About</p>
+      <h1 class="display h-page">A facial and skincare studio in <em>Fair Oaks</em></h1>
+      <p class="pull">You don’t need to know the treatment name before you ask me about it.</p>
+      <p class="lede">
+        I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. Maybe this would be your first facial.
+        Or maybe you’ve had one before and want something different this time.
+      </p>
+      <p class="lede">
+        New here? Start with the <a href="/services/new-client-signature/">New Client Signature Facial</a>. Want a
+        thorough cleanse? My <a href="/services/signature-deep-cleanse/">Signature Deep Cleanse Facial</a> combines
+        exfoliation and hydration. Is moisture what matters most? The{' '}
+        <a href="/services/korean-glass-skin/">Korean Glass Skin Facial</a> is the hydration visit. Each one is on the
+        menu for a reason.
+      </p>
+      <p class="lede">
+        Weighing the trip? Ask me about a facial before you choose a time. Bring the question you’re still thinking
+        about and we’ll begin there.
+      </p>
+      <div class="actions">
+        <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>
+        <a class="btn btn--outline" href="/services/">See the facials</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-sand">
+    <div class="wrap section split" style="align-items: flex-start">
+      <div class="stack" style="gap: 18px">
+        <h2 class="display h-section">One studio, <em>four days a week</em></h2>
+        <p style="color: var(--text-strong); max-width: 460px">
+          Every visit happens at my studio at {site.fullAddress}. Clients visit from Folsom, El Dorado Hills,
+          Carmichael and Sacramento. Current appointment times are on my booking site.
+        </p>
+        <p class="actions">
+          <a class="link" href={site.reviewsUrl}>Read my Google reviews</a>
+          <a class="link" href={site.instagramUrl}>Instagram</a>
+          <a class="link" href="/contact/">Contact and map</a>
+        </p>
+      </div>
+      <dl class="hours card">
+        <div class="hours__who">
+          <dt>Owner</dt>
+          <dd>{site.owner}, {site.ownerTitle.toLowerCase()}</dd>
+        </div>
+        {
+          hours.map((h) => (
+            <div class:list={{ 'is-closed': h.time === 'Closed' }}>
+              <dt>{h.day}</dt>
+              <dd>{h.time}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+  <div style="height: var(--section)"></div>
+  <CtaBand />
+</Base>
+
+<style>
+  .about {
+    align-items: flex-start;
+    padding-block: clamp(28px, 4vw, 56px) var(--section);
+  }
+
+  .about__photo {
+    flex: 0 1 460px;
+    height: clamp(420px, 52vw, 620px);
+    margin-inline: auto;
+  }
+
+  .hours {
+    max-width: 520px;
+    margin: 0;
+    padding: 22px 34px 26px;
+    box-shadow: none;
+  }
+
+  .hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hours div:last-child {
+    border-bottom: 0;
+  }
+
+  .hours dd {
+    margin: 0;
+    text-align: right;
+  }
+
+  .hours .is-closed {
+    color: var(--muted);
+  }
+
+  .hours__who dt {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    align-self: center;
+  }
+</style>

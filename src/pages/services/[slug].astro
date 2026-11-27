@@ -1,0 +1,501 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import FaqList from '../../components/FaqList.astro';
+import { services } from '../../data/facials';
+import { faqJsonLd } from '../../data/faqs';
+import { images } from '../../data/images';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return services.map((service, i) => ({
+    params: { slug: service.slug },
+    // The next three facials on the menu, wrapping around.
+    props: { service, others: [1, 2, 3].map((n) => services[(i + n) % services.length]) },
+  }));
+}
+
+const { service: s, others } = Astro.props;
+const path = `/services/${s.slug}/`;
+const tabs = [
+  { id: 'includes', label: 'What it includes', items: s.includes },
+  { id: 'who', label: 'Who it’s for', items: s.who },
+  { id: 'before', label: 'Before you book', items: s.before },
+];
+const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
+---
+
+<Base path={path} jsonLd={jsonLd}>
+  <section class="wrap detail">
+    <div class="detail__text stack" style="gap: 26px">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><a href="/services/">Facials</a><span aria-hidden="true"
+          >/</span
+        ><span>{s.short}</span>
+      </nav>
+      <p class="eyebrow eyebrow--rule">{s.eyebrow}</p>
+      <h1 class="display h-page">{s.name} <em>in Fair Oaks</em></h1>
+      {s.intro.map((p) => <p class="lede">{p}</p>)}
+      {s.pull && <p class="pull">{s.pull}</p>}
+
+      <div class="tabs" data-tabs>
+        <div class="tabs__bar" role="tablist" aria-label="About this facial">
+          {
+            tabs.map((t, i) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${t.id}`}
+                aria-controls={`panel-${t.id}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                tabindex={i === 0 ? 0 : -1}
+              >
+                {t.label}
+              </button>
+            ))
+          }
+        </div>
+        {
+          tabs.map((t, i) => (
+            <div class="tabs__panel" role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} hidden={i !== 0}>
+              <h2 class="sr-only">{t.label}</h2>
+              <ul class="checklist">
+                {t.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <aside class="detail__aside">
+      <Image
+        class="detail__photo arch"
+        src={images[s.image].src}
+        alt={images[s.image].alt}
+        widths={[520, 1040]}
+        sizes="(min-width: 980px) 520px, 100vw"
+        loading="eager"
+        style={`object-position: ${s.focus}`}
+      />
+      <div class="detail__book card">
+        <div class="detail__price">
+          <span>{s.price}</span>
+          <small>{s.time}</small>
+        </div>
+        {s.deposit && <p class="small muted">{s.deposit}</p>}
+        <a class="btn btn--lg btn--block" href={site.bookingUrl}>Book this facial <Arrow /></a>
+        <div class="detail__where small">
+          <span>{site.street}</span>
+          <a href={site.smsHref}>Text me first</a>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  {
+    s.rituals && (
+      <section class="bg-sand">
+        <div class="wrap section stack" style="gap: 36px">
+          <h2 class="display h-section">
+            Choose your <em>ritual</em>
+          </h2>
+          <div class="rituals">
+            {s.rituals.map((r) => (
+              <article class="ritual" id={r.id}>
+                <div class="ritual__head">
+                  <h3>{r.name}</h3>
+                  <span>{r.price}</span>
+                </div>
+                <p class="ritual__time">{r.time}</p>
+                <p>{r.desc}</p>
+                {r.deposit && <p class="small muted">Deposit listed on the menu: {r.deposit}.</p>}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    s.steps && (
+      <section class="bg-sand">
+        <div class="wrap section stack" style="gap: 36px">
+          <h2 class="display h-section">
+            What to <em>expect</em>
+          </h2>
+          <ol class="expect">
+            {s.steps.map((st) => (
+              <li>
+                <h3>{st.title}</h3>
+                <p>{st.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    (s.after || s.faqs) && (
+      <section class="wrap section extra">
+        {s.after && (
+          <div class="stack">
+            <h2 class="display h-sub">
+              After the <em>appointment</em>
+            </h2>
+            <ul class="checklist">
+              {s.after.map((a) => (
+                <li>{a}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {s.faqs && (
+          <div class="stack">
+            <h2 class="display h-sub">
+              Questions about <em>this facial</em>
+            </h2>
+            <FaqList items={s.faqs} />
+          </div>
+        )}
+      </section>
+    )
+  }
+
+  <section class="wrap visit-note">
+    <h2 class="display h-sub">Visiting the <em>studio</em></h2>
+    <div class="stack" style="gap: 14px">
+      <p class="muted">
+        The {s.name} is given at one studio: {site.fullAddress}. Clients visit from Folsom, El Dorado Hills, Carmichael
+        and Sacramento. {site.hoursLong}.
+      </p>
+      <p class="actions">
+        {
+          s.related.map((r) => (
+            <a class="link" href={r.href}>
+              {r.label}
+            </a>
+          ))
+        }
+        <a class="link" href={site.mapsUrl}>Get directions</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-sand">
+    <div class="wrap section stack" style="gap: 40px">
+      <div class="others__head">
+        <h2 class="display h-section">Other <em>facials</em></h2>
+        <a class="link" href="/services/">All facials</a>
+      </div>
+      <div class="others">
+        {
+          others.map((o) => (
+            <a class="other" href={`/services/${o.slug}/`}>
+              <span class="other__photo">
+                <Image
+                  src={images[o.image].src}
+                  alt=""
+                  widths={[400, 800]}
+                  sizes="(min-width: 980px) 380px, 100vw"
+                  style={`object-position: ${o.focus}`}
+                />
+              </span>
+              <span class="other__row">
+                <span class="other__name">{o.name}</span>
+                <span class="other__meta">
+                  {o.price} · {o.time}
+                </span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <div style="height: var(--section)"></div>
+  <CtaBand />
+</Base>
+
+<style>
+  .detail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 48px clamp(36px, 5vw, 72px);
+    padding-block: clamp(20px, 3vw, 36px) var(--section);
+  }
+
+  .detail__text {
+    flex: 1 1 520px;
+    min-width: 0;
+  }
+
+  .detail__aside {
+    flex: 1 1 380px;
+    min-width: 0;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .detail__aside :global(.detail__photo) {
+    width: 100%;
+    height: clamp(360px, 44vw, 520px);
+    object-fit: cover;
+  }
+
+  .detail__book {
+    position: relative;
+    margin: -90px clamp(12px, 2vw, 24px) 0;
+    padding: clamp(22px, 3vw, 30px) clamp(20px, 3vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .detail__price {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .detail__price span {
+    font-family: var(--serif);
+    font-size: clamp(44px, 5vw, 56px);
+    line-height: 1;
+    color: var(--bronze);
+  }
+
+  .detail__price small {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .detail__where {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 16px;
+    color: var(--text);
+  }
+
+  .tabs {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tabs__bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 34px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tabs__bar button {
+    min-height: 52px;
+    padding: 0 0 10px;
+    margin-bottom: -1px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    font-family: var(--serif);
+    font-size: clamp(21px, 2.2vw, 26px);
+    color: var(--muted);
+  }
+
+  .tabs__bar button[aria-selected='true'] {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  .tabs__panel {
+    min-height: 190px;
+  }
+
+  .rituals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 20px;
+  }
+
+  .ritual {
+    scroll-margin-top: 24px;
+    padding: 28px;
+    background: var(--cream);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--text);
+  }
+
+  .ritual__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 14px;
+    flex-wrap: wrap;
+    color: var(--ink);
+  }
+
+  .ritual__head h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 1.05;
+  }
+
+  .ritual__head span {
+    flex: none;
+    font-family: var(--serif);
+    font-size: 24px;
+    color: var(--bronze);
+    text-align: right;
+  }
+
+  .ritual__time {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .expect {
+    counter-reset: step;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
+    gap: 28px;
+  }
+
+  .expect li {
+    counter-increment: step;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--text-strong);
+  }
+
+  .expect li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--serif);
+    font-size: 40px;
+    line-height: 1;
+    color: var(--bronze);
+  }
+
+  .expect h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 26px;
+    color: var(--ink);
+  }
+
+  .extra {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 48px clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+
+  .visit-note {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: 20px clamp(40px, 6vw, 80px);
+    padding-bottom: var(--section);
+  }
+
+  .others__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px 40px;
+  }
+
+  .others {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 28px;
+  }
+
+  .other {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+  }
+
+  .other__photo {
+    display: block;
+    height: 300px;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .other__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .other:hover .other__photo :global(img) {
+    transform: scale(1.04);
+  }
+
+  .other__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .other__name {
+    font-family: var(--serif);
+    font-size: 28px;
+    line-height: 1.05;
+  }
+
+  .other__meta {
+    flex: none;
+    font-size: 15px;
+    color: var(--text);
+  }
+</style>
+
+<script>
+  // Tabs. All three lists are in the HTML; without this script the first one shows.
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+
+    function select(index: number, focus = false) {
+      tabs.forEach((t, i) => {
+        t.setAttribute('aria-selected', String(i === index));
+        t.tabIndex = i === index ? 0 : -1;
+      });
+      panels.forEach((p, i) => (p.hidden = i !== index));
+      if (focus) tabs[index].focus();
+    }
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') select((i + 1) % tabs.length, true);
+        if (e.key === 'ArrowLeft') select((i - 1 + tabs.length) % tabs.length, true);
+      });
+    });
+  });
+</script>
