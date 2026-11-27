@@ -58,4 +58,5 @@ The post page, the journal list, the sitemap and the post's structured data are 
 - **All content stays in the HTML.** The facial picker, tabs and FAQ lists only show or hide content that is already on the page, so search engines and AI tools can read everything.
 - **FAQ structured data is generated from the visible FAQ text** (`faqJsonLd` in `src/data/faqs.ts`). Don't hand-write it.
 - **`llms.txt` updates itself.** It is built from `site.ts`, `facials.ts`, `faqs.ts` and the journal posts, so changing those is enough.
-- Photos marked "reference photo" in their alt text are stock images, not the studio. Replace them with real studio photos when available.
+- Every photo except the cover portrait is a stock photo, marked "reference photo" in its alt text. Credits are in `src/data/images.ts`. Replace them with real studio photos when available.
+- Service names, prices, lengths, deposits and included steps come from GlossGenius. The descriptions around them are written for this site.

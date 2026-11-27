@@ -1,8 +1,12 @@
 // The service menu.
 //
 // SOURCE OF TRUTH: the GlossGenius booking menu at https://goldenstateglam.glossgenius.com/services
-// Every name, price, length, deposit and description here is taken from it. When the booking menu changes,
-// change this file to match. Don't add services here that can't be booked there.
+// Every service name, price, length, deposit and list of included steps here is taken from it. When the booking
+// menu changes, change this file to match. Don't add services here that can't be booked there.
+//
+// The wording around those facts (lead, intro, what to expect, good to know) is written for this site:
+// plain language, one clear sentence about what the treatment is and who it's for, and the search terms
+// people actually use. Keep it honest. Don't promise results the booking menu doesn't.
 //
 // Last synced with GlossGenius: 2026-11-27.
 
@@ -53,9 +57,9 @@ export interface Service {
   image: ImageKey;
   /** object-position for cropped photos */
   focus: string;
-  /** One-line summary from the booking menu. */
+  /** One sentence: what it is and who it's for. Used on the menu, in search descriptions and in llms.txt. */
   lead: string;
-  /** Further intro paragraphs from the booking menu. */
+  /** One or two short paragraphs: how it works and how it differs from the nearest alternative. */
   intro?: string[];
   includes: string[];
   expect: string[];
@@ -69,8 +73,8 @@ export interface Service {
 }
 
 const peelAftercare =
-  'Stop retinol and exfoliating acids five days before your visit. Afterward, avoid sun, heavy sweating, and picking for a week, and wear sunscreen every day.';
-const peelNotFor = 'Not suitable during pregnancy, on sunburned skin, or within six months of isotretinoin.';
+  'Stop retinol and exfoliating acids five days before your visit. Afterward, stay out of the sun, skip heavy workouts, don’t pick at flaking skin for a week, and wear sunscreen every day.';
+const peelNotFor = 'Not suitable during pregnancy, on sunburned skin, or within six months of taking isotretinoin.';
 
 export const services: Service[] = [
   // ---- Signature & Deep Cleansing
@@ -84,10 +88,11 @@ export const services: Service[] = [
     time: '80 min',
     deposit: '$50 deposit',
     image: 'newClient',
-    focus: '50% 45%',
-    lead: 'New to Golden State Glam? Start here.',
+    focus: '50% 40%',
+    lead: 'The first-visit facial: a skin consultation and a full custom facial in one 80-minute appointment.',
     intro: [
-      'We begin with a short consultation and a close look at your skin. Then you get a full facial built around what your skin needs that day.',
+      'Not sure what your skin needs? That’s what this visit is for. We look closely at your skin, ask about your routine, and build the facial around what we find.',
+      'It’s a complete facial, not a trial. You leave with clean, hydrated skin and a simple plan to follow at home.',
     ],
     includes: [
       'Consultation and skin assessment',
@@ -100,13 +105,13 @@ export const services: Service[] = [
     ],
     expect: [
       'Clean, soft, hydrated skin the same day, with no downtime.',
-      'You leave knowing which facial fits you best and how often to come.',
+      'A clear recommendation for which facial to book next, and how often to come.',
     ],
     goodToKnow: [
-      'Come with or without makeup.',
+      'Come with or without makeup. The double cleanse takes care of it.',
       'When you book, tell us about any allergies, prescriptions, or recent skin treatments.',
     ],
-    bestFor: 'first visits, and anyone not sure which facial to choose',
+    bestFor: 'first visits, and anyone who isn’t sure which facial to choose',
     need: 'A first visit',
     tag: 'Start here',
   },
@@ -121,7 +126,11 @@ export const services: Service[] = [
     deposit: '$50 deposit for new clients',
     image: 'facialMask',
     focus: '32% 50%',
-    lead: 'Our signature facial for deeply clean, refreshed skin.',
+    lead: 'A 90-minute deep cleansing facial with extractions, for clogged pores, blackheads and dull skin.',
+    intro: [
+      'This is our most thorough clean. Exfoliation loosens what’s sitting in your pores, extractions clear it out, and a targeted mask calms everything down.',
+      'Hydrodermabrasion is added when it suits your skin. It’s a gentle, water-based exfoliation that lifts dead skin and debris without scrubbing.',
+    ],
     includes: [
       'Double cleanse',
       'Professional exfoliation',
@@ -132,14 +141,15 @@ export const services: Service[] = [
       'Hydration with SPF',
     ],
     expect: [
-      'Clearer, smoother, brighter looking skin after the first visit.',
-      'Slight redness after extractions usually fades within a few hours.',
+      'Clearer, smoother, brighter-looking skin after the first visit.',
+      'Slight redness after extractions is normal. It usually fades within a few hours.',
     ],
     goodToKnow: [
       'Skip retinol and exfoliating acids for three days before your visit.',
-      'Most clients return every four to six weeks.',
+      'Most clients come back every four to six weeks.',
+      'Planning to come regularly? The three and six-session packages are built on this facial.',
     ],
-    bestFor: 'congested pores, blackheads, oily skin, and uneven texture',
+    bestFor: 'clogged pores, blackheads, oily skin, and uneven texture',
     need: 'A deep clean',
     tag: 'Deep clean',
   },
@@ -153,8 +163,12 @@ export const services: Service[] = [
     time: '75 min',
     deposit: '$50 deposit for new clients',
     image: 'clearSkin',
-    focus: '50% 35%',
-    lead: 'A facial for breakouts and congestion.',
+    focus: '45% 45%',
+    lead: 'An acne facial for breakouts, blackheads and congested skin, with gentle extractions and a calming mask.',
+    intro: [
+      'Built for skin that breaks out. We clear congestion without stripping or over-drying your skin, then calm the redness.',
+      'It’s gentler than the Signature Deep Cleanse and more focused on breakouts. LED light is added when it fits your skin, and you leave with a simple routine for home.',
+    ],
     includes: [
       'Skin assessment',
       'Deep cleanse',
@@ -165,15 +179,15 @@ export const services: Service[] = [
       'A simple home routine',
     ],
     expect: [
-      'Less visible congestion and calmer looking skin after the first visit.',
-      'Some redness after extractions is normal and settles within a day.',
+      'Less visible congestion and calmer-looking skin after the first visit.',
+      'Some redness after extractions is normal. It settles within a day.',
     ],
     goodToKnow: [
-      'Breakout prone skin responds best to a series. Most clients start with six visits, two weeks apart.',
-      'This is a cosmetic treatment, and severe or painful acne is best seen by a dermatologist first.',
+      'Breakout-prone skin responds best to a series. Most clients start with six visits, two weeks apart.',
+      'This is a cosmetic treatment. Severe or painful acne is best seen by a dermatologist first.',
       'Tell us if you use prescription acne medication.',
     ],
-    bestFor: 'oily, congested, and breakout prone skin',
+    bestFor: 'oily, congested, and breakout-prone skin',
     need: 'Clearer skin',
     tag: 'Breakouts',
   },
@@ -187,8 +201,12 @@ export const services: Service[] = [
     time: '90 min',
     deposit: '$80 deposit for new clients',
     image: 'mensFacial',
-    focus: '60% 40%',
-    lead: 'A no fuss facial made for men’s skin.',
+    focus: '50% 28%',
+    lead: 'A deep cleansing facial for men, with extra care for the beard and shaving areas.',
+    intro: [
+      'Men’s skin tends to be thicker and oilier, and shaving adds irritation on top. This facial clears clogged pores and gives extra attention to the places where razor bumps show up.',
+      'Never had a facial? This is an easy one to start with. Ninety minutes, no fuss.',
+    ],
     includes: [
       'Double cleanse',
       'Exfoliation',
@@ -197,7 +215,10 @@ export const services: Service[] = [
       'Hydration with SPF',
       'Extra attention to the beard and shaving areas',
     ],
-    expect: ['Skin looks cleaner and feels calmer.', 'Mild redness after extractions fades within a few hours.'],
+    expect: [
+      'Skin that looks cleaner and feels calmer.',
+      'Mild redness after extractions is normal. It fades within a few hours.',
+    ],
     goodToKnow: ['Shave the day before, not the morning of your visit.', 'Beards are welcome.'],
     bestFor: 'clogged pores, razor irritation, and a first facial',
     need: 'Something for men',
@@ -215,8 +236,12 @@ export const services: Service[] = [
     time: '75 min',
     deposit: '$50 deposit for new clients',
     image: 'glassSkin',
-    focus: '60% 40%',
-    lead: 'A hydration focused facial for a smooth, dewy finish.',
+    focus: '50% 30%',
+    lead: 'A hydrating facial that layers serums for smooth, dewy, glass-like skin.',
+    intro: [
+      '“Glass skin” is the Korean skincare term for skin so hydrated it looks smooth and reflective. This facial gets you there by layering lightweight hydrating serums, not by using strong exfoliants.',
+      'Choose it when your skin feels tight, flaky or tired.',
+    ],
     includes: [
       'Cleanse',
       'Gentle exfoliation',
@@ -225,12 +250,9 @@ export const services: Service[] = [
       'A nourishing mask',
       'Moisturizer with SPF',
     ],
-    expect: [
-      'Plump, luminous skin the same day.',
-      'Nothing harsh is used, so there is no redness and no downtime.',
-    ],
+    expect: ['Plump, luminous skin the same day.', 'Nothing harsh is used, so there’s no redness and no downtime.'],
     goodToKnow: ['Gentle enough for sensitive skin.', 'A good choice in winter, after travel, or before photos.'],
-    bestFor: 'dull, dehydrated, or rough feeling skin',
+    bestFor: 'dull, dehydrated, or rough-feeling skin',
     need: 'Glow and hydration',
     tag: 'Glow',
   },
@@ -245,7 +267,11 @@ export const services: Service[] = [
     deposit: '$50 deposit for new clients',
     image: 'glowHands',
     focus: '55% 25%',
-    lead: 'A firming facial for skin that has lost some bounce.',
+    lead: 'A firming facial with peptides, lifting massage and LED light, for skin that’s lost some bounce.',
+    intro: [
+      'A facial for fine lines and skin that looks tired. An enzyme exfoliation clears the surface, then a peptide treatment and a firming mask do the skincare work.',
+      'The lifting massage and LED light finish the job. No needles, no downtime.',
+    ],
     includes: [
       'Cleanse',
       'Enzyme exfoliation',
@@ -255,8 +281,8 @@ export const services: Service[] = [
       'A firming mask',
       'SPF',
     ],
-    expect: ['Skin looks tighter and more awake the same day.', 'The effect builds with regular visits.'],
-    goodToKnow: ['No needles and no downtime.', 'Book it three to five days before an event.'],
+    expect: ['Skin that looks tighter and more awake the same day.', 'The effect builds with regular visits.'],
+    goodToKnow: ['No needles and no downtime.', 'For an event, book it three to five days ahead.'],
     bestFor: 'fine lines, dullness, and early signs of aging',
     need: 'A lift',
     tag: 'Firming',
@@ -272,9 +298,10 @@ export const services: Service[] = [
     deposit: '$50 deposit',
     image: 'facialSculpt',
     focus: '60% 40%',
-    lead: 'Relax, refresh, and rediscover your natural glow.',
+    lead: 'A 70-minute hands-on facial massage that eases puffiness and facial tension.',
     intro: [
-      'A relaxing hands-on facial experience combining gentle lymphatic-style massage and customized facial sculpting techniques.',
+      'Slow, light massage strokes follow the natural drainage paths of your face and neck. Sculpting techniques then work along the jaw, cheeks and brow, chosen for your face.',
+      'It’s the most massage-focused treatment on the menu. There’s a gentle cleanse and moisturizer, and no extractions or peels.',
     ],
     includes: [
       'Gentle cleansing',
@@ -284,10 +311,14 @@ export const services: Service[] = [
       'A calming finishing ritual',
     ],
     expect: [
-      'This treatment focuses on releasing the feeling of facial tension, temporarily reducing the appearance of puffiness, and promoting a refreshed, well-rested look.',
+      'A face that looks less puffy, feels lighter, and looks well rested.',
+      'The de-puffing effect is temporary.',
     ],
-    goodToKnow: ['Not a medical lymphatic drainage treatment or a permanent facial lifting procedure.'],
-    bestFor: 'facial puffiness, tension, stress, and clients who enjoy hands-on facial massage',
+    goodToKnow: [
+      'This is a cosmetic facial massage. It isn’t medical lymphatic drainage or a permanent lift.',
+      'Want gua sha tools and shoulder massage too? See the Sculpt & Drain Facial.',
+    ],
+    bestFor: 'facial puffiness, tension, stress, and anyone who loves a hands-on facial massage',
   },
   {
     slug: 'deep-relax-sleep-ritual',
@@ -300,9 +331,10 @@ export const services: Service[] = [
     deposit: '$80 deposit for new clients',
     image: 'facialMassage',
     focus: '50% 45%',
-    lead: 'A deeply immersive relaxation experience designed to calm your body and mind.',
+    lead: 'A relaxation facial with face, scalp, neck and shoulder massage and a guided sleep meditation.',
     intro: [
-      'This signature ritual releases tension, soothes the nervous system, and gently guides you into a peaceful, sleep-like state. If you’re stressed, this is your reset.',
+      'This one is about switching off. Slow massage moves from your face to your scalp, neck, shoulders, hands and ears, with warm towels and aromatherapy throughout.',
+      'A guided sleep meditation and soft sound therapy play while you rest under a firming mask. It’s fine to fall asleep. That’s the idea.',
     ],
     includes: [
       'Gentle cleansing',
@@ -312,14 +344,15 @@ export const services: Service[] = [
       'Hand and ear massage',
       'Warm towels and aromatherapy',
       'A firming face mask',
+      'Guided sleep meditation with soft sound therapy',
     ],
-    expect: [
-      'Guided sleep meditation with soft sound therapy and high-vibration music helps your mind fully disconnect and enter a deep state of rest.',
-      'You feel relaxed, recharged, and restored with a deep sense of calm.',
+    expect: ['Deep calm, looser shoulders, and a rested face.', 'You leave feeling recharged, like after a good nap.'],
+    goodToKnow: [
+      'This is a relaxation ritual first and a skin treatment second.',
+      'It isn’t a medical treatment for stress, anxiety or sleep problems.',
     ],
-    goodToKnow: ['More than a facial: it’s your escape from stress and a reset for your entire body.'],
     bestFor:
-      'feeling tired or overwhelmed, stress or anxiety, tension in the face, neck, or shoulders, and anyone who struggles to relax',
+      'stress, tiredness, tension in the face, neck or shoulders, and anyone who finds it hard to switch off',
     need: 'Pure relaxation',
     tag: 'Relax',
   },
@@ -333,10 +366,11 @@ export const services: Service[] = [
     time: '80 min',
     deposit: '$50 deposit for new clients',
     image: 'facialHands',
-    focus: '50% 40%',
-    lead: 'A luxurious approach to smoother, firmer-looking, radiant skin.',
+    focus: '50% 30%',
+    lead: 'An 80-minute facial for dry or mature skin, with peptide skincare, a nourishing mask and facial massage.',
     intro: [
-      'This personalized facial is created to address the visible appearance of dryness, fine lines, dullness, and loss of skin suppleness.',
+      'For skin that looks dull, dry, or less firm than it used to. Gentle exfoliation clears the surface, then peptide-rich products and a nourishing mask put moisture back.',
+      'The steps are chosen for your skin on the day, so your facial may include some or all of the ones listed.',
     ],
     includes: [
       'Gentle exfoliation',
@@ -345,11 +379,9 @@ export const services: Service[] = [
       'Relaxing facial massage',
       'Hydrating finishing products',
     ],
-    expect: [
-      'Each step is selected to support moisture retention and enhance the appearance of smoother, more refreshed skin.',
-    ],
-    goodToKnow: ['Your experience may include any of the steps listed, chosen for your skin.'],
-    bestFor: 'mature skin, visible fine lines, dullness, and loss of radiance',
+    expect: ['Skin that looks smoother, plumper and more radiant.', 'Skin that feels comfortable and holds moisture better.'],
+    goodToKnow: ['Your facial is personalized, so it may include some or all of the steps listed.'],
+    bestFor: 'mature skin, visible fine lines, dryness, and loss of radiance',
   },
   {
     slug: 'sculpt-drain-facial',
@@ -361,13 +393,17 @@ export const services: Service[] = [
     time: '60 min',
     deposit: '$50 deposit',
     image: 'sculptDrain',
-    focus: '50% 40%',
-    lead: 'A hands on facial built around massage.',
+    focus: '50% 30%',
+    lead: 'A 60-minute gua sha and lymphatic massage facial for puffiness, tension and a more defined jawline.',
+    intro: [
+      'Gua sha is a smooth stone tool that glides over the skin to move fluid and release tight facial muscles. Here it’s paired with lymphatic-style massage for your face, neck and shoulders.',
+      'Warm towels start the visit and a cooling mask ends it.',
+    ],
     includes: [
       'Warm towels',
       'Cleanse',
       'Gua sha',
-      'Lymphatic style massage for the face, neck, and shoulders',
+      'Lymphatic-style massage for the face, neck, and shoulders',
       'A cooling mask',
       'SPF',
     ],
@@ -394,8 +430,12 @@ export const services: Service[] = [
     time: '60 min',
     deposit: '$50 deposit for new clients',
     image: 'backReset',
-    focus: '50% 50%',
-    lead: 'The same care as a facial, for your back.',
+    focus: '50% 45%',
+    lead: 'A back facial: deep cleansing, extractions and a purifying mask for back acne and clogged pores.',
+    intro: [
+      'Your back is hard to reach and quick to break out. This treatment gives it the same steps your face gets in a facial.',
+      'An enzyme or light peel and steam soften the skin before extractions. High frequency or LED light and a purifying mask follow, to help calm things down.',
+    ],
     includes: [
       'Deep cleanse',
       'An enzyme or light peel',
@@ -405,11 +445,11 @@ export const services: Service[] = [
       'A purifying mask',
       'Hydration',
     ],
-    expect: ['Skin feels smoother and looks clearer.', 'Mild redness can last a few hours.'],
+    expect: ['Skin that feels smoother and looks clearer.', 'Mild redness can last a few hours.'],
     goodToKnow: [
       'Wear a loose top to your appointment.',
       'Skip heavy workouts and hot showers for the rest of the day.',
-      'Book one to two weeks before a wedding or vacation.',
+      'For a wedding or vacation, book it one to two weeks ahead.',
     ],
     bestFor: 'back breakouts, clogged pores, and rough texture',
   },
@@ -425,8 +465,12 @@ export const services: Service[] = [
     time: '45 min',
     deposit: '$50 deposit for new clients',
     image: 'chemicalPeel',
-    focus: '50% 40%',
-    lead: 'A professional peel that lifts away the dull outer layer of skin.',
+    focus: '50% 55%',
+    lead: 'A professional chemical peel that lifts away dull surface skin for a smoother, more even tone.',
+    intro: [
+      'A peel uses skincare acids to loosen the dull top layer of skin so fresher skin shows through. We look at your skin first, then choose the peel that suits it.',
+      'New to peels? Start here. For stubborn dark spots or texture, the Advanced Italian Skin Renewal goes further.',
+    ],
     includes: [
       'Skin assessment',
       'Cleanse and prep',
@@ -437,7 +481,7 @@ export const services: Service[] = [
     ],
     expect: [
       'Light tingling during the peel.',
-      'Mild flaking for two to five days, then smoother and more even looking skin.',
+      'Mild flaking for two to five days, then smoother and more even-looking skin.',
     ],
     goodToKnow: [peelAftercare, peelNotFor],
     bestFor: 'dullness, uneven tone, fine lines, and marks left by breakouts',
@@ -454,8 +498,12 @@ export const services: Service[] = [
     time: '80 min',
     deposit: '$80 deposit for new clients',
     image: 'italianPeel',
-    focus: '50% 40%',
-    lead: 'A step up from a standard peel, using a professional Italian peeling system.',
+    focus: '50% 65%',
+    lead: 'A stronger professional peel, with four Italian formulas for dark spots, texture, aging skin or body areas.',
+    intro: [
+      'This is a step up from a standard chemical peel. Each of the four formulas targets a different concern, and we assess your skin before choosing one.',
+      'Expect more flaking than a standard peel, and a bigger change in tone and texture once it settles.',
+    ],
     includes: [
       'Skin assessment',
       'Cleanse and prep',
@@ -469,7 +517,7 @@ export const services: Service[] = [
       'Flaking for three to seven days, then a visibly more even tone and smoother texture.',
     ],
     goodToKnow: [
-      'If you are new to peels, we start with a facial or a Chemical Peel first.',
+      'New to peels? We start you with a facial or a Chemical Peel first.',
       peelAftercare,
       peelNotFor,
     ],
@@ -477,23 +525,23 @@ export const services: Service[] = [
     options: [
       {
         name: 'Radiance Brightening Peel',
-        desc: 'Reveal a brighter, more even-looking complexion. Radiance is a specialized professional peeling formulation combining exfoliating and brightening ingredients, including azelaic acid, azeloglycine, encapsulated retinol, and resorcinol. Developed for concerns involving uneven skin tone, visible discoloration, and signs of photoaging.',
-        bestFor: 'uneven-looking pigmentation, dullness, visible dark spots, and signs of sun-related skin aging',
+        desc: 'The brightening peel. It combines azelaic acid, azeloglycine, encapsulated retinol and resorcinol to exfoliate and brighten, for a more even-looking complexion.',
+        bestFor: 'dark spots, uneven-looking pigmentation, dullness, and signs of sun damage',
       },
       {
         name: 'Restructa Skin Texture & Clarity',
-        desc: 'Refine your texture. Reveal your natural glow. Restructa is an advanced professional peel formulated with lactic, mandelic, shikimic, and pyruvic acids, combined with skin-conditioning ingredients. Designed to improve the appearance of rough skin texture, visible congestion, enlarged-looking pores, and dullness.',
+        desc: 'The texture peel. Lactic, mandelic, shikimic and pyruvic acids smooth rough skin and reduce the look of congestion, enlarged pores and dullness.',
         bestFor: 'oily, combination, congested, and uneven-looking skin',
       },
       {
         name: 'Juvena Advanced Age-Defying Renewal',
-        desc: 'Advanced skin renewal for a smoother, more youthful-looking complexion. Juvena is an intensive professional peeling formulation combining trichloroacetic acid (TCA), retinol, exfoliating acids, PDRN, and peptides. Developed for mature and photoaged skin, it is intended to improve the appearance of rough texture, fine lines, and uneven skin tone.',
-        bestFor: 'mature, photoaged, and uneven-textured skin following professional assessment',
+        desc: 'The most intensive face peel of the four. It combines TCA (trichloroacetic acid), retinol, exfoliating acids, PDRN and peptides to improve the look of rough texture, fine lines and uneven tone.',
+        bestFor: 'mature and sun-damaged skin with uneven texture, after a professional assessment',
       },
       {
         name: 'Intima Specialized Body Brightening Peel',
-        desc: 'Targeted care for a more even-looking skin tone. Intima is a specialized Dermoaroma peeling formulation developed for selected areas of the body affected by visible discoloration and uneven skin tone. Its formula combines TCA with selected exfoliating and brightening ingredients. Designed for localized cosmetic concerns, including areas such as the underarms, elbows, and knees.',
-        bestFor: 'localized uneven skin tone and visible body pigmentation, following professional evaluation',
+        desc: 'A body peel for small areas where the skin looks darker or uneven, such as the underarms, elbows and knees. It combines TCA with exfoliating and brightening ingredients.',
+        bestFor: 'uneven tone and visible pigmentation on small areas of the body, after a professional assessment',
       },
     ],
   },
@@ -508,9 +556,10 @@ export const services: Service[] = [
     deposit: '$80 deposit for new clients',
     image: 'exopeel',
     focus: '50% 50%',
-    lead: 'Our most advanced peel.',
+    lead: 'Our most advanced peel: a 105-minute skin resurfacing treatment for tone, texture and fine lines.',
     intro: [
-      'Exopeel is a professional peel from Europe designed to renew the surface of the skin. Every treatment starts with a skin assessment, so the protocol is chosen for your skin alone.',
+      'Exopeel is a professional peel system from Europe that renews the surface of the skin. Every treatment starts with a skin assessment, and the protocol is chosen for your skin alone.',
+      'It asks more of your skin than our other peels, so plan for a few days of recovery.',
     ],
     includes: [
       'Skin assessment',
@@ -530,7 +579,7 @@ export const services: Service[] = [
       peelAftercare,
       peelNotFor,
     ],
-    bestFor: 'clients who want a visible change in tone and texture and can plan for a few days of recovery',
+    bestFor: 'anyone who wants a visible change in tone and texture and can plan for a few days of recovery',
   },
 
   // ---- Advanced treatments (no category on the booking menu)
@@ -544,25 +593,29 @@ export const services: Service[] = [
     time: '90 min',
     image: 'exosome',
     focus: '50% 40%',
-    lead: 'Next-level skin regeneration for a visible, radiant glow.',
+    lead: 'An exosome infusion with microneedling and LED light, for smoother, firmer, brighter-looking skin.',
     intro: [
-      'A luxury facial powered by advanced exosome technology to repair, strengthen, and rejuvenate your skin at a cellular level.',
+      'Exosomes are tiny messenger particles used in skincare to support the skin’s own renewal. Here they’re infused into freshly prepped skin, then followed by LED light and a hydrating jelly mask.',
+      'You also get a deep cleanse and a face and scalp massage, so it still feels like a facial.',
     ],
     includes: [
       'Deep cleanse and gentle exfoliation',
       'Hydro or deep pore cleansing, if needed',
       'Advanced exosome infusion with targeted delivery',
       'Relaxing facial and scalp massage',
-      'LED light therapy to enhance results',
+      'LED light therapy',
       'A hydrating jelly mask',
-      'Finishing skincare and SPF protection',
+      'Finishing skincare and SPF',
     ],
     expect: [
-      'Your skin looks smoother, firmer, and visibly more radiant, with a healthy glow that comes from within.',
+      'Skin that looks smoother, firmer and more radiant.',
+      'Better-looking texture, tone and elasticity, with softer-looking fine lines and less of that tired look.',
     ],
     goodToKnow: [
-      'What it does: boosts collagen and skin renewal, improves texture, tone, and elasticity, reduces fine lines and signs of fatigue, enhances hydration and natural glow, and strengthens overall skin health.',
+      'Tell us about any recent skin treatments, prescriptions or allergies when you book.',
+      'Want the longer session with numbing? See Microneedling.',
     ],
+    bestFor: 'fine lines, dull or tired-looking skin, and uneven texture or tone',
   },
   {
     slug: 'microneedling',
@@ -574,10 +627,11 @@ export const services: Service[] = [
     time: '120 min',
     deposit: '$80 deposit for new clients',
     image: 'microneedling',
-    focus: '50% 45%',
-    lead: 'A premium skin renewal treatment that combines advanced microneedling with exosome, collagen or peptides therapy.',
+    focus: '45% 45%',
+    lead: 'A two-hour microneedling treatment with numbing, an exosome infusion and LED light, for texture, pores and acne scars.',
     intro: [
-      'Advanced microneedling combined with exosome therapy to boost collagen, accelerate skin repair, and deliver smoother, firmer, and more radiant skin.',
+      'Microneedling uses very fine needles to make tiny channels in the skin. That prompts the skin to renew itself and helps serums sink in.',
+      'This is the full session. Numbing comes first, then a treatment tailored to your skin with exosome, collagen or peptide therapy. A calming mask, facial massage and LED light finish the visit.',
     ],
     includes: [
       'Cleansing and skin preparation',
@@ -590,8 +644,16 @@ export const services: Service[] = [
       'LED therapy',
       'Finishing skincare',
     ],
-    expect: ['Refined texture, reduced fine lines and acne scars, minimized pores, improved tone, and a healthy glow.'],
-    goodToKnow: ['Suitable for all skin types.'],
+    expect: [
+      'Smoother texture, smaller-looking pores, a more even tone, and softer-looking fine lines and acne scars.',
+      'A healthy glow once the skin settles.',
+    ],
+    goodToKnow: [
+      'Suitable for all skin types.',
+      'Numbing is applied first to keep you comfortable.',
+      'Tell us about any recent skin treatments, prescriptions or allergies when you book.',
+    ],
+    bestFor: 'rough texture, enlarged pores, acne scars, and fine lines',
   },
 ];
 
@@ -615,7 +677,7 @@ export const packages: Package[] = [
     name: 'Signature Skin Refresh: 3 Sessions',
     price: '$510',
     sessions: 'Three 90-minute treatments',
-    desc: 'Consistency is the foundation of beautiful skin. Enjoy three Signature Deep Cleanse Facials, each tailored to your skin’s needs: professional cleansing, gentle exfoliation, extractions when appropriate, customized masks, and hydration. Perfect for maintaining clearer-looking, smoother, refreshed skin.',
+    desc: 'Three Signature Deep Cleanse facials, paid for up front at a lower price. Each visit is tailored to your skin that day: professional cleansing, gentle exfoliation, extractions when appropriate, a customized mask, and hydration. A good fit if you want clearer, smoother skin and know you’ll come back.',
     value: 'Regular value $540. You save $30.',
     image: 'package3',
   },
@@ -624,7 +686,7 @@ export const packages: Package[] = [
     name: 'Signature Skin Maintenance: 6 Sessions',
     price: '$990',
     sessions: 'Six 90-minute treatments',
-    desc: 'Make professional skincare part of your long-term routine. A six-session series of our Signature Deep Cleanse Facial, customized at every visit to manage visible congestion, maintain hydration, and support a refreshed complexion, with skincare guidance throughout your program.',
+    desc: 'Six Signature Deep Cleanse facials for skin that needs steady care. Every visit is adjusted to how your skin is doing, to keep congestion under control and hydration up, with skincare guidance along the way. The best value if facials are part of your routine.',
     value: 'Regular value $1,080. You save $90.',
     image: 'package6',
   },
@@ -637,19 +699,19 @@ export const packageTerms =
 export const packageAddOns = [
   {
     name: 'LED Light Therapy',
-    desc: 'Add noninvasive LED light therapy to complement your facial and support a refreshed, healthy-looking complexion.',
+    desc: 'Non-invasive LED light added to your facial, for a refreshed, healthy-looking complexion.',
   },
   {
     name: 'Extra Hydrating Mask',
-    desc: 'A customized moisture-rich treatment mask to give dry or dehydrated skin an extra boost of comfort.',
+    desc: 'A moisture-rich mask chosen for your skin, for extra comfort when it’s dry or dehydrated.',
   },
   {
     name: 'Extended Facial Massage',
-    desc: 'Enjoy 15 additional minutes of relaxing facial massage to help release tension and enhance your treatment experience.',
+    desc: 'Fifteen more minutes of facial massage to release tension.',
   },
   {
     name: 'Gentle Lip & Eye Care',
-    desc: 'A targeted moisturizing treatment for the delicate lip and eye areas, designed to leave the skin feeling softer and more comfortable.',
+    desc: 'A moisturizing treatment for the delicate lip and eye areas that leaves them softer and more comfortable.',
   },
 ];
 export const packageAddOnNote = 'Add-ons are selected according to individual skin needs and treatment compatibility.';
@@ -692,7 +754,7 @@ export interface GalleryItem {
 
 // The picker's info card covers the lower part of each photo, so a few facials use a photo with the subject up top.
 const galleryPhoto: Record<string, { image: ImageKey; focus: string }> = {
-  'new-client-signature': { image: 'facialHands', focus: '50% 40%' },
+  'new-client-signature': { image: 'facialHands', focus: '50% 15%' },
   'deep-relax-sleep-ritual': { image: 'facialSculpt', focus: '60% 30%' },
 };
 

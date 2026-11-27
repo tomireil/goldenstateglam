@@ -9,39 +9,59 @@ import facialSculpt from '../assets/facial-sculpt.jpg';
 import facialMassage from '../assets/facial-massage.jpg';
 import glowHands from '../assets/glow-hands.jpg';
 import studioCover from '../assets/studio-cover.jpg';
-import newClient from '../assets/gg-new-client.jpg';
-import clearSkin from '../assets/gg-clear-skin.jpg';
-import sculptDrain from '../assets/gg-sculpt-drain.jpg';
-import backReset from '../assets/gg-back-reset.jpg';
-import chemicalPeel from '../assets/gg-chemical-peel.jpg';
-import italianPeel from '../assets/gg-italian-peel.jpg';
-import exopeel from '../assets/gg-exopeel.jpg';
-import exosome from '../assets/gg-exosome.jpg';
-import microneedling from '../assets/gg-microneedling.jpg';
-import package3 from '../assets/gg-package-3.jpg';
-import package6 from '../assets/gg-package-6.jpg';
+import firstVisit from '../assets/first-visit.jpg';
+import deepCleanseFoam from '../assets/deep-cleanse-foam.jpg';
+import guaSha from '../assets/gua-sha.jpg';
+import backTreatment from '../assets/back-treatment.jpg';
+import peelBrush from '../assets/peel-brush.jpg';
+import goldMask from '../assets/gold-mask.jpg';
+import serumBottle from '../assets/serum-bottle.jpg';
+import serumDropper from '../assets/serum-dropper.jpg';
+import microneedling from '../assets/microneedling.jpg';
+import maskApply from '../assets/mask-apply.jpg';
+import rolledTowels from '../assets/rolled-towels.jpg';
 
-// Alt text is honest about which photos are reference shots and which come from the studio's booking menu.
+// Every photo here except studio-cover.jpg is a stock photo, and the alt text says so.
+// Swap in real photos of the studio and of Veronika at work when they exist: replace the file, then fix the alt text.
 //
-// Files starting with "gg-" are the photos shown for that service on the GlossGenius booking menu.
-// Three booking-menu photos were too small to use at full size (Lift & Firm, Lymphatic Drainage, Deep Relax),
-// and the Signature Deep Cleanse photo there carries a stock-site watermark, so those four use other photos.
-//
-// Stock photo credits (Unsplash License, free for commercial use, no attribution required):
-//   still-life.jpg      Mediamodifier   https://unsplash.com/photos/reed-diffuser-with-candles-and-towel-W7AyAs7azHc
-//   facial-massage.jpg  Anna Keibalo    https://unsplash.com/s/photos/facial-massage (photo-1706795033728-9232ef548a16)
-//   glow-hands.jpg      Dominique Rivas https://unsplash.com/s/photos/facial-massage (photo-1643684391140-c5056cfd3436)
-const fromMenu = 'From the studio’s booking menu.';
+// Credits (Unsplash License, free for commercial use, no attribution required):
+//   still-life.jpg        Mediamodifier     https://unsplash.com/photos/reed-diffuser-with-candles-and-towel-W7AyAs7azHc
+//   facial-massage.jpg    Anna Keibalo      photo-1706795033728-9232ef548a16
+//   glow-hands.jpg        Dominique Rivas   photo-1643684391140-c5056cfd3436
+//   first-visit.jpg       kimia kazemi      https://unsplash.com/photos/a-woman-getting-a-facial-mask-on-her-face-u93nTfWqR9w
+//   deep-cleanse-foam.jpg kimia kazemi      https://unsplash.com/photos/womans-face-with-cleansing-foam-during-facial-treatment-J6Hg_YH2tFk
+//   peel-brush.jpg        kimia kazemi      https://unsplash.com/photos/facial-treatment-with-brush-applying-white-cream-to-face-Xxs9WvkUPLo
+//   gold-mask.jpg         kimia kazemi      https://unsplash.com/photos/beautician-applying-facial-mask-to-womans-face-2OVrIfOXDDY
+//   mask-apply.jpg        kimia kazemi      https://unsplash.com/photos/a-person-receiving-a-facial-treatment-RbIcMsh0NSk
+//   mens-facial.jpg       Emiliano Vittoriosi https://unsplash.com/photos/sleeping-man-while-having-massage-qTu9DppC3mM
+//   glass-skin.jpg        Fleur Kaan        https://unsplash.com/photos/woman-in-white-tank-top-w4Dj3MshHQ0
+//   facial-hands.jpg      Angélica Echeverry https://unsplash.com/photos/person-with-gold-ring-on-neck-5KY5LP_zc44
+//   gua-sha.jpg           Cherrydeck        https://unsplash.com/photos/a-woman-holding-a-green-object-in-her-hand-4p77t8fzGFo
+//   back-treatment.jpg    Jakub Klucký      https://unsplash.com/photos/massage-therapist-giving-a-back-massage-7yeqemd-p90
+//   serum-bottle.jpg      Avtar Singh       https://unsplash.com/photos/amber-glass-dropper-bottle-with-blank-label-on-concrete-block-MkuwnDkT1s0
+//   serum-dropper.jpg     Mathilde Langevin https://unsplash.com/photos/person-holding-black-glass-bottle-FDRaYqiTY1k
+//   microneedling.jpg     Patient Perfect   https://unsplash.com/photos/woman-receiving-microneedling-facial-treatment-2LxO1Wef8wQ
+//                         (glove colour toned down from bright pink to match the site)
+//   rolled-towels.jpg     iridial           https://unsplash.com/photos/stack-of-white-rolled-towels-0Qv4fUvlSrI
 const reference = 'Reference photo, not the Fair Oaks studio.';
 
 export const images: Record<ImageKey, { src: ImageMetadata; alt: string }> = {
-  facialHands: { src: facialHands, alt: `Hands gently cup a person’s jaw and cheeks during a facial. ${fromMenu}` },
+  facialHands: {
+    src: facialHands,
+    alt: `Fingertips rest along a person’s jaw, with glowing skin on the neck and collarbone. ${reference}`,
+  },
   facialMask: {
     src: facialMask,
     alt: `A person reclines with eyes closed while a mask is brushed onto the forehead. ${reference}`,
   },
-  glassSkin: { src: glassSkin, alt: `Close view of dewy, glowing skin along a cheek and jaw. ${fromMenu}` },
-  mensFacial: { src: mensFacial, alt: `A bearded man rests with his eyes closed during a facial. ${fromMenu}` },
+  glassSkin: {
+    src: glassSkin,
+    alt: `A woman with dewy, glowing skin stands in soft sunlight with her eyes closed. ${reference}`,
+  },
+  mensFacial: {
+    src: mensFacial,
+    alt: `A bearded man lies back with his eyes closed while hands massage his forehead. ${reference}`,
+  },
   stillLife: {
     src: stillLife,
     alt: `A rolled white towel, two lit candles and a reed diffuser on a pale surface. ${reference}`,
@@ -60,23 +80,41 @@ export const images: Record<ImageKey, { src: ImageMetadata; alt: string }> = {
     alt: 'The cover portrait from the Golden State Glam booking page: a woman with long blonde hair in a black blazer.',
   },
   newClient: {
-    src: newClient,
-    alt: `A person lies back in a headband while hands rest lightly on their forehead and chin. ${fromMenu}`,
+    src: firstVisit,
+    alt: `An esthetician cups a client’s face in both hands during a facial. ${reference}`,
   },
-  clearSkin: { src: clearSkin, alt: `A young person looks closely at breakouts on their cheek. ${fromMenu}` },
-  sculptDrain: { src: sculptDrain, alt: `Close view of glowing skin along a jaw, neck and collarbone. ${fromMenu}` },
-  backReset: { src: backReset, alt: `Hands smooth a treatment over a person’s back. ${fromMenu}` },
-  chemicalPeel: { src: chemicalPeel, alt: `A peel is brushed onto a person’s cheek. ${fromMenu}` },
+  clearSkin: {
+    src: deepCleanseFoam,
+    alt: `Side view of a person’s face covered in cleansing foam during a facial. ${reference}`,
+  },
+  sculptDrain: {
+    src: guaSha,
+    alt: `A woman with her eyes closed holds a gua sha stone to her cheekbone. ${reference}`,
+  },
+  backReset: { src: backTreatment, alt: `Two hands press into a person’s upper back in warm light. ${reference}` },
+  chemicalPeel: {
+    src: peelBrush,
+    alt: `A soft brush spreads a treatment across a person’s cheek. ${reference}`,
+  },
   italianPeel: {
-    src: italianPeel,
-    alt: `Gloved hands hold a person’s face during a peel treatment. ${fromMenu}`,
+    src: goldMask,
+    alt: `A golden treatment is smoothed along a person’s jaw and chin from a small bowl. ${reference}`,
   },
-  exopeel: { src: exopeel, alt: `Four small Exopeel vials in different colors. ${fromMenu}` },
-  exosome: { src: exosome, alt: `A person touches their smooth, glowing cheek. ${fromMenu}` },
+  exopeel: {
+    src: serumBottle,
+    alt: `An amber glass dropper bottle with a blank label on a pale stone block. ${reference}`,
+  },
+  exosome: {
+    src: serumDropper,
+    alt: `A hand lifts a dropper of serum from a small dark glass bottle. ${reference}`,
+  },
   microneedling: {
     src: microneedling,
-    alt: `A microneedling pen is held against a person’s cheek. ${fromMenu}`,
+    alt: `A microneedling pen is held against a person’s cheek by gloved hands. ${reference}`,
   },
-  package3: { src: package3, alt: `A person rests with a cream mask over their face. ${fromMenu}` },
-  package6: { src: package6, alt: `Gloved hands apply a mask to a person wrapped in a towel. ${fromMenu}` },
+  package3: {
+    src: maskApply,
+    alt: `Gloved hands smooth a cream mask over a person’s chin and jaw. ${reference}`,
+  },
+  package6: { src: rolledTowels, alt: `A stack of rolled white towels on a wooden surface. ${reference}` },
 };
