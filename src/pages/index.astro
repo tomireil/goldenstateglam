@@ -13,18 +13,14 @@ import { priceFrom, priceTo, services } from '../data/facials';
 const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. Facials, peels and skin treatments from ${priceFrom} to ${priceTo} at one studio. Book online.`;
 ---
 
-<Base path="/" jsonLd={[faqJsonLd(homeFaqs)]} description={description}>
+<Base path="/" description={description}>
   <!-- Hero -->
   <section class="wrap hero">
     <div class="hero__text">
       <a class="hero__rating" href={site.reviewsUrl} aria-label="Read the Google reviews"><Stars /></a>
       <h1 class="display h-hero">Personalized facials and skincare in <em>Fair Oaks</em></h1>
-      <p class="lede">
-        Every visit starts with a close look at your skin, then a facial built around what it needs that day.
-      </p>
       <div class="actions">
         <a class="btn btn--lg" href={site.bookingUrl}>Book your facial <Arrow /></a>
-        <a class="link hero__find" href="#facials">Find the right facial for you</a>
       </div>
     </div>
     <div class="hero__art">
@@ -39,19 +35,6 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         loading="eager"
         fetchpriority="high"
       />
-      <Image
-        class="hero__small"
-        src={images.stillLife.src}
-        alt={images.stillLife.alt}
-        widths={[240, 480]}
-        sizes="240px"
-        loading="eager"
-        style="object-position: 50% 82%"
-      />
-      <figure class="hero__quote card">
-        <blockquote>“{reviews[0].text}”</blockquote>
-        <figcaption>{reviews[0].name} · Google</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -62,54 +45,10 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         <p class="eyebrow">The facial menu</p>
         <h2 class="display h-section">The facial your skin has been <em>waiting for</em></h2>
       </div>
-      <p class="muted">
-        Seven facials to start with. The <a href="/services/">full menu</a> has {services.length} services, including
-        peels, massage-led facials and packages.
-      </p>
     </div>
     <FacialGallery />
-    <div class="menu-section__foot">
-      <span>
-        New here? Start with the <a href="/services/new-client-signature/">New Client Signature Facial</a>. It’s $150
-        and 80 minutes. <a href="/services/">See the full menu</a>.
-      </span>
-      <a class="link" href={site.smsHref}>Still deciding? Text me and I’ll help you choose</a>
-    </div>
-  </section>
-
-  <!-- What to expect -->
-  <section id="visit" class="bg-ink">
-    <div class="wrap section split">
-      <div class="visit__photo framed arch">
-        <Image
-          src={images.facialMask.src}
-          alt={images.facialMask.alt}
-          widths={[480, 840]}
-          sizes="(min-width: 980px) 420px, 90vw"
-          style="object-position: 30% 50%"
-        />
-      </div>
-      <div class="stack" style="gap: 30px">
-        <div class="stack" style="gap: 16px">
-          <p class="eyebrow">Your visit</p>
-          <h2 class="display h-section">What to expect at <em>your facial</em></h2>
-        </div>
-        <ol class="steps" data-steps>
-          {
-            visitSteps.map((s, i) => (
-              <li class:list={['step', { 'is-active': i === 0 }]}>
-                <button type="button" class="step__tab" aria-pressed={i === 0 ? 'true' : 'false'}>
-                  <span class="step__num">{String(i + 1).padStart(2, '0')}</span>
-                  <span class="step__label">{s.label}</span>
-                </button>
-                <p class="step__text">{s.text}</p>
-              </li>
-            ))
-          }
-          <li class="steps__track" aria-hidden="true"><span data-steps-fill></span></li>
-        </ol>
-        <p class="small" style="color: var(--on-dark)">Steps vary a little from facial to facial.</p>
-      </div>
+    <div class="menu-section__foot menu-section__foot--single">
+      <a class="link" href="/services/">See the full menu of {services.length} services</a>
     </div>
   </section>
 
@@ -120,9 +59,8 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         <p class="eyebrow">Meet your esthetician</p>
         <h2 class="display h-page">Veronika <em>Reil</em></h2>
         <p class="lede" style="color: var(--text-strong)">
-          I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. You don’t need to know a single
-          treatment name to book with me. Tell me how your skin feels and we’ll start there. And if you’re not sure
-          which facial fits, just ask.
+          I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. Tell me how your skin feels and
+          we’ll start there.
         </p>
         <div class="actions">
           <a class="btn" href={site.smsHref}>Text me your question</a>
@@ -162,36 +100,6 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
     </div>
   </section>
 
-  <!-- Before you book -->
-  <section id="faq" class="bg-sand">
-    <div class="wrap section faq-section">
-      <div class="stack" style="gap: 18px">
-        <p class="eyebrow">First visit</p>
-        <h2 class="display h-section">Before you <em>book</em></h2>
-        <p style="color: var(--text-strong); max-width: 380px">
-          Three things worth knowing before a first facial. The rest are on the FAQ page.
-        </p>
-        <a class="link" href="/faq/">See all facial questions</a>
-      </div>
-      <FaqList items={homeFaqs} />
-    </div>
-  </section>
-
-  <!-- Cities -->
-  <div class="strip" aria-label="Clients visit from these nearby cities">
-    <div class="strip__track">
-      {
-        [0, 1].map((n) => (
-          <ul aria-hidden={n === 1 ? 'true' : undefined}>
-            {[...cities, ...cities].map((c) => (
-              <li>{c}</li>
-            ))}
-          </ul>
-        ))
-      }
-    </div>
-  </div>
-
   <!-- Studio -->
   <section id="studio" class="wrap section">
     <div class="studio">
@@ -208,12 +116,10 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         <address>
           <strong>{site.fullAddress}</strong>
           <span>{site.hoursLong}</span>
-          <span class="small">Open days aren’t always open times. Check the booking site to see what’s available.</span>
-          <span class="small">Clients visit from Folsom, El Dorado Hills, Carmichael and Sacramento.</span>
+          <span class="small">Clients visit from {cities.slice(0, -1).join(', ')} and {cities.at(-1)}.</span>
         </address>
         <div class="actions">
           <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>
-          <a class="btn btn--outline" href={site.smsHref}>Text me</a>
           <a class="link" href={site.mapsUrl}>Get directions</a>
         </div>
       </div>
