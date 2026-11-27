@@ -32,8 +32,8 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
       <div class="hero__disc" aria-hidden="true"></div>
       <Image
         class="hero__main arch"
-        src={images.newClient.src}
-        alt={images.newClient.alt}
+        src={images.hero.src}
+        alt={images.hero.alt}
         widths={[420, 640, 840]}
         sizes="(min-width: 980px) 420px, (min-width: 700px) 70vw, 100vw"
         loading="eager"
@@ -283,6 +283,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
     width: 74%;
     height: 94%;
     object-fit: cover;
+    object-position: 50% 22%;
     box-shadow: 0 40px 80px -40px rgba(43, 26, 23, 0.5);
   }
 
@@ -359,7 +360,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
       height: 100%;
       border-radius: 0;
       box-shadow: none;
-      object-position: 50% 62%;
+      object-position: 50% 22%;
     }
 
     .hero__ring,
@@ -387,7 +388,9 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
     }
 
     .hero__rating {
-      min-height: 32px;
+      min-height: 44px;
+      margin-bottom: -8px;
+      white-space: nowrap;
     }
 
     .hero__text .actions {

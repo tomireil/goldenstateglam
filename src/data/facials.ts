@@ -30,7 +30,8 @@ export type ImageKey =
   | 'exosome'
   | 'microneedling'
   | 'package3'
-  | 'package6';
+  | 'package6'
+  | 'hero';
 
 export type CategoryId = 'signature' | 'glow' | 'body' | 'peels' | 'premium' | 'advanced';
 
