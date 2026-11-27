@@ -375,6 +375,8 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
     .hero__text {
       flex: none;
       position: relative;
+      /* The photo comes later in the HTML, so without this Safari paints its fade over the rating. */
+      z-index: 1;
       margin-top: -56px;
       gap: 14px;
     }
