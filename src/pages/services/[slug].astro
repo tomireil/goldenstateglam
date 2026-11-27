@@ -141,6 +141,24 @@ if (s.parent) {
   </section>
 
   {
+    s.story && (
+      <section class="bg-sand">
+        <div class="wrap section story">
+          <h2 class="display h-section">
+            When to <em>choose it</em>
+          </h2>
+          <div class="stack" style="gap: 18px">
+            {s.story.map((para) => (
+              <p class="lede" style="color: var(--text-strong)" set:html={para} />
+            ))}
+            <p class="small muted">{site.owner}, {site.ownerTitle.toLowerCase()}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
     s.rituals && (
       <section class="bg-sand">
         <div class="wrap section stack" style="gap: 36px">
@@ -462,6 +480,13 @@ if (s.parent) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
     gap: 48px clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+
+  .story {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: 24px clamp(40px, 6vw, 80px);
     align-items: start;
   }
 

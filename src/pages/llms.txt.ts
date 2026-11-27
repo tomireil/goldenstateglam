@@ -1,6 +1,6 @@
 // /llms.txt: a plain-language summary of the site for AI tools.
 // It is generated from the same data files the pages use, so it can't drift from what the site says.
-import { services } from '../data/facials';
+import { ritualPages, services } from '../data/facials';
 import { faqs } from '../data/faqs';
 import { posts } from '../data/posts';
 import { cities, site } from '../data/site';
@@ -71,6 +71,13 @@ export function GET() {
       for (const f of s.faqs) add(`- ${f.q} ${f.a}`);
     }
     add('');
+  }
+
+  add('## Massage rituals: when to choose each', '');
+  for (const r of ritualPages) {
+    add(`### ${r.name}`, `${r.price} / ${r.time}${r.deposit ? ` (${r.deposit})` : ''}`, url(`/services/${r.slug}/`), '');
+    // Links are stripped: this file is plain text.
+    add(...(r.story ?? r.intro).map((para) => para.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')), '');
   }
 
   add('## Frequently asked questions', '');

@@ -151,6 +151,8 @@ export interface Service {
   parent?: { name: string; href: string };
   metaTitle?: string;
   metaDescription?: string;
+  /** "When to choose it" paragraphs in Veronika's voice. May contain links. */
+  story?: string[];
   /** Numeric price for structured data. Leave out when the price is set at booking. */
   offerPrice?: string;
 }
@@ -496,6 +498,10 @@ export const ritualPages: Service[] = [
     ],
     related: [{ label: 'All massage rituals', href: massageParent.href }],
     parent: massageParent,
+    story: [
+      "This is the ritual I’d point you to when you want to switch off. It runs 90 minutes, and it’s the one that takes in your shoulders as well as your face, scalp and neck. The pace is slow on purpose, with warm towels and aromatherapy along the way and a firming mask to finish.",
+      "You don’t need a skin goal to book it. Wanting an hour and a half of quiet is reason enough. If you’d like something shorter and lighter, look at the <a href=\"/services/lymphatic-drainage-facial-massage/\">Lymphatic Drainage Facial Massage</a>. If you’d rather the massage stay focused on your face, <a href=\"/services/facial-sculpting-therapy/\">Facial Sculpting Therapy</a> is the closer fit.",
+    ],
     metaTitle: 'Deep Relax & Sleep Ritual in Fair Oaks | Golden State Glam',
     metaDescription:
       'Deep Relax & Sleep Ritual in Fair Oaks: $180 for 90 minutes. Slow facial, scalp, neck and shoulder massage with warm towels and a firming mask. Book online.',
@@ -541,6 +547,10 @@ export const ritualPages: Service[] = [
     ],
     related: [{ label: 'All massage rituals', href: massageParent.href }],
     parent: massageParent,
+    story: [
+      "Choose this one when you want something gentle. The massage is light and rhythmic, and it’s paired with cooling mask care and serums I choose for your skin that day. At 70 minutes it also fits into a busier day more easily than the longer rituals.",
+      "This is a cosmetic, relaxing facial massage. It isn’t a medical lymphatic treatment, so if a doctor has recommended lymphatic drainage for a health reason, that’s a conversation to have with them. Want a longer, slower visit? That’s the <a href=\"/services/deep-relax-sleep-ritual/\">Deep Relax &amp; Sleep Ritual</a>.",
+    ],
     metaTitle: 'Lymphatic Drainage Facial Massage in Fair Oaks | Golden State Glam',
     metaDescription:
       'Lymphatic Drainage Facial Massage in Fair Oaks: $110 for 70 minutes. Gentle, rhythmic facial massage with cooling mask care and customized serums. Book online.',
@@ -585,6 +595,10 @@ export const ritualPages: Service[] = [
     ],
     related: [{ label: 'All massage rituals', href: massageParent.href }],
     parent: massageParent,
+    story: [
+      "Book this one when facial massage is the part you look forward to most. Here it’s the main event, not an extra: sculpting techniques on the face, with scalp and neck massage alongside, then a hydrating mask and finishing care.",
+      "“Sculpting” describes how I work with my hands. It isn’t a promise to change the shape of your face, and how refreshed you look afterward varies from person to person. If a tool appeals to you more than hands, ask me about the <a href=\"/services/gua-sha-sculpt-glow-ritual/\">Gua Sha Sculpt &amp; Glow Ritual</a>.",
+    ],
     metaTitle: 'Facial Sculpting Therapy in Fair Oaks | Golden State Glam',
     metaDescription:
       'Facial Sculpting Therapy in Fair Oaks: $150 for 80 minutes. Sculpting massage techniques with scalp and neck massage and a hydrating mask. Book online.',
@@ -623,6 +637,10 @@ export const ritualPages: Service[] = [
     ],
     related: [{ label: 'All massage rituals', href: massageParent.href }],
     parent: massageParent,
+    story: [
+      "Gua Sha is a smooth, flat tool that’s swept over the skin, and in this ritual it does the massage work. Around it you get warm towels, hydrating products, scalp and neck massage and a cooling mask. It’s a good pick if you’ve been curious about Gua Sha and want to try it with someone else guiding the pressure.",
+      "I set the price and length of this one when you book, so text me first and I’ll tell you what’s current. If you’d rather have the massage done by hand, <a href=\"/services/facial-sculpting-therapy/\">Facial Sculpting Therapy</a> is the sister ritual.",
+    ],
     metaTitle: 'Gua Sha Sculpt & Glow Ritual in Fair Oaks | Golden State Glam',
     metaDescription:
       'Gua Sha Sculpt & Glow Ritual in Fair Oaks: Gua Sha facial massage, warm towels, scalp and neck massage and a cooling mask. Ask for current price and length.',
