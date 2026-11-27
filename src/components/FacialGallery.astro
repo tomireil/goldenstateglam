@@ -374,7 +374,8 @@ import { site } from '../data/site';
       if (from === 'pill' && isPhone.matches && rail) {
         window.requestAnimationFrame(() => {
           if (target.getBoundingClientRect().top + 300 > window.innerHeight) {
-            rail.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+            const y = window.scrollY + gallery.getBoundingClientRect().top - 16;
+            window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
           }
         });
       }
