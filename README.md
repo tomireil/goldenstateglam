@@ -31,7 +31,8 @@ npm run build    # production build into dist/
 | Photos and their alt text | `src/assets/`, `src/data/images.ts` |
 | Colors, type and shared styles | `src/styles/global.css` |
 | Pages | `src/pages/` |
-| `llms.txt`, `robots.txt`, favicon, share image | `public/` |
+| `llms.txt` (generated from the data files) | `src/pages/llms.txt.ts` |
+| `robots.txt`, favicon, share image | `public/` |
 
 ## Publishing a journal post
 
@@ -54,5 +55,5 @@ The post page, the journal list, the sitemap and the post's structured data are 
 - **Prices, lengths and deposits** must match the GlossGenius booking menu. Change them in `src/data/facials.ts` and `src/data/faqs.ts` together.
 - **All content stays in the HTML.** The facial picker, tabs and FAQ lists only show or hide content that is already on the page, so search engines and AI tools can read everything.
 - **FAQ structured data is generated from the visible FAQ text** (`faqJsonLd` in `src/data/faqs.ts`). Don't hand-write it.
-- **Update `public/llms.txt`** when the menu, prices or policies change.
+- **`llms.txt` updates itself.** It is built from `site.ts`, `facials.ts`, `faqs.ts` and the journal posts, so changing those is enough.
 - Photos marked "reference photo" in their alt text are stock images, not the studio. Replace them with real studio photos when available.
