@@ -114,11 +114,11 @@ import { site } from '../data/site';
     overflow: hidden;
     background: var(--sand-deep);
     transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-    scroll-margin: 16px 0 100px;
+    scroll-margin: 16px 0 24px;
   }
 
   .panel.is-open {
-    /* shorter on small phones so the card's buttons stay above the sticky Book bar */
+    /* shorter on small phones so the card's buttons stay on screen under the pinned header */
     height: min(540px, max(430px, calc(100svh - 200px)));
   }
 
@@ -347,7 +347,9 @@ import { site } from '../data/site';
     const panels = Array.from(gallery.querySelectorAll<HTMLElement>('[data-panel]'));
     const pills = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-pill]'));
     const rail = gallery.querySelector<HTMLElement>('[data-pills]');
-    const bookbarPick = document.querySelector<HTMLElement>('[data-bookbar-pick]');
+    const header = document.querySelector<HTMLElement>('.site-header');
+    // Height of the pinned header on phones and tablets, 0 where it scrolls away.
+    const pinned = () => (header && getComputedStyle(header).position === 'sticky' ? header.offsetHeight : 0);
     const isPhone = window.matchMedia('(max-width: 1023px)');
     const canHover = window.matchMedia('(hover: hover) and (min-width: 1024px)');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -371,12 +373,11 @@ import { site } from '../data/site';
         if (on && rail && isPhone.matches) rail.scrollLeft = Math.max(0, b.offsetLeft - 20);
       });
 
-      if (bookbarPick) bookbarPick.textContent = `${target.dataset.name} · ${target.dataset.price}`;
-
       // Phones and tablets: after a pill pick, bring the pills to the top of the screen so the facial
       // that just opened under them, including its Book button, is fully in view.
-      if (from === 'pill' && isPhone.matches && rail && rail.getBoundingClientRect().top > 140) {
-        const y = window.scrollY + gallery.getBoundingClientRect().top - 16;
+      const railTop = rail ? rail.getBoundingClientRect().top : 0;
+      if (from === 'pill' && isPhone.matches && rail && (railTop > 140 + pinned() || railTop < pinned() + 8)) {
+        const y = window.scrollY + gallery.getBoundingClientRect().top - 16 - pinned();
         window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
       }
 
@@ -397,8 +398,5 @@ import { site } from '../data/site';
       });
     });
     pills.forEach((b) => b.addEventListener('click', () => open(b.dataset.pill!, 'pill')));
-
-    const first = panels.find((p) => p.classList.contains('is-open'));
-    if (first && bookbarPick) bookbarPick.textContent = `${first.dataset.name} · ${first.dataset.price}`;
   });
 </script>
