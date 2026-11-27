@@ -3,7 +3,7 @@
 // so search engines and AI tools read all seven. The script only changes which one is expanded.
 //
 // Desktop: seven photo panels side by side; hover or click opens one.
-// Phone: stacked photo bands; tap opens one in place. Picking from a pill opens it right under the pills.
+// Phone and tablet: stacked photo bands; tap opens one in place. Picking from a pill opens it right under the pills.
 import { Image } from 'astro:assets';
 import Arrow from './Arrow.astro';
 import { galleryItems } from '../data/facials';
@@ -32,7 +32,7 @@ import { site } from '../data/site';
             src={images[f.image].src}
             alt={images[f.image].alt}
             widths={[480, 800, 1200]}
-            sizes="(min-width: 900px) 620px, 100vw"
+            sizes="(min-width: 1024px) 620px, 100vw"
             loading={i === 0 ? 'eager' : 'lazy'}
             style={`object-position: ${f.focus}`}
           />
@@ -118,7 +118,8 @@ import { site } from '../data/site';
   }
 
   .panel.is-open {
-    height: 540px;
+    /* shorter on small phones so the card's buttons stay above the sticky Book bar */
+    height: min(540px, max(430px, calc(100svh - 200px)));
   }
 
   .panel.is-top {
@@ -251,7 +252,7 @@ import { site } from '../data/site';
     color: var(--text);
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 1024px) {
     .gallery {
       gap: 40px;
     }
@@ -269,12 +270,14 @@ import { site } from '../data/site';
     }
 
     .gallery__list {
+      /* width of a closed panel; narrower on small laptops so the open one keeps room for its card */
+      --strip: clamp(64px, 6.5vw, 96px);
       flex-direction: row;
       gap: 10px;
     }
 
     .panel {
-      flex: 0 0 96px;
+      flex: 0 0 var(--strip);
       min-width: 0;
       height: 580px;
       border-radius: 24px;
@@ -315,8 +318,8 @@ import { site } from '../data/site';
       left: 24px;
       right: auto;
       bottom: 24px;
-      width: 500px;
-      max-width: calc(100vw - 2 * var(--gutter) - 48px);
+      /* fixed to the open panel's final width, so the text doesn't reflow while the panel slides open */
+      width: min(500px, calc(min(100vw, var(--wrap)) - 2 * var(--gutter) - 6 * var(--strip) - 60px - 48px));
       padding: 28px 30px;
       gap: 12px;
       border-radius: 20px;
@@ -345,8 +348,8 @@ import { site } from '../data/site';
     const pills = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-pill]'));
     const rail = gallery.querySelector<HTMLElement>('[data-pills]');
     const bookbarPick = document.querySelector<HTMLElement>('[data-bookbar-pick]');
-    const isPhone = window.matchMedia('(max-width: 899px)');
-    const canHover = window.matchMedia('(hover: hover) and (min-width: 900px)');
+    const isPhone = window.matchMedia('(max-width: 1023px)');
+    const canHover = window.matchMedia('(hover: hover) and (min-width: 1024px)');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function open(id: string, from: 'pill' | 'panel') {
@@ -370,14 +373,11 @@ import { site } from '../data/site';
 
       if (bookbarPick) bookbarPick.textContent = `${target.dataset.name} · ${target.dataset.price}`;
 
-      // Phones: after a pill pick, if the opened facial would sit below the fold, bring the pills to the top.
-      if (from === 'pill' && isPhone.matches && rail) {
-        window.requestAnimationFrame(() => {
-          if (target.getBoundingClientRect().top + 300 > window.innerHeight) {
-            const y = window.scrollY + gallery.getBoundingClientRect().top - 16;
-            window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-          }
-        });
+      // Phones and tablets: after a pill pick, bring the pills to the top of the screen so the facial
+      // that just opened under them, including its Book button, is fully in view.
+      if (from === 'pill' && isPhone.matches && rail && rail.getBoundingClientRect().top > 140) {
+        const y = window.scrollY + gallery.getBoundingClientRect().top - 16;
+        window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
       }
 
       // Phones: a facial opened in place may shift as the one above it closes, so keep it in view.

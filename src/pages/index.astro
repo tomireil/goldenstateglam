@@ -142,10 +142,10 @@ import { faqJsonLd, homeFaqs } from '../data/faqs';
   <!-- Reviews -->
   <section id="reviews" class="wrap section stack" style="gap: clamp(32px, 4vw, 56px)">
     <div class="reviews__head">
-      <a href={site.reviewsUrl} style="text-decoration: none"><Stars /></a>
+      <a class="link" href={site.reviewsUrl} style="text-decoration: none" aria-label="Read the Google reviews"><Stars /></a>
       <h2 class="display h-section">Kind words from <em>clients</em></h2>
     </div>
-    <div class="reviews">
+    <div class="reviews" role="region" aria-label="Client reviews" tabindex="0">
       {
         reviews.map((r, i) => (
           <figure class:list={['review', { 'review--dark': i === 1 }]}>
@@ -239,6 +239,9 @@ import { faqJsonLd, homeFaqs } from '../data/faqs';
 
   .hero__rating {
     align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     text-decoration: none;
   }
 
@@ -402,6 +405,14 @@ import { faqJsonLd, homeFaqs } from '../data/faqs';
     text-transform: uppercase;
   }
 
+  /* very narrow phones: keep "Treatment" inside its column */
+  @media (max-width: 370px) {
+    .step__label {
+      font-size: 10px;
+      letter-spacing: 0.03em;
+    }
+  }
+
   .steps__track {
     grid-row: 2;
     grid-column: 1 / -1;
@@ -461,8 +472,22 @@ import { faqJsonLd, homeFaqs } from '../data/faqs';
     gap: 28px;
   }
 
-  /* phones: swipe through the reviews instead of stacking three tall cards */
-  @media (max-width: 759px) {
+  @media (min-width: 980px) {
+    .reviews {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .review {
+      padding: clamp(28px, 3vw, 40px) clamp(24px, 2.6vw, 36px);
+    }
+
+    .review blockquote {
+      font-size: clamp(21px, 2vw, 26px);
+    }
+  }
+
+  /* phones and tablets: swipe through the reviews instead of stacking three tall cards */
+  @media (max-width: 979px) {
     .reviews {
       display: flex;
       gap: 14px;

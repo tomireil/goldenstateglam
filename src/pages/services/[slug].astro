@@ -134,7 +134,7 @@ if (s.parent) {
         <a class="btn btn--lg btn--block" href={site.bookingUrl}>{s.parent ? 'Book this ritual' : 'Book this facial'} <Arrow /></a>
         <div class="detail__where small">
           <span>{site.street}</span>
-          <a href={site.smsHref}>Text me first</a>
+          <a class="link" href={site.smsHref}>Text me first</a>
         </div>
       </div>
     </aside>
@@ -335,6 +335,7 @@ if (s.parent) {
   .detail__where {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
     gap: 4px 16px;
     color: var(--text);

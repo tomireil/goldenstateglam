@@ -498,7 +498,7 @@ button {
   min-height: 44px;
 }
 
-@media (max-width: 759px) {
+@media (max-width: 979px) {
   body.has-bookbar .site-footer__inner {
     padding-bottom: 130px;
   }
@@ -569,7 +569,7 @@ button {
   letter-spacing: 0.04em;
 }
 
-@media (min-width: 760px) {
+@media (min-width: 980px) {
   .bookbar {
     display: none;
   }
@@ -692,7 +692,14 @@ button {
   color: var(--muted);
 }
 
+.breadcrumb {
+  align-items: center;
+}
+
 .breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--muted);
 }
 
