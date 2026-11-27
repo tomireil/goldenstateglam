@@ -9,6 +9,8 @@ export type ImageKey =
   | 'teenSkin'
   | 'stillLife'
   | 'facialSculpt'
+  | 'facialMassage'
+  | 'glowHands'
   | 'studioCover';
 
 export interface GalleryItem {
@@ -93,8 +95,9 @@ export const galleryItems: GalleryItem[] = [
     tag: 'Relax',
     need: 'Pure relaxation',
     desc: 'A slow, massage-led facial, often with time for your scalp, neck or shoulders.',
-    image: 'stillLife',
-    focus: '55% 50%',
+    // The picker's info card covers the lower part of the photo, so this one needs its subject up top.
+    image: 'glowHands',
+    focus: '55% 25%',
     href: '/services/facial-massage-relaxation/',
   },
   {
@@ -375,7 +378,7 @@ export const services: Service[] = [
     cardDesc: 'A slow, massage-led facial, often with time for your scalp, neck or shoulders.',
     cardNote: 'Includes Facial Sculpting Therapy, $150 · 80 min',
     image: 'stillLife',
-    focus: '55% 50%',
+    focus: '50% 78%',
     eyebrow: 'Facial massage',
     intro: [
       'The part of a facial you’re looking forward to might be the massage, not the exfoliation. That changes what makes a visit feel right for you. At my Fair Oaks studio, I offer massage-focused options including the Deep Relax & Sleep Ritual, with facial and scalp massage and warm towels. You’re welcome to book for the massage itself. The different rituals are here when you’re ready to find yours.',
@@ -463,8 +466,8 @@ export const ritualPages: Service[] = [
     goal: 'relax',
     goalLabel: 'Relaxation',
     cardDesc: 'Slow facial, scalp, neck and shoulder massage, warm towels, aromatherapy and a firming mask.',
-    image: 'stillLife',
-    focus: '55% 50%',
+    image: 'facialMassage',
+    focus: '50% 45%',
     eyebrow: 'Facial massage ritual',
     intro: [
       'The Deep Relax & Sleep Ritual is 90 minutes of slow facial, scalp, neck and shoulder massage, with warm towels, aromatherapy and a firming mask. Book it when rest is the whole point of the visit.',
@@ -508,8 +511,8 @@ export const ritualPages: Service[] = [
     goal: 'relax',
     goalLabel: 'Relaxation',
     cardDesc: 'Gentle, rhythmic facial massage paired with cooling mask care and customized serums.',
-    image: 'facialHands',
-    focus: '50% 40%',
+    image: 'glowHands',
+    focus: '55% 30%',
     eyebrow: 'Facial massage ritual',
     intro: [
       'Lymphatic Drainage Facial Massage is a gentle, rhythmic facial massage paired with cooling mask care and customized serums, for a refreshed, relaxed experience. It runs 70 minutes.',
