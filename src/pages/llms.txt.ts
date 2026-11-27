@@ -61,7 +61,7 @@ export function GET() {
     if (s.rituals) {
       add('', 'Rituals:');
       for (const r of s.rituals) {
-        add(`- ${r.name}: ${r.price} / ${r.time}${r.deposit ? ` (${r.deposit})` : ''}. ${r.desc}`);
+        add(`- ${r.name}: ${r.price} / ${r.time}${r.deposit ? ` (${r.deposit})` : ''}. ${r.desc}`, `  ${url(`/services/${r.id}/`)}`);
       }
     }
     if (s.steps) add('', 'What to expect:', ...s.steps.map((st, i) => `${i + 1}. ${st.title}. ${st.text}`));

@@ -107,7 +107,7 @@ export const galleryItems: GalleryItem[] = [
     desc: 'Facial sculpting techniques paired with a scalp and neck massage.',
     image: 'facialSculpt',
     focus: '60% 40%',
-    href: '/services/facial-massage-relaxation/#facial-sculpting-therapy',
+    href: '/services/facial-sculpting-therapy/',
   },
 ];
 
@@ -144,6 +144,12 @@ export interface Service {
   after?: string[];
   faqs?: { q: string; a: string }[];
   related: { label: string; href: string }[];
+  /** Set on ritual pages: the facial they belong to, plus their own search title and description. */
+  parent?: { name: string; href: string };
+  metaTitle?: string;
+  metaDescription?: string;
+  /** Numeric price for structured data. Leave out when the price is set at booking. */
+  offerPrice?: string;
 }
 
 export const services: Service[] = [
@@ -432,4 +438,190 @@ export const goalFilters = [
   { id: 'teen', label: 'acne-prone and teen skin' },
   { id: 'men', label: 'something for men' },
   { id: 'relax', label: 'relaxation' },
+];
+
+// ---------------------------------------------------------------------------
+// Massage rituals. Each one has its own page under /services/, so people who search for it by name land on it.
+// Everything here comes from the published menu. Nothing is claimed beyond it.
+
+const massageParent = { name: 'Facial Massage & Relaxation', href: '/services/facial-massage-relaxation/' };
+const notMedical = 'This is a cosmetic and relaxation service, not a medical treatment, and it does not promise a particular result.';
+const medicalFaq = {
+  q: 'Is this a medical or therapeutic treatment?',
+  a: 'No. Facials and massage here are cosmetic and relaxation services, not medical treatments. Results vary. For a medical concern, see a qualified healthcare professional.',
+};
+
+export const ritualPages: Service[] = [
+  {
+    slug: 'deep-relax-sleep-ritual',
+    name: 'Deep Relax & Sleep Ritual',
+    short: 'Deep Relax & Sleep Ritual',
+    price: '$180',
+    time: '90 min',
+    deposit: '$80 deposit for new clients',
+    offerPrice: '180.00',
+    goal: 'relax',
+    goalLabel: 'Relaxation',
+    cardDesc: 'Slow facial, scalp, neck and shoulder massage, warm towels, aromatherapy and a firming mask.',
+    image: 'stillLife',
+    focus: '55% 50%',
+    eyebrow: 'Facial massage ritual',
+    intro: [
+      'The Deep Relax & Sleep Ritual is 90 minutes of slow facial, scalp, neck and shoulder massage, with warm towels, aromatherapy and a firming mask. Book it when rest is the whole point of the visit.',
+    ],
+    includes: ['Slow facial massage', 'Scalp, neck and shoulder massage', 'Warm towels', 'Aromatherapy', 'A firming mask'],
+    who: [
+      'Rest is the point of the visit, more than extractions or a deep cleanse.',
+      'You want massage of the face, scalp, neck and shoulders in one visit.',
+      'You can set aside 90 minutes.',
+    ],
+    before: [
+      'The published price is $180 and the visit is 90 minutes.',
+      'The published menu lists an $80 deposit for new clients. Review the booking terms before you confirm.',
+      notMedical,
+    ],
+    faqs: [
+      {
+        q: 'How much is the Deep Relax & Sleep Ritual, and how long is it?',
+        a: 'The published price is $180 and the visit is 90 minutes. Confirm the price and length on the booking screen.',
+      },
+      {
+        q: 'Is there a deposit?',
+        a: 'The published menu lists an $80 deposit for new clients. Whatever the booking screen shows is the one to follow.',
+      },
+      medicalFaq,
+    ],
+    related: [{ label: 'All massage rituals', href: massageParent.href }],
+    parent: massageParent,
+    metaTitle: 'Deep Relax & Sleep Ritual in Fair Oaks | Golden State Glam',
+    metaDescription:
+      'Deep Relax & Sleep Ritual in Fair Oaks: $180 for 90 minutes. Slow facial, scalp, neck and shoulder massage with warm towels and a firming mask. Book online.',
+  },
+  {
+    slug: 'lymphatic-drainage-facial-massage',
+    name: 'Lymphatic Drainage Facial Massage',
+    short: 'Lymphatic Drainage Facial Massage',
+    price: '$110',
+    time: '70 min',
+    deposit: '$50 deposit',
+    offerPrice: '110.00',
+    goal: 'relax',
+    goalLabel: 'Relaxation',
+    cardDesc: 'Gentle, rhythmic facial massage paired with cooling mask care and customized serums.',
+    image: 'facialHands',
+    focus: '50% 40%',
+    eyebrow: 'Facial massage ritual',
+    intro: [
+      'Lymphatic Drainage Facial Massage is a gentle, rhythmic facial massage paired with cooling mask care and customized serums, for a refreshed, relaxed experience. It runs 70 minutes.',
+    ],
+    includes: ['Gentle, rhythmic facial massage', 'Cooling mask care', 'Customized serums'],
+    who: [
+      'You want a gentle, massage-focused visit.',
+      'A refreshed, relaxed feeling matters more to you than a deep cleanse.',
+      'You have 70 minutes.',
+    ],
+    before: [
+      'The published price is $110 and the visit is 70 minutes.',
+      'The published menu lists a $50 deposit. Review the booking terms before you confirm.',
+      notMedical,
+    ],
+    faqs: [
+      {
+        q: 'How much is the Lymphatic Drainage Facial Massage, and how long is it?',
+        a: 'The published price is $110 and the visit is 70 minutes. Confirm the price and length on the booking screen.',
+      },
+      {
+        q: 'Is there a deposit?',
+        a: 'The published menu lists a $50 deposit. Whatever the booking screen shows is the one to follow.',
+      },
+      medicalFaq,
+    ],
+    related: [{ label: 'All massage rituals', href: massageParent.href }],
+    parent: massageParent,
+    metaTitle: 'Lymphatic Drainage Facial Massage in Fair Oaks | Golden State Glam',
+    metaDescription:
+      'Lymphatic Drainage Facial Massage in Fair Oaks: $110 for 70 minutes. Gentle, rhythmic facial massage with cooling mask care and customized serums. Book online.',
+  },
+  {
+    slug: 'facial-sculpting-therapy',
+    name: 'Facial Sculpting Therapy',
+    short: 'Facial Sculpting Therapy',
+    price: '$150',
+    time: '80 min',
+    offerPrice: '150.00',
+    goal: 'relax',
+    goalLabel: 'Relaxation',
+    cardDesc: 'Sculpting techniques, scalp and neck massage, a hydrating mask and finishing care.',
+    image: 'facialSculpt',
+    focus: '60% 40%',
+    eyebrow: 'Facial massage ritual',
+    intro: [
+      'Facial Sculpting Therapy is a massage-focused facial that combines sculpting techniques with scalp and neck massage, a hydrating mask and finishing care, for a relaxed, refreshed appearance. It runs 80 minutes.',
+    ],
+    includes: ['Facial sculpting techniques', 'Scalp and neck massage', 'A hydrating mask', 'Finishing care'],
+    who: [
+      'You want hands-on massage of the face more than a deep cleanse.',
+      'Scalp and neck massage sounds like part of a good visit.',
+      'You have 80 minutes.',
+    ],
+    before: [
+      'The published price is $150 and the visit is 80 minutes.',
+      'The published menu does not list a deposit for this ritual. The booking screen is the one to follow.',
+      '“Sculpting” names the style of massage. ' + notMedical,
+    ],
+    faqs: [
+      {
+        q: 'How much is Facial Sculpting Therapy, and how long is it?',
+        a: 'The published price is $150 and the visit is 80 minutes. Confirm the price and length on the booking screen.',
+      },
+      {
+        q: 'Will my face look sculpted afterward?',
+        a: 'The name describes the massage techniques, not a guaranteed result. The aim is a relaxed, refreshed appearance, and how skin looks afterward varies from person to person.',
+      },
+      medicalFaq,
+    ],
+    related: [{ label: 'All massage rituals', href: massageParent.href }],
+    parent: massageParent,
+    metaTitle: 'Facial Sculpting Therapy in Fair Oaks | Golden State Glam',
+    metaDescription:
+      'Facial Sculpting Therapy in Fair Oaks: $150 for 80 minutes. Sculpting massage techniques with scalp and neck massage and a hydrating mask. Book online.',
+  },
+  {
+    slug: 'gua-sha-sculpt-glow-ritual',
+    name: 'Gua Sha Sculpt & Glow Ritual',
+    short: 'Gua Sha Sculpt & Glow Ritual',
+    price: 'Ask me',
+    time: 'Price and length set at booking',
+    goal: 'relax',
+    goalLabel: 'Relaxation',
+    cardDesc: 'Gua Sha massage, warm towels, hydrating products, scalp and neck massage and a cooling mask.',
+    image: 'facialSculpt',
+    focus: '50% 75%',
+    eyebrow: 'Facial massage ritual',
+    intro: [
+      'The Gua Sha Sculpt & Glow Ritual is a relaxing ritual with Gua Sha massage, warm towels, hydrating products, scalp and neck massage and a cooling mask. Its price and length are set when you book, so ask me for the current details.',
+    ],
+    includes: ['Gua Sha massage', 'Warm towels', 'Hydrating products', 'Scalp and neck massage', 'A cooling mask'],
+    who: [
+      'You’re curious about Gua Sha as part of a facial.',
+      'You want a relaxing, massage-led visit.',
+      'You’re happy to ask about price and length before you book.',
+    ],
+    before: [
+      'Ask for the current price and length when you book. Call or text (916) 304-3810.',
+      notMedical,
+    ],
+    faqs: [
+      {
+        q: 'How much is the Gua Sha Sculpt & Glow Ritual?',
+        a: 'The price and length are set when you book. Call or text (916) 304-3810 and ask for the current details.',
+      },
+      medicalFaq,
+    ],
+    related: [{ label: 'All massage rituals', href: massageParent.href }],
+    parent: massageParent,
+    metaTitle: 'Gua Sha Sculpt & Glow Ritual in Fair Oaks | Golden State Glam',
+    metaDescription:
+      'Gua Sha Sculpt & Glow Ritual in Fair Oaks: Gua Sha facial massage, warm towels, scalp and neck massage and a cooling mask. Ask for current price and length.',
+  },
 ];

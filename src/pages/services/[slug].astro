@@ -4,17 +4,23 @@ import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import FaqList from '../../components/FaqList.astro';
-import { services } from '../../data/facials';
+import { ritualPages, services } from '../../data/facials';
 import { faqJsonLd } from '../../data/faqs';
 import { images } from '../../data/images';
 import { site } from '../../data/site';
 
 export function getStaticPaths() {
-  return services.map((service, i) => ({
+  const facials = services.map((service, i) => ({
     params: { slug: service.slug },
     // The next three facials on the menu, wrapping around.
     props: { service, others: [1, 2, 3].map((n) => services[(i + n) % services.length]) },
   }));
+  // Massage rituals use the same template and point to each other.
+  const rituals = ritualPages.map((service) => ({
+    params: { slug: service.slug },
+    props: { service, others: ritualPages.filter((r) => r.slug !== service.slug) },
+  }));
+  return [...facials, ...rituals];
 }
 
 const { service: s, others } = Astro.props;
@@ -24,16 +30,53 @@ const tabs = [
   { id: 'who', label: 'Who it’s for', items: s.who },
   { id: 'before', label: 'Before you book', items: s.before },
 ];
-const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
+const jsonLd: object[] = s.faqs ? [faqJsonLd(s.faqs)] : [];
+
+// Ritual pages are new, so their structured data is generated here in the same shape the facial pages use.
+if (s.parent) {
+  const pageUrl = `${site.url}${path}`;
+  jsonLd.push(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: s.name,
+      serviceType: 'Facial',
+      description: s.intro.join(' '),
+      url: pageUrl,
+      provider: { '@id': `${site.url}/#business` },
+      areaServed: { '@type': 'City', name: 'Fair Oaks', containedInPlace: { '@type': 'State', name: 'California' } },
+      ...(s.offerPrice
+        ? { offers: { '@type': 'Offer', priceCurrency: 'USD', price: s.offerPrice, url: site.bookingUrl } }
+        : {}),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+        { '@type': 'ListItem', position: 2, name: 'Facials', item: `${site.url}/services/` },
+        { '@type': 'ListItem', position: 3, name: s.parent.name, item: `${site.url}${s.parent.href}` },
+        { '@type': 'ListItem', position: 4, name: s.name, item: pageUrl },
+      ],
+    },
+  );
+}
 ---
 
-<Base path={path} jsonLd={jsonLd}>
+<Base path={path} jsonLd={jsonLd} title={s.metaTitle} description={s.metaDescription}>
   <section class="wrap detail">
     <div class="detail__text stack" style="gap: 26px">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a><span aria-hidden="true">/</span><a href="/services/">Facials</a><span aria-hidden="true"
           >/</span
-        ><span>{s.short}</span>
+        >{
+          s.parent && (
+            <>
+              <a href={s.parent.href}>{s.parent.name}</a>
+              <span aria-hidden="true">/</span>
+            </>
+          )
+        }<span>{s.short}</span>
       </nav>
       <p class="eyebrow eyebrow--rule">{s.eyebrow}</p>
       <h1 class="display h-page">{s.name} <em>in Fair Oaks</em></h1>
@@ -83,12 +126,12 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
         style={`object-position: ${s.focus}`}
       />
       <div class="detail__book card">
-        <div class="detail__price">
+        <div class:list={['detail__price', { 'detail__price--words': !s.price.includes('$') }]}>
           <span>{s.price}</span>
           <small>{s.time}</small>
         </div>
         {s.deposit && <p class="small muted">{s.deposit}</p>}
-        <a class="btn btn--lg btn--block" href={site.bookingUrl}>Book this facial <Arrow /></a>
+        <a class="btn btn--lg btn--block" href={site.bookingUrl}>{s.parent ? 'Book this ritual' : 'Book this facial'} <Arrow /></a>
         <div class="detail__where small">
           <span>{site.street}</span>
           <a href={site.smsHref}>Text me first</a>
@@ -108,12 +151,17 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
             {s.rituals.map((r) => (
               <article class="ritual" id={r.id}>
                 <div class="ritual__head">
-                  <h3>{r.name}</h3>
+                  <h3>
+                    <a href={`/services/${r.id}/`}>{r.name}</a>
+                  </h3>
                   <span>{r.price}</span>
                 </div>
                 <p class="ritual__time">{r.time}</p>
                 <p>{r.desc}</p>
                 {r.deposit && <p class="small muted">Deposit listed on the menu: {r.deposit}.</p>}
+                <a class="link" href={`/services/${r.id}/`}>
+                  See this ritual<span class="sr-only">: {r.name}</span>
+                </a>
               </article>
             ))}
           </div>
@@ -160,7 +208,7 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
         {s.faqs && (
           <div class="stack">
             <h2 class="display h-sub">
-              Questions about <em>this facial</em>
+              Questions about <em>{s.parent ? 'this ritual' : 'this facial'}</em>
             </h2>
             <FaqList items={s.faqs} />
           </div>
@@ -173,7 +221,7 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
     <h2 class="display h-sub">Visiting the <em>studio</em></h2>
     <div class="stack" style="gap: 14px">
       <p class="muted">
-        The {s.name} is given at one studio: {site.fullAddress}. Clients visit from Folsom, El Dorado Hills, Carmichael
+        {s.name} is given at one studio: {site.fullAddress}. Clients visit from Folsom, El Dorado Hills, Carmichael
         and Sacramento. {site.hoursLong}.
       </p>
       <p class="actions">
@@ -192,8 +240,8 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
   <section class="bg-sand">
     <div class="wrap section stack" style="gap: 40px">
       <div class="others__head">
-        <h2 class="display h-section">Other <em>facials</em></h2>
-        <a class="link" href="/services/">All facials</a>
+        <h2 class="display h-section">{s.parent ? 'Other massage' : 'Other'} <em>{s.parent ? 'rituals' : 'facials'}</em></h2>
+        <a class="link" href={s.parent ? s.parent.href : '/services/'}>{s.parent ? 'All massage rituals' : 'All facials'}</a>
       </div>
       <div class="others">
         {
@@ -210,9 +258,7 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
               </span>
               <span class="other__row">
                 <span class="other__name">{o.name}</span>
-                <span class="other__meta">
-                  {o.price} · {o.time}
-                </span>
+                <span class="other__meta">{o.price.includes('$') ? `${o.price} · ${o.time}` : 'Ask when you book'}</span>
               </span>
             </a>
           ))
@@ -272,6 +318,11 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
     font-size: clamp(44px, 5vw, 56px);
     line-height: 1;
     color: var(--bronze);
+  }
+
+  .detail__price--words {
+    flex-direction: column;
+    gap: 6px;
   }
 
   .detail__price small {
@@ -348,6 +399,10 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
     gap: 4px 14px;
     flex-wrap: wrap;
     color: var(--ink);
+  }
+
+  .ritual__head h3 a {
+    text-decoration: none;
   }
 
   .ritual__head h3 {
