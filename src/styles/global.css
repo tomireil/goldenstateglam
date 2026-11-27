@@ -414,6 +414,13 @@ button {
   min-height: 44px;
   padding: 0 20px;
   font-size: 15px;
+  transition: opacity 0.25s ease, visibility 0.25s;
+}
+
+/* Hidden until the page is scrolled (see Header.astro). Its space is kept so the header doesn't shift. */
+.site-header.is-top .site-header__book {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* The logo scales with the screen so logo, Book and the menu button always fit on one row. */
