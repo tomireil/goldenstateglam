@@ -39,7 +39,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
   </section>
 
   <!-- Facial menu -->
-  <section id="facials" class="bg-ink menu-band">
+  <section id="facials" class="bg-sand menu-band">
    <div class="wrap section menu-section">
     <div class="menu-section__head">
       <div class="stack" style="gap: 16px">
@@ -58,7 +58,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
   </section>
 
   <!-- About -->
-  <section id="about" class="bg-sand">
+  <section id="about">
     <div class="wrap section split">
       <div class="stack">
         <p class="eyebrow">Meet your esthetician</p>
@@ -85,7 +85,8 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
   </section>
 
   <!-- Reviews -->
-  <section id="reviews" class="wrap section stack" style="gap: clamp(32px, 4vw, 56px)">
+  <section id="reviews" class="bg-sand">
+   <div class="wrap section stack" style="gap: clamp(32px, 4vw, 56px)">
     <div class="reviews__head">
       <a class="link" href={site.reviewsUrl} style="text-decoration: none" aria-label="Read the Google reviews"><Stars /></a>
       <h2 class="display h-section">Kind words from <em>clients</em></h2>
@@ -103,6 +104,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         ))
       }
     </div>
+   </div>
   </section>
 
   <!-- Studio -->
@@ -319,7 +321,8 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
   }
 
   /* menu */
-  /* The facial picker sits on a dark band with a rounded top, so it reads as its own section after the hero. */
+  /* The facial picker sits on a sand band with a rounded top, so it reads as its own section after the hero.
+     The sections below alternate: Veronika on ivory, reviews on sand, studio on ivory. */
   .menu-band {
     margin-top: clamp(20px, 3vw, 40px);
     border-radius: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px) 0 0;
@@ -327,38 +330,6 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
 
   .menu-band .menu-section {
     padding-block: clamp(48px, 6vw, 88px);
-  }
-
-  .menu-band :global(.chips__lead) {
-    color: var(--champagne);
-  }
-
-  .menu-band :global(.chip) {
-    border-color: rgba(250, 245, 239, 0.34);
-    color: var(--ivory);
-  }
-
-  .menu-band :global(.chip[aria-pressed='true']) {
-    background: var(--champagne);
-    border-color: var(--champagne);
-    color: var(--ink);
-  }
-
-  .menu-band .menu-section__foot {
-    border-top-color: rgba(250, 245, 239, 0.18);
-    color: var(--on-dark);
-  }
-
-  .menu-band .menu-section__foot a {
-    color: var(--ivory);
-  }
-
-  .menu-band :global(.panel) {
-    box-shadow: 0 0 0 1px rgba(250, 245, 239, 0.1);
-  }
-
-  .menu-band :global(.panel__card) {
-    color: var(--ink);
   }
 
   .menu-section {
