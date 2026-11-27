@@ -3,6 +3,7 @@ title: "First Facial from Sacramento? Where to Start in Fair Oaks"
 description: "Visiting from Sacramento for a first facial? Start with the New Client Signature Facial at Golden State Glam in Fair Oaks. Here's why, and what to tell me."
 pubDate: 2026-11-24
 updatedDate: 2026-11-24
+image: hero
 ---
 
 Visiting from Sacramento for your first facial with me? Start with the New Client Signature Facial. It’s where first-time clients begin at my Fair Oaks studio, and you leave knowing which facial fits and how often to come.

@@ -3,6 +3,7 @@ title: "Planning a Facial Before a Holiday Party in Fair Oaks"
 description: "Holiday party or family photos coming up? How to time a facial at Golden State Glam in Fair Oaks, which facial to consider and what to tell me first."
 pubDate: 2026-11-19
 updatedDate: 2026-11-19
+image: glassSkin
 ---
 
 Book it with room to spare, not the day before. Holiday party or family photos coming up? Plan your facial at my Fair Oaks studio ahead of the date, and tell me the date when you book.

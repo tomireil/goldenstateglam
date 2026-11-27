@@ -44,9 +44,23 @@ const jsonLd = known
         ],
       },
     ];
+
+// Preview image for sharing and search: the post's own photo, cropped to 1200x630.
+import { getImage } from 'astro:assets';
+import { images } from '../../data/images';
+const photo = post.image ? images[post.image] : undefined;
+const og = photo ? await getImage({ src: photo.src, width: 1200, height: 630, format: 'jpg', quality: 82 }) : undefined;
+const ogImage = og ? new URL(og.src, site.url).href : undefined;
 ---
 
-<Base path={path} title={known?.title ?? post.title} description={known?.description ?? post.description} jsonLd={jsonLd}>
+<Base
+  path={path}
+  title={known?.title ?? post.title}
+  description={known?.description ?? post.description}
+  jsonLd={jsonLd}
+  ogImage={ogImage}
+  ogImageAlt={photo?.alt}
+>
   <article class="wrap article">
     <header class="stack" style="gap: 22px">
       <nav class="breadcrumb" aria-label="Breadcrumb">

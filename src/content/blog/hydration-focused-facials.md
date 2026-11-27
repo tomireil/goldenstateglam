@@ -3,6 +3,7 @@ title: "What a hydration-focused facial includes"
 description: "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with serum, a hydrating mask, and facial massage. Book online."
 pubDate: 2026-11-08
 updatedDate: 2026-11-08
+image: glowHands
 ---
 
 “Glow” is an aim, not a measurement. The hydration facial at Golden State Glam is the Korean Glass Skin Facial. It is given at 7996 California Ave, Suite A, Fair Oaks. Clients visit that studio from Fair Oaks, Folsom, El Dorado Hills, Carmichael, and Sacramento.

@@ -3,6 +3,7 @@ title: "Using Retinol? What to Know Before a Facial in Fair Oaks"
 description: "Using retinol or tretinoin? Before a facial at Golden State Glam in Fair Oaks, tell me about your retinoid. Here’s what to share and when to ask a doctor."
 pubDate: 2026-11-17
 updatedDate: 2026-11-17
+image: exosome
 ---
 
 It depends, and it starts with telling me. Retinol and other retinoids can make skin more sensitive, so before a facial at my Fair Oaks studio, your retinoid use is part of deciding what suits your skin that day.

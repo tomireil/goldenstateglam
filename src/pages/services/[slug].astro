@@ -8,12 +8,15 @@ import { categories, services, type Service } from '../../data/facials';
 import { faqJsonLd, type Faq } from '../../data/faqs';
 import { images } from '../../data/images';
 import { site } from '../../data/site';
+import { posts } from '../../data/posts';
 
 export function getStaticPaths() {
   return services.map((service) => {
-    // Up to three others from the same category, then the rest of the menu.
+    // Up to three others: first from the same category.
     const same = services.filter((s) => s.category === service.category && s.slug !== service.slug);
-    const rest = services.filter((s) => s.category !== service.category);
+    // Then the services that follow this one on the menu, wrapping round, so every page gets links from others.
+    const at = services.indexOf(service);
+    const rest = [...services.slice(at + 1), ...services.slice(0, at)].filter((s) => s.category !== service.category);
     return { params: { slug: service.slug }, props: { service, others: [...same, ...rest].slice(0, 3) } };
   });
 }
@@ -24,6 +27,8 @@ interface Props {
 }
 
 const { service: s, others } = Astro.props;
+// Journal posts that mention this service.
+const related = posts.filter((p) => p.links.includes(s.slug)).slice(0, 3);
 const path = `/services/${s.slug}/`;
 const pageUrl = `${site.url}${path}`;
 const category = categories.find((c) => c.id === s.category)!;
@@ -51,8 +56,11 @@ const faqs: Faq[] = [
   },
 ];
 
-const title = `${s.name} in Fair Oaks | ${site.name}`;
-const descBase = `${s.name} in Fair Oaks: ${s.price} for ${s.time}. ${s.lead}`;
+// Search results cut titles at about 60 characters and descriptions at about 160, so long names get a shorter form.
+const fullTitle = `${s.name} in Fair Oaks | ${site.name}`;
+const title = fullTitle.length <= 60 ? fullTitle : `${s.name} in Fair Oaks, CA`;
+const longDesc = `${s.name} in Fair Oaks: ${s.price} for ${s.time}. ${s.lead}`;
+const descBase = longDesc.length <= 160 ? longDesc : `${s.name}: ${s.price}, ${s.time}. ${s.lead}`;
 const description = `${descBase}${descBase.length < 132 ? ' Book online.' : ''}`;
 
 const jsonLd = [
@@ -201,6 +209,21 @@ const jsonLd = [
       </p>
     </div>
   </section>
+
+  {
+    related.length > 0 && (
+      <section class="wrap journal-links">
+        <h2 class="display h-sub">From <em>the journal</em></h2>
+        <ul>
+          {related.map((p) => (
+            <li>
+              <a href={`/blog/${p.slug}/`}>{p.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 
   <section class="bg-sand">
     <div class="wrap section stack" style="gap: 40px">
@@ -384,6 +407,36 @@ const jsonLd = [
     grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
     gap: 48px clamp(40px, 6vw, 80px);
     align-items: start;
+  }
+
+  .journal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: var(--section);
+  }
+
+  .journal-links ul {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+
+  .journal-links li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .journal-links a {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding-block: 12px;
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+  .journal-links a:hover {
+    color: var(--bronze);
   }
 
   .others__head {

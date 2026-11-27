@@ -60,3 +60,9 @@ The post page, the journal list, the sitemap and the post's structured data are 
 - **`llms.txt` updates itself.** It is built from `site.ts`, `facials.ts`, `faqs.ts` and the journal posts, so changing those is enough.
 - Every photo except the cover portrait is a stock photo, marked "reference photo" in its alt text. Credits are in `src/data/images.ts`. Replace them with real studio photos when available.
 - Service names, prices, lengths, deposits and included steps come from GlossGenius. The descriptions around them are written for this site.
+
+## Journal post extras
+
+- Add `image: <key>` to a post's frontmatter to give it its own preview image when shared. Keys are in `src/data/images.ts`. Without it, the post uses the site-wide image.
+- A post that links to a service page (`/services/<slug>/`) is listed on that service page automatically, under "From the journal".
+- The sitemap takes each post's date from `updatedDate` (or `pubDate`). Menu pages use the "Last synced with GlossGenius" date in `src/data/facials.ts`.

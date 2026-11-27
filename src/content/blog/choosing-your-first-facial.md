@@ -3,6 +3,7 @@ title: "How to choose your first facial in Fair Oaks"
 description: "How to pick a first facial at Golden State Glam in Fair Oaks. Start with the New Client Signature Facial at $150 for 80 minutes. Book online."
 pubDate: 2026-11-01
 updatedDate: 2026-11-01
+image: newClient
 ---
 
 If you have not booked at Golden State Glam before, start with the [New Client Signature Facial](/services/new-client-signature/). It is $150 and 80 minutes. We begin with a short consultation and a close look at your skin, then a full facial built around what your skin needs that day. The studio is at 7996 California Ave, Suite A, Fair Oaks. People also drive in from Carmichael, Sacramento, and nearby neighborhoods. There is only one location.

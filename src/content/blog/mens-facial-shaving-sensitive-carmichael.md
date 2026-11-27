@@ -3,6 +3,7 @@ title: "Men’s Facial for Shaving-Sensitive Skin near Carmichael"
 description: "The Men’s Deep Clean Facial at Golden State Glam in Fair Oaks considers shaving-sensitive skin. A practical guide for men visiting from Carmichael."
 pubDate: 2026-11-10
 updatedDate: 2026-11-10
+image: mensFacial
 ---
 
 The facial on my menu that takes shaving-related sensitivity into account is the [Men’s Deep Clean Facial](/services/mens-deep-clean/). I offer it at my Fair Oaks studio, and we talk through whether it suits your skin.

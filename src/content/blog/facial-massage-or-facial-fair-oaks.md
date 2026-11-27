@@ -3,6 +3,7 @@ title: "Facial Massage or a Facial? How to Choose in Fair Oaks"
 description: "Not sure whether to book facial massage or a facial in Fair Oaks? Here's how to choose between Golden State Glam's massage rituals and skin facials."
 pubDate: 2026-11-27
 updatedDate: 2026-11-27
+image: facialMassage
 ---
 
 If the massage is the part you look forward to, book one of the massage rituals on my Hydration & Glow menu at my Fair Oaks studio. If a cleanse or hydration is the goal, book a facial. That's the simple split. The rest of this post helps you choose within it.

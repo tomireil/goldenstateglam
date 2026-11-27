@@ -3,6 +3,7 @@ title: "Facial Extractions in Fair Oaks: Are They Automatic?"
 description: "In the Signature Deep Cleanse Facial at Golden State Glam in Fair Oaks, extractions happen only when appropriate for your skin that day. Here’s why."
 pubDate: 2026-11-12
 updatedDate: 2026-11-12
+image: clearSkin
 ---
 
 No. In the [Signature Deep Cleanse Facial](/services/signature-deep-cleanse/) at my Fair Oaks studio, extractions happen only when they’re appropriate for your skin that day. They’re an option, not a fixed step. The facial is built around cleansing, exfoliation and hydration, and it finishes with SPF.
