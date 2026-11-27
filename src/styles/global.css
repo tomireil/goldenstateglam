@@ -171,21 +171,21 @@ button {
 }
 
 .h-hero {
-  font-size: clamp(50px, 6.7vw, 96px);
+  font-size: clamp(44px, 5.6vw, 80px);
   line-height: 0.96;
 }
 
 .h-page {
-  font-size: clamp(44px, 5.6vw, 82px);
+  font-size: clamp(34px, 4.2vw, 60px);
   line-height: 0.98;
 }
 
 .h-section {
-  font-size: clamp(38px, 4.6vw, 66px);
+  font-size: clamp(31px, 3.75vw, 54px);
 }
 
 .h-sub {
-  font-size: clamp(32px, 3.8vw, 54px);
+  font-size: clamp(28px, 3.05vw, 44px);
   line-height: 1.02;
 }
 
