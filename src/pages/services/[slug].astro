@@ -202,7 +202,7 @@ const jsonLd = s.faqs ? [faqJsonLd(s.faqs)] : [];
               <span class="other__photo">
                 <Image
                   src={images[o.image].src}
-                  alt=""
+                  alt={images[o.image].alt}
                   widths={[400, 800]}
                   sizes="(min-width: 980px) 380px, 100vw"
                   style={`object-position: ${o.focus}`}

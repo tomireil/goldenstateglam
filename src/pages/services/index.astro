@@ -40,10 +40,10 @@ const cards = order.map((g) => services.find((s) => s.goal === g)!);
       {
         cards.map((s) => (
           <article class="svc" data-card={s.goal}>
-            <a class="svc__photo" href={`/services/${s.slug}/`} tabindex="-1" aria-hidden="true">
+            <a class="svc__photo" href={`/services/${s.slug}/`} tabindex="-1">
               <Image
                 src={images[s.image].src}
-                alt=""
+                alt={images[s.image].alt}
                 widths={[420, 800]}
                 sizes="(min-width: 1100px) 400px, (min-width: 740px) 50vw, 100vw"
                 style={`object-position: ${s.focus}`}

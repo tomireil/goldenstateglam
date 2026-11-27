@@ -18,9 +18,11 @@ interface Props {
   jsonLd?: object[];
   title?: string;
   description?: string;
+  /** Keep this page out of search results (used by the 404 page). */
+  noindex?: boolean;
 }
 
-const { path, jsonLd = [] } = Astro.props;
+const { path, jsonLd = [], noindex = false } = Astro.props;
 const entry = (seo as Record<string, any>)[path] ?? {};
 const title = Astro.props.title ?? entry.title ?? site.name;
 const description = Astro.props.description ?? entry.description ?? '';
@@ -37,8 +39,8 @@ const blocks = [(seo as Record<string, any>)._business, ...(entry.jsonld ?? []),
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow" />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
