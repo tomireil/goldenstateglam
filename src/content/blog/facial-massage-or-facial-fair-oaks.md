@@ -5,7 +5,7 @@ pubDate: 2026-11-27
 updatedDate: 2026-11-27
 ---
 
-If the massage is the part you look forward to, book a Facial Massage & Relaxation visit at my Fair Oaks studio. If a cleanse or hydration is the goal, book a facial. That's the simple split. The rest of this post helps you choose within it.
+If the massage is the part you look forward to, book one of the massage rituals on my Hydration & Glow menu at my Fair Oaks studio. If a cleanse or hydration is the goal, book a facial. That's the simple split. The rest of this post helps you choose within it.
 
 Say the holidays have you running. Family in town, a long drive to the in-laws, too many late nights. You open my menu and see two kinds of visits. One kind is about your skin. The other is about rest. Both have massage in them somewhere. So which one do you book?
 
@@ -15,7 +15,7 @@ It comes down to the main goal of the visit.
 
 My facials are built around your skin. The [Signature Deep Cleanse Facial](/services/signature-deep-cleanse/) is about a thorough cleanse, with extractions only when they're appropriate. The [Korean Glass Skin Facial](/services/korean-glass-skin/) is about hydration, and it includes facial massage too.
 
-[Facial Massage & Relaxation](/services/facial-massage-relaxation/) flips that. Rest is the point of the visit, more than extractions or a deep cleanse. The time goes to hands-on facial massage, often with the scalp, neck or shoulders, depending on the ritual. You're welcome to book for the massage itself.
+[The massage rituals under Hydration & Glow](/services/#glow) flip that. Rest is the point of the visit, more than extractions or a deep cleanse. The time goes to hands-on facial massage, often with the scalp, neck or shoulders, depending on the ritual. You're welcome to book for the massage itself.
 
 ## Which massage ritual should I choose?
 
@@ -24,6 +24,7 @@ There are four on the menu. Here's how I'd sort them.
 - **Deep Relax & Sleep Ritual.** Choose this when you want the longest stretch of rest. It's slow massage of the face, scalp, neck and shoulders, with warm towels and aromatherapy.
 - **Lymphatic Drainage Facial Massage.** Choose this for gentle, rhythmic facial massage with cooling mask care. It's a shorter visit than the Deep Relax ritual.
 - **Facial Sculpting Therapy.** Choose this if you'd like a massage-focused facial with scalp and neck massage and a hydrating mask.
+- **[Sculpt & Drain Facial](/services/sculpt-drain-facial/).** Choose this if you're curious about gua sha, a smooth stone tool that glides over the skin. Here it's paired with massage for your face, neck and shoulders. Warm towels start the visit and a cooling mask ends it.
 
 Still torn? Ask yourself how you want to feel walking out. Ready for a nap, or simply refreshed? That question sorts most of the four.
 
