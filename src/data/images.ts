@@ -20,7 +20,7 @@ import serumDropper from '../assets/serum-dropper.jpg';
 import microneedling from '../assets/microneedling.jpg';
 import maskApply from '../assets/mask-apply.jpg';
 import rolledTowels from '../assets/rolled-towels.jpg';
-import heroFaceMassage from '../assets/hero-face-massage.jpg';
+import heroFacialMask from '../assets/hero-facial-mask.jpg';
 
 // Every photo here except studio-cover.jpg is a stock photo, and the alt text says so.
 // Swap in real photos of the studio and of Veronika at work when they exist: replace the file, then fix the alt text.
@@ -43,7 +43,7 @@ import heroFaceMassage from '../assets/hero-face-massage.jpg';
 //   serum-dropper.jpg     Mathilde Langevin https://unsplash.com/photos/person-holding-black-glass-bottle-FDRaYqiTY1k
 //   microneedling.jpg     Patient Perfect   https://unsplash.com/photos/woman-receiving-microneedling-facial-treatment-2LxO1Wef8wQ
 //                         (glove colour toned down from bright pink to match the site)
-//   hero-face-massage.jpg Anna Keibalo   https://unsplash.com/photos/a-woman-getting-a-facial-massage-at-a-spa-qybZ2w0CzMw
+//   hero-facial-mask.jpg  Ivan S (Pexels License, free for commercial use)  https://www.pexels.com/photo/a-person-applying-facial-mask-on-woman-s-face-5659018/
 //   rolled-towels.jpg     iridial           https://unsplash.com/photos/stack-of-white-rolled-towels-0Qv4fUvlSrI
 const reference = 'Reference photo, not the Fair Oaks studio.';
 
@@ -120,7 +120,7 @@ export const images: Record<ImageKey, { src: ImageMetadata; alt: string }> = {
   },
   package6: { src: rolledTowels, alt: `A stack of rolled white towels on a wooden surface. ${reference}` },
   hero: {
-    src: heroFaceMassage,
-    alt: `A woman lies with her eyes closed while hands massage her forehead and scalp. ${reference}`,
+    src: heroFacialMask,
+    alt: `An esthetician brushes a white mask onto a relaxed client’s face in a bright treatment room. ${reference}`,
   },
 };
