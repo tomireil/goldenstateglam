@@ -9,13 +9,11 @@ import { images } from '../data/images';
 import { cities, reviews, site, visitSteps } from '../data/site';
 import { faqJsonLd, homeFaqs } from '../data/faqs';
 import { priceFrom, priceTo, services } from '../data/facials';
-import PromoBanner from '../components/PromoBanner.astro';
 
 const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. Facials, peels and skin treatments from ${priceFrom} to ${priceTo} at one studio. Book online.`;
 ---
 
 <Base path="/" jsonLd={[faqJsonLd(homeFaqs)]} description={description}>
-  <PromoBanner />
   <!-- Hero -->
   <section class="wrap hero">
     <div class="hero__text">
