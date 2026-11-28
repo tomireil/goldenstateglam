@@ -17,7 +17,7 @@ const withIt = services.filter((x) => x.includes.some((i) => /hydroderm/i.test(i
 const amounts = withIt.map((x) => parseInt(x.price.replace(/\D/g, ''), 10));
 const path = '/hydrodermabrasion/';
 const title = 'Hydrodermabrasion Facial in Fair Oaks | Golden State Glam';
-const description = `Hydrodermabrasion in Fair Oaks with a Zemits machine: a gentle, water-based deep clean. It's part of every facial here, from $${Math.min(...amounts)}.`;
+const description = `Hydrodermabrasion in Fair Oaks with a Zemits machine: a gentle, water-based deep clean. It's part of ${withIt.length} facials here, from $${Math.min(...amounts)}.`;
 
 const faqs = [
   {
@@ -26,11 +26,11 @@ const faqs = [
   },
   {
     q: 'What does hydrodermabrasion cost?',
-    a: `There’s no extra charge. It’s part of every facial I do, and those run from $${Math.min(...amounts)} to $${Math.max(...amounts)}. The ${s.name} is ${s.price} for ${s.time}.`,
+    a: `There’s no extra charge. It’s part of ${withIt.length} facials, and those run from $${Math.min(...amounts)} to $${Math.max(...amounts)}. The ${s.name} is ${s.price} for ${s.time}.`,
   },
   {
     q: 'Can I book hydrodermabrasion on its own?',
-    a: `It isn’t a separate booking. It’s included in every facial I do. For the deepest clean, book the ${s.name}.`,
+    a: `It isn’t a separate booking. It’s included in the ${withIt.length} facials listed on this page. For the deepest clean, book the ${s.name}.`,
   },
   {
     q: 'Is there downtime?',
@@ -72,7 +72,7 @@ const jsonLd = [
         <h1 class="display h-page">Hydrodermabrasion, <em>a water-based deep clean in Fair Oaks</em></h1>
         <p class="lede">
           A gentle, water-based exfoliation that lifts dead skin and debris without scrubbing. I do it with a Zemits
-          machine, and it’s part of every facial I do.
+          machine, and it’s part of {withIt.length} of my facials.
         </p>
         <div class="actions">
           <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>

@@ -139,7 +139,7 @@ export const services: Service[] = [
     questions: [
       {
         q: 'Do you offer HydraFacial?',
-        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of this facial and every other facial I do.',
+        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of this facial and most of the others on my menu.',
       },
       { q: 'How often should I get a deep cleansing facial?', a: 'Most clients come back every four to six weeks.' },
       { q: 'Will my skin be red after extractions?', a: 'Slight redness after extractions is normal. It usually fades within a few hours.' },
@@ -432,7 +432,7 @@ export const services: Service[] = [
       'The steps are chosen for your skin on the day, so your facial may include some or all of the ones listed.',
     ],
     includes: [
-      'Gentle exfoliation', 'Hydrodermabrasion',
+      'Gentle exfoliation',
       'Peptide-rich skincare',
       'A nourishing treatment mask',
       'Relaxing facial massage',
