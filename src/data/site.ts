@@ -48,6 +48,10 @@ export const hours = [
 // Surrounding towns clients visit from. Shown low on the page, on purpose.
 export const cities = ['Folsom', 'El Dorado Hills', 'Carmichael', 'Orangevale', 'Citrus Heights', 'Sacramento'];
 /** The one sentence about nearby towns. Use it everywhere so the list never differs from page to page. */
+// From Veronika. Used on the About page, the homepage, the FAQ and llms.txt.
+export const experience = 'I’ve worked as an esthetician for more than 15 years, in Europe and the United States.';
+export const training = 'I trained in Italy, France, Ukraine, Dubai and the United States.';
+
 export const parking = 'Parking is free. There’s plenty on site, and street parking too.';
 export const cancellation =
   'Please give me at least 24 hours’ notice to cancel or reschedule. With less notice, a 50% cancellation fee applies.';

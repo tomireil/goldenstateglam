@@ -97,7 +97,7 @@ export function GET() {
   add(
     '## About',
     '',
-    `${site.owner} is the owner of ${site.name} and a licensed esthetician. You don’t need to know a treatment name before you ask her about it. Tell her how your skin feels and start there.`,
+    `${site.owner} is the owner of ${site.name} and a licensed esthetician. She has more than 15 years of experience as an esthetician, in Europe and the United States, and trained in Italy, France, Ukraine, Dubai and the United States. She does every treatment herself. You don’t need to know a treatment name before you ask her about it. Tell her how your skin feels and start there.`,
     url('/about/'),
     '',
     '## Contact',

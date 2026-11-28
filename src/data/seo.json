@@ -20,7 +20,7 @@
       "@id": "https://goldenstateglam.com/#owner",
       "name": "Veronika Reil",
       "jobTitle": "Licensed esthetician",
-      "description": "Owner of Golden State Glam.",
+      "description": "Owner of Golden State Glam. Licensed esthetician with more than 15 years of experience in Europe and the United States, trained in Italy, France, Ukraine, Dubai and the United States.",
       "worksFor": {
         "@id": "https://goldenstateglam.com/#business"
       }
@@ -117,7 +117,7 @@
   },
   "/about/": {
     "title": "Veronika Reil, Fair Oaks Esthetician | Golden State Glam",
-    "description": "Golden State Glam in Fair Oaks is owned by Veronika Reil, a licensed esthetician. One studio for personalized facials, hydration, and facial massage.",
+    "description": "Veronika Reil is a licensed esthetician with 15+ years of experience in Europe and the US. She owns Golden State Glam in Fair Oaks and does every facial.",
     "ogType": "website",
     "jsonld": []
   },

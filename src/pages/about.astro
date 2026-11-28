@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import Arrow from '../components/Arrow.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { images } from '../data/images';
-import { hours, site, visitFrom } from '../data/site';
+import { experience, hours, site, training, visitFrom } from '../data/site';
 ---
 
 <Base path="/about/">
@@ -24,8 +24,10 @@ import { hours, site, visitFrom } from '../data/site';
       <h1 class="display h-page">A facial and skincare studio in <em>Fair Oaks</em></h1>
       <p class="pull">You don’t need to know the treatment name before you ask me about it.</p>
       <p class="lede">
-        I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. Maybe this would be your first facial.
-        Or maybe you’ve had one before and want something different this time.
+        I’m Veronika Reil, licensed esthetician and owner of Golden State Glam. {experience} {training}
+      </p>
+      <p class="lede">
+        Maybe this would be your first facial. Or maybe you’ve had one before and want something different this time.
       </p>
       <p class="lede">
         New here? Start with the <a href="/services/new-client-signature/">New Client Signature Facial</a>. Want a
@@ -63,6 +65,14 @@ import { hours, site, visitFrom } from '../data/site';
         <div class="hours__who">
           <dt>Owner</dt>
           <dd>{site.owner}, {site.ownerTitle.toLowerCase()}</dd>
+        </div>
+        <div class="hours__who">
+          <dt>Experience</dt>
+          <dd>15+ years, Europe and USA</dd>
+        </div>
+        <div class="hours__who">
+          <dt>Training</dt>
+          <dd>Italy, France, Ukraine, Dubai, USA</dd>
         </div>
         {
           hours.map((h) => (
