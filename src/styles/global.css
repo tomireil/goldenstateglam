@@ -313,6 +313,24 @@ button {
   gap: 12px 22px;
 }
 
+/* On phones, a pair of buttons sits side by side and shares the width. Rows that mix a button with text links still wrap. */
+@media (max-width: 560px) {
+  .actions:not(:has(> :not(.btn))) {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .actions:not(:has(> :not(.btn))) > .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 14px;
+    gap: 8px;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+}
+
 /* ---------- header ---------- */
 
 .site-header {
