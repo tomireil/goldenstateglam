@@ -18,7 +18,7 @@ So if you searched "HydraFacial near me" because you want that water-based deep 
 
 ## What is hydrodermabrasion?
 
-It's a gentle, water-based exfoliation. It lifts dead skin and debris without scrubbing.
+It's a gentle, water-based exfoliation. It lifts dead skin and debris without scrubbing. There's more on my [hydrodermabrasion page](/hydrodermabrasion/).
 
 ## Where is it on your menu?
 

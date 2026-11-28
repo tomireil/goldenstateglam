@@ -17,7 +17,7 @@ export const concerns: Concern[] = [
   {
     id: 'clogged-pores',
     title: 'Clogged pores and blackheads',
-    text: 'The Signature Deep Cleanse is my most thorough clean. Exfoliation loosens what’s sitting in your pores, extractions clear it out, and a mask calms everything down.',
+    text: 'The Signature Deep Cleanse is my most thorough clean. Exfoliation loosens what’s sitting in your pores, extractions clear it out, and a mask calms everything down. Hydrodermabrasion is part of every visit.',
     services: ['signature-deep-cleanse'],
   },
   {

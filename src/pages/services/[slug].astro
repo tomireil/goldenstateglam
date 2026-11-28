@@ -129,6 +129,11 @@ const jsonLd = [
           <span>Best for</span> {s.bestFor}.
         </p>
       )}
+      {s.slug === 'signature-deep-cleanse' && (
+        <p class="muted">
+          Looking for a HydraFacial? Read about <a href="/hydrodermabrasion/">hydrodermabrasion</a> at my studio.
+        </p>
+      )}
       {s.seeAlso && (
         <p class="muted">
           {s.seeAlso.text} <a href={`/services/${s.seeAlso.slug}/`}>{serviceBySlug(s.seeAlso.slug).name}</a>.
