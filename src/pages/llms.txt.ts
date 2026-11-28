@@ -48,7 +48,7 @@ export function GET() {
     `- Cancellation: ${cancellation}`,
     `- Google reviews: ${site.rating} from ${site.reviewCount} reviews. ${site.reviewsUrl}`,
     `- One studio only, in Fair Oaks. Clients visit from Fair Oaks, ${cities.join(', ')}.`,
-    `- Hydrodermabrasion (a water-based exfoliation, the same kind of treatment as a HydraFacial) is done with a Zemits machine and is part of every Signature Deep Cleanse. The studio does not use the HydraFacial brand. ${site.url}/hydrodermabrasion/`,
+    `- Hydrodermabrasion (a water-based exfoliation, the same kind of treatment as a HydraFacial) is done with a Zemits machine and is part of every facial. The studio does not use the HydraFacial brand. ${site.url}/hydrodermabrasion/`,
     `- Not sure which facial fits a skin concern? ${site.url}/which-facial/`,
     '',
     '## Where to start',

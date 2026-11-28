@@ -96,7 +96,7 @@ export const services: Service[] = [
   {
     slug: 'new-client-signature',
     questions: [
-      { q: 'What happens at a first visit?', a: 'It starts with a short consultation and a close look at your skin. Then you get a full facial: double cleanse, gentle exfoliation, a nourishing mask, facial massage, hydration and SPF. You leave with a simple home care plan.' },
+      { q: 'What happens at a first visit?', a: 'It starts with a short consultation and a close look at your skin. Then you get a full facial: double cleanse, gentle exfoliation, hydrodermabrasion, a nourishing mask, facial massage, hydration and SPF. You leave with a simple home care plan.' },
       { q: 'Should I come without makeup?', a: 'Come with or without makeup. The double cleanse takes care of it.' },
     ],
     name: 'New Client Signature Facial',
@@ -116,7 +116,7 @@ export const services: Service[] = [
     includes: [
       'Consultation and skin assessment',
       'Double cleanse',
-      'Gentle exfoliation',
+      'Gentle exfoliation', 'Hydrodermabrasion',
       'Nourishing mask',
       'Facial massage',
       'Hydration and SPF',
@@ -139,7 +139,7 @@ export const services: Service[] = [
     questions: [
       {
         q: 'Do you offer HydraFacial?',
-        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of every Signature Deep Cleanse.',
+        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of this facial and every other facial I do.',
       },
       { q: 'How often should I get a deep cleansing facial?', a: 'Most clients come back every four to six weeks.' },
       { q: 'Will my skin be red after extractions?', a: 'Slight redness after extractions is normal. It usually fades within a few hours.' },
@@ -208,7 +208,7 @@ export const services: Service[] = [
     includes: [
       'Skin assessment',
       'Deep cleanse',
-      'Superficial exfoliation',
+      'Superficial exfoliation', 'Hydrodermabrasion',
       'Gentle extractions',
       'A calming mask',
       'LED light when appropriate',
@@ -248,7 +248,7 @@ export const services: Service[] = [
     ],
     includes: [
       'Double cleanse',
-      'Exfoliation',
+      'Exfoliation', 'Hydrodermabrasion',
       'Extractions',
       'A mask',
       'Hydration with SPF',
@@ -287,7 +287,7 @@ export const services: Service[] = [
     ],
     includes: [
       'Cleanse',
-      'Gentle exfoliation',
+      'Gentle exfoliation', 'Hydrodermabrasion',
       'Layered hydrating serums',
       'A soothing treatment',
       'A nourishing mask',
@@ -322,7 +322,7 @@ export const services: Service[] = [
     ],
     includes: [
       'Cleanse',
-      'Enzyme exfoliation',
+      'Enzyme exfoliation', 'Hydrodermabrasion',
       'A peptide treatment',
       'A lifting facial massage',
       'LED light',
@@ -432,7 +432,7 @@ export const services: Service[] = [
       'The steps are chosen for your skin on the day, so your facial may include some or all of the ones listed.',
     ],
     includes: [
-      'Gentle exfoliation',
+      'Gentle exfoliation', 'Hydrodermabrasion',
       'Peptide-rich skincare',
       'A nourishing treatment mask',
       'Relaxing facial massage',

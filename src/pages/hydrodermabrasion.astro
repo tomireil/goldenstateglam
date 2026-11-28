@@ -7,14 +7,17 @@ import CtaBand from '../components/CtaBand.astro';
 import FaqList from '../components/FaqList.astro';
 import Arrow from '../components/Arrow.astro';
 import { faqJsonLd } from '../data/faqs';
-import { serviceBySlug } from '../data/facials';
+import { serviceBySlug, services } from '../data/facials';
 import { images } from '../data/images';
 import { site } from '../data/site';
 
 const s = serviceBySlug('signature-deep-cleanse');
+// Every service whose list of steps includes hydrodermabrasion.
+const withIt = services.filter((x) => x.includes.some((i) => /hydroderm/i.test(i)));
+const amounts = withIt.map((x) => parseInt(x.price.replace(/\D/g, ''), 10));
 const path = '/hydrodermabrasion/';
 const title = 'Hydrodermabrasion Facial in Fair Oaks | Golden State Glam';
-const description = `Hydrodermabrasion in Fair Oaks with a Zemits machine: a gentle, water-based deep clean. It's part of every ${s.name}, ${s.price} for ${s.time}.`;
+const description = `Hydrodermabrasion in Fair Oaks with a Zemits machine: a gentle, water-based deep clean. It's part of every facial here, from $${Math.min(...amounts)}.`;
 
 const faqs = [
   {
@@ -23,11 +26,11 @@ const faqs = [
   },
   {
     q: 'What does hydrodermabrasion cost?',
-    a: `It’s part of every ${s.name}, which is ${s.price} for ${s.time}. There’s no extra charge for it.`,
+    a: `There’s no extra charge. It’s part of every facial I do, and those run from $${Math.min(...amounts)} to $${Math.max(...amounts)}. The ${s.name} is ${s.price} for ${s.time}.`,
   },
   {
     q: 'Can I book hydrodermabrasion on its own?',
-    a: `It isn’t a separate booking. Book the ${s.name} and it’s included, along with extractions, a mask and facial massage.`,
+    a: `It isn’t a separate booking. It’s included in every facial I do. For the deepest clean, book the ${s.name}.`,
   },
   {
     q: 'Is there downtime?',
@@ -69,7 +72,7 @@ const jsonLd = [
         <h1 class="display h-page">Hydrodermabrasion, <em>a water-based deep clean in Fair Oaks</em></h1>
         <p class="lede">
           A gentle, water-based exfoliation that lifts dead skin and debris without scrubbing. I do it with a Zemits
-          machine, and it’s part of every {s.name}.
+          machine, and it’s part of every facial I do.
         </p>
         <div class="actions">
           <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>
@@ -87,7 +90,7 @@ const jsonLd = [
         />
         <div class="hd-hero__tag">
           <strong>{s.price}</strong>
-          <span>{s.time} · included in the {s.short}</span>
+          <span>{s.time} · {s.short}</span>
         </div>
       </div>
     </div>
@@ -121,6 +124,25 @@ const jsonLd = [
       </div>
     </div>
 
+    <div class="hd__which stack">
+      <h2 class="display h-sub">Facials that <em>include it</em></h2>
+      <ul>
+        {
+          withIt.map((x) => (
+            <li>
+              <a href={`/services/${x.slug}/`}>
+                <span class="hd__which-name">{x.name}</span>
+                <span class="hd__which-meta">
+                  {x.price} · {x.time}
+                </span>
+                <Arrow />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
     <div class="hd__three">
       <article>
         <span>01</span>
@@ -130,7 +152,7 @@ const jsonLd = [
       <article>
         <span>02</span>
         <h3>Thorough</h3>
-        <p>It comes with a double cleanse, extractions where needed and a targeted mask.</p>
+        <p>In the {s.name}, it comes with a double cleanse, extractions where needed and a targeted mask.</p>
       </article>
       <article>
         <span>03</span>
@@ -289,6 +311,49 @@ const jsonLd = [
     align-self: flex-start;
     background: var(--champagne);
     color: var(--ink);
+  }
+
+  .hd__which {
+    gap: 20px;
+  }
+
+  .hd__which ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+    gap: 12px;
+  }
+
+  .hd__which li a {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px 14px;
+    min-height: 64px;
+    padding: 12px 20px;
+    border-radius: 18px;
+    background: var(--sand);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .hd__which li a:hover {
+    background: var(--champagne);
+  }
+
+  .hd__which-name {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.15;
+  }
+
+  .hd__which-meta {
+    order: 3;
+    flex-basis: 100%;
+    font-size: 14px;
+    color: var(--text-strong);
   }
 
   .hd__three {

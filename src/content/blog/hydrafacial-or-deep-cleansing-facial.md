@@ -1,12 +1,12 @@
 ---
 title: "Looking for a HydraFacial in Fair Oaks? Read This First"
-description: "Golden State Glam in Fair Oaks offers hydrodermabrasion with a Zemits machine, the same kind of treatment as a HydraFacial, inside the Signature Deep Cleanse."
+description: "Golden State Glam in Fair Oaks offers hydrodermabrasion with a Zemits machine, the same kind of treatment as a HydraFacial, in every facial."
 pubDate: 2026-11-28
 updatedDate: 2026-11-28
 image: facialMask
 ---
 
-Yes, I offer this kind of facial at my Fair Oaks studio. I use a Zemits hydrodermabrasion machine, and it's part of my Signature Deep Cleanse. It isn't the HydraFacial brand, so here's what that means for you.
+Yes, I offer this kind of facial at my Fair Oaks studio. I use a Zemits hydrodermabrasion machine, and it's part of every facial I do. It isn't the HydraFacial brand, so here's what that means for you.
 
 ## Is it a HydraFacial?
 
@@ -22,7 +22,7 @@ It's a gentle, water-based exfoliation. It lifts dead skin and debris without sc
 
 ## Where is it on your menu?
 
-In the [Signature Deep Cleanse](/services/signature-deep-cleanse/). It's a 90-minute deep cleansing facial for $180.
+In every facial. If a deep clean is what you're after, the one to book is the [Signature Deep Cleanse](/services/signature-deep-cleanse/). It's a 90-minute deep cleansing facial for $180.
 
 It includes:
 
@@ -34,9 +34,9 @@ It includes:
 - Facial massage
 - Hydration with SPF
 
-## Is it in every deep cleanse?
+## Do I have to ask for it?
 
-Yes. Hydrodermabrasion is part of every Signature Deep Cleanse. You don't need to ask for it or pay extra.
+No. Hydrodermabrasion is part of every facial, including the New Client Signature Facial. You don't need to ask for it or pay extra.
 
 ## What else is in the visit?
 
