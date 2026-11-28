@@ -28,17 +28,15 @@ It includes:
 
 - A double cleanse
 - Professional exfoliation
-- Hydrodermabrasion when it suits your skin
+- Hydrodermabrasion
 - Extractions where needed
 - A targeted mask
 - Facial massage
 - Hydration with SPF
 
-## Why "when it suits your skin"?
+## Is it in every deep cleanse?
 
-I look at your skin first. Most of the time hydrodermabrasion is a good fit. If your skin is irritated that day, I may skip it and tell you why.
-
-If it's the reason you're booking, say so when you book. I'll plan the visit around it.
+Yes. Hydrodermabrasion is part of every Signature Deep Cleanse. You don't need to ask for it or pay extra.
 
 ## What else is in the visit?
 

@@ -139,7 +139,7 @@ export const services: Service[] = [
     questions: [
       {
         q: 'Do you offer HydraFacial?',
-        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of this facial when it suits your skin.',
+        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of every Signature Deep Cleanse.',
       },
       { q: 'How often should I get a deep cleansing facial?', a: 'Most clients come back every four to six weeks.' },
       { q: 'Will my skin be red after extractions?', a: 'Slight redness after extractions is normal. It usually fades within a few hours.' },
@@ -158,12 +158,12 @@ export const services: Service[] = [
     lead: 'A 90-minute deep cleansing facial with extractions, for clogged pores, blackheads and dull skin.',
     intro: [
       'This is my most thorough clean. Exfoliation loosens what’s sitting in your pores, extractions clear it out, and a targeted mask calms everything down.',
-      'Hydrodermabrasion is added when it suits your skin. It’s a gentle, water-based exfoliation that lifts dead skin and debris without scrubbing.',
+      'Hydrodermabrasion is part of every visit. It’s a gentle, water-based exfoliation that lifts dead skin and debris without scrubbing.',
     ],
     includes: [
       'Double cleanse',
       'Professional exfoliation',
-      'Hydrodermabrasion when it suits your skin',
+      'Hydrodermabrasion',
       'Extractions where needed',
       'A targeted mask',
       'Facial massage',
