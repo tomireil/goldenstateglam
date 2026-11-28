@@ -2,7 +2,7 @@
 title: "Facial Massage or a Facial? How to Choose in Fair Oaks"
 description: "Not sure whether to book facial massage or a facial in Fair Oaks? Here's how to choose between Golden State Glam's massage rituals and skin facials."
 pubDate: 2026-11-27
-updatedDate: 2026-11-27
+updatedDate: 2026-11-28
 image: facialMassage
 ---
 
@@ -22,10 +22,19 @@ My facials are built around your skin. The [Signature Deep Cleanse Facial](/serv
 
 There are four on the menu. Here's how I'd sort them.
 
-- **Deep Relax & Sleep Ritual.** Choose this when you want the longest stretch of rest. It's slow massage of the face, scalp, neck and shoulders, with warm towels and aromatherapy.
-- **Lymphatic Drainage Facial Massage.** Choose this for gentle, rhythmic facial massage with cooling mask care. It's a shorter visit than the Deep Relax ritual.
-- **Facial Sculpting Therapy.** Choose this if you'd like a massage-focused facial with scalp and neck massage and a hydrating mask.
+- **[Deep Relax & Sleep Ritual](/services/deep-relax-sleep-ritual/).** Choose this when you want the longest stretch of rest. It's slow massage of the face, scalp, neck and shoulders, with warm towels and aromatherapy.
+- **[Lymphatic Drainage Facial Massage](/services/lymphatic-drainage-facial-massage/).** Choose this for gentle, rhythmic facial massage with cooling mask care. It's a shorter visit than the Deep Relax ritual.
+- **[Facial Sculpting Therapy](/services/facial-sculpting-therapy/).** Choose this if you'd like a massage-focused facial with scalp and neck massage and a hydrating mask.
 - **[Sculpt & Drain Facial](/services/sculpt-drain-facial/).** Choose this if you're curious about gua sha, a smooth stone tool that glides over the skin. Here it's paired with massage for your face, neck and shoulders. Warm towels start the visit and a cooling mask ends it.
+
+## How do the four compare on time and price?
+
+- Deep Relax & Sleep Ritual: 90 minutes, $180
+- Lymphatic Drainage Facial Massage: 70 minutes, $110
+- Facial Sculpting Therapy: 80 minutes, $150
+- Sculpt & Drain Facial: 60 minutes, $150
+
+The Lymphatic Drainage Facial Massage is hands only. The Sculpt & Drain Facial adds gua sha tools and shoulder massage. Facial Sculpting Therapy is a full skincare facial for dry or mature skin, with massage built in.
 
 Still torn? Ask yourself how you want to feel walking out. Ready for a nap, or simply refreshed? That question sorts most of the four.
 
@@ -49,7 +58,7 @@ So tell me when you book about allergies, scent sensitivities, recent skin treat
 
 ## Where do these visits happen?
 
-At one studio: 7996 California Ave, Suite A, Fair Oaks. Clients come from Fair Oaks, Folsom, El Dorado Hills, Carmichael and Sacramento. There's no second location.
+At one studio: 7996 California Ave, Suite A, Fair Oaks. Clients come from Fair Oaks, Folsom, El Dorado Hills, Carmichael, Orangevale, Citrus Heights and Sacramento. There's no second location.
 
 ## FAQ
 
