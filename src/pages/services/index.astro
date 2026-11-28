@@ -17,9 +17,9 @@ import { site } from '../../data/site';
 
 const groups = categories.map((c) => ({ ...c, items: services.filter((s) => s.category === c.id) }));
 const filters = [
-  { id: 'all', label: 'everything' },
+  { id: 'all', label: 'All' },
   ...categories.map((c) => ({ id: c.id, label: c.filter })),
-  { id: 'packages', label: 'packages' },
+  { id: 'packages', label: 'Packages' },
 ];
 ---
 
@@ -27,17 +27,17 @@ const filters = [
   <section class="wrap page-top stack" style="gap: clamp(28px, 4vw, 48px)">
     <div class="page-head">
       <div class="stack">
-        <p class="eyebrow eyebrow--rule">Facial menu</p>
-        <h1 class="display h-page">Choose your <em>facial</em></h1>
+        <p class="eyebrow eyebrow--rule">{services.length} services</p>
+        <h1 class="display h-page">Facial menu <em>and prices</em></h1>
       </div>
       <p class="lede">
         Every service on the booking menu, with its price, length and deposit up front. New here? Start with the{' '}
-        <a href="/services/new-client-signature/">New Client Signature Facial</a>.
+        <a href="/services/new-client-signature/">New Client Signature Facial</a>, or see{' '}
+        <a href="/which-facial/">which facial fits your skin concern</a>.
       </p>
     </div>
 
-    <div class="chips" role="group" aria-label="Filter the menu" data-filter>
-      <span class="chips__lead">I’m looking for</span>
+    <div class="chips chips--row" role="group" aria-label="Filter the menu" data-filter>
       {
         filters.map((f, i) => (
           <button class="chip" type="button" data-goal={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
@@ -51,6 +51,7 @@ const filters = [
       groups.map((g) => (
         <section class="group" id={g.id} data-group={g.id}>
           <h2 class="display h-sub">{g.name}</h2>
+          {g.note && <p class="group__note muted">{g.note}</p>}
           <div class="cards">
             {g.items.map((s) => (
               <article class="svc">
@@ -177,6 +178,32 @@ const filters = [
     gap: 24px;
     scroll-margin-top: 24px;
     transition: opacity 0.4s ease;
+  }
+
+  .chips--row {
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter, 20px) * -1);
+    padding-inline: var(--gutter, 20px);
+    margin-block: -8px;
+    padding-block: 4px;
+  }
+
+  .chips--row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chips--row .chip {
+    flex: none;
+    min-height: 44px;
+    padding: 0 18px;
+  }
+
+  .group__note {
+    max-width: 70ch;
+    margin-top: -8px;
   }
 
   .group.is-dim {

@@ -36,13 +36,19 @@ export type ImageKey =
 export type CategoryId = 'signature' | 'glow' | 'body' | 'peels' | 'premium' | 'advanced';
 
 // Category names as they appear on the booking menu. "Advanced treatments" is ours: those two have no category there.
-export const categories: { id: CategoryId; name: string; filter: string }[] = [
-  { id: 'signature', name: 'Signature & Deep Cleansing', filter: 'signature and deep cleansing' },
-  { id: 'glow', name: 'Hydration & Glow', filter: 'hydration and glow' },
-  { id: 'body', name: 'Body Skin Treatments', filter: 'body treatments' },
-  { id: 'peels', name: 'Peelings', filter: 'peels' },
-  { id: 'premium', name: 'Exopeel & Dermoaroma', filter: 'premium peels' },
-  { id: 'advanced', name: 'Advanced treatments', filter: 'advanced treatments' },
+// Category names are written for visitors. GlossGenius calls the peel groups "Peelings" and "Exopeel & Dermoaroma".
+export const categories: { id: CategoryId; name: string; filter: string; note?: string }[] = [
+  { id: 'signature', name: 'Signature & Deep Cleansing', filter: 'Deep cleansing' },
+  {
+    id: 'glow',
+    name: 'Hydration & Glow',
+    filter: 'Hydration',
+    note: 'Three of these are massage-led. The Lymphatic Drainage Facial Massage is hands only. The Sculpt & Drain Facial adds gua sha tools and shoulder massage. Facial Sculpting Therapy is a full skincare facial for dry or mature skin.',
+  },
+  { id: 'body', name: 'Back facial', filter: 'Back' },
+  { id: 'peels', name: 'Chemical peels', filter: 'Peels' },
+  { id: 'premium', name: 'Advanced peels', filter: 'Advanced peels' },
+  { id: 'advanced', name: 'Advanced treatments', filter: 'Advanced' },
 ];
 
 export interface Service {

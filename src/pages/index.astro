@@ -11,6 +11,9 @@ import { faqJsonLd, homeFaqs } from '../data/faqs';
 import { priceFrom, priceTo, services } from '../data/facials';
 
 const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. Facials, peels and skin treatments from ${priceFrom} to ${priceTo} at one studio. Book online.`;
+
+// Services the picker doesn't show, linked in one line under it. The two microneedling services are left out for now.
+const alsoOnMenu = services.filter((s) => !s.need && s.category !== 'advanced');
 ---
 
 <Base path="/" description={description}>
@@ -54,6 +57,18 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
       </span>
       <a class="link" href="/services/">See the full menu of {services.length} services</a>
     </div>
+    <p class="menu-section__also">
+      Also on the menu:{' '}
+      {
+        alsoOnMenu.map((s, i) => (
+          <>
+            <a href={`/services/${s.slug}/`}>{s.name}</a>
+            {i < alsoOnMenu.length - 1 ? ', ' : '.'}
+          </>
+        ))
+      }{' '}
+      Not sure? See <a href="/which-facial/">which facial fits your skin concern</a>.
+    </p>
    </div>
   </section>
 
@@ -360,6 +375,12 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
 
   .menu-section__head > p {
     max-width: 380px;
+  }
+
+  .menu-section__also {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text);
   }
 
   .menu-section__foot {
