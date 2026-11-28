@@ -96,7 +96,7 @@ export const services: Service[] = [
     focus: '50% 40%',
     lead: 'The first-visit facial: a skin consultation and a full custom facial in one 80-minute appointment.',
     intro: [
-      'Not sure what your skin needs? That’s what this visit is for. We look closely at your skin, ask about your routine, and build the facial around what we find.',
+      'Not sure what your skin needs? That’s what this visit is for. I look closely at your skin, ask about your routine, and build the facial around what I find.',
       'It’s a complete facial, not a trial. You leave with clean, hydrated skin and a simple plan to follow at home.',
     ],
     includes: [
@@ -114,7 +114,7 @@ export const services: Service[] = [
     ],
     goodToKnow: [
       'Come with or without makeup. The double cleanse takes care of it.',
-      'When you book, tell us about any allergies, prescriptions, or recent skin treatments.',
+      'When you book, tell me about any allergies, prescriptions, or recent skin treatments.',
     ],
     bestFor: 'first visits, and anyone who isn’t sure which facial to choose',
     need: 'A first visit',
@@ -135,7 +135,7 @@ export const services: Service[] = [
     focus: '32% 50%',
     lead: 'A 90-minute deep cleansing facial with extractions, for clogged pores, blackheads and dull skin.',
     intro: [
-      'This is our most thorough clean. Exfoliation loosens what’s sitting in your pores, extractions clear it out, and a targeted mask calms everything down.',
+      'This is my most thorough clean. Exfoliation loosens what’s sitting in your pores, extractions clear it out, and a targeted mask calms everything down.',
       'Hydrodermabrasion is added when it suits your skin. It’s a gentle, water-based exfoliation that lifts dead skin and debris without scrubbing.',
     ],
     includes: [
@@ -175,7 +175,7 @@ export const services: Service[] = [
     focus: '45% 45%',
     lead: 'An acne facial for breakouts, blackheads and congested skin, with gentle extractions and a calming mask.',
     intro: [
-      'Built for skin that breaks out. We clear congestion without stripping or over-drying your skin, then calm the redness.',
+      'Built for skin that breaks out. I clear congestion without stripping or over-drying your skin, then soothe it.',
       'It’s gentler than the Signature Deep Cleanse and more focused on breakouts. LED light is added when it fits your skin, and you leave with a simple routine for home.',
     ],
     includes: [
@@ -194,7 +194,7 @@ export const services: Service[] = [
     goodToKnow: [
       'Breakout-prone skin responds best to a series. Most clients start with six visits, two weeks apart.',
       'This is a cosmetic treatment. Severe or painful acne is best seen by a dermatologist first.',
-      'Tell us if you use prescription acne medication.',
+      'Tell me if you use prescription acne medication.',
     ],
     bestFor: 'oily, congested, and breakout-prone skin',
     need: 'Clearer skin',
@@ -481,7 +481,7 @@ export const services: Service[] = [
     focus: '50% 55%',
     lead: 'A professional chemical peel that lifts away dull surface skin for a smoother, more even tone.',
     intro: [
-      'A peel uses skincare acids to loosen the dull top layer of skin so fresher skin shows through. We look at your skin first, then choose the peel that suits it.',
+      'A peel uses skincare acids to loosen the dull top layer of skin so fresher skin shows through. I look at your skin first, then choose the peel that suits it.',
       'New to peels? Start here. For stubborn dark spots or texture, the Advanced Italian Skin Renewal goes further.',
     ],
     includes: [
@@ -525,7 +525,7 @@ export const services: Service[] = [
     focus: '50% 65%',
     lead: 'A stronger professional peel, with four Italian formulas for dark spots, texture, aging skin or body areas.',
     intro: [
-      'This is a step up from a standard chemical peel. Each of the four formulas targets a different concern, and we assess your skin before choosing one.',
+      'This is a step up from a standard chemical peel. Each of the four formulas targets a different concern, and I assess your skin before choosing one.',
       'Expect more flaking than a standard peel, and a bigger change in tone and texture once it settles.',
     ],
     includes: [
@@ -541,7 +541,7 @@ export const services: Service[] = [
       'Flaking for three to seven days, then a visibly more even tone and smoother texture.',
     ],
     goodToKnow: [
-      'New to peels? We start you with a facial or a Chemical Peel first.',
+      'New to peels? I start you with a facial or a Chemical Peel first.',
       peelAftercare,
       peelNotFor,
     ],
@@ -583,7 +583,7 @@ export const services: Service[] = [
     lead: 'Our most advanced peel: a 105-minute skin resurfacing treatment for tone, texture and fine lines.',
     intro: [
       'Exopeel is a professional peel system from Europe that renews the surface of the skin. Every treatment starts with a skin assessment, and the protocol is chosen for your skin alone.',
-      'It asks more of your skin than our other peels, so plan for a few days of recovery.',
+      'It asks more of your skin than my other peels, so plan for a few days of recovery.',
     ],
     includes: [
       'Skin assessment',

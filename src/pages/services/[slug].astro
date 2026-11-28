@@ -7,7 +7,7 @@ import FaqList from '../../components/FaqList.astro';
 import { categories, services, type Service } from '../../data/facials';
 import { faqJsonLd, type Faq } from '../../data/faqs';
 import { images } from '../../data/images';
-import { site } from '../../data/site';
+import { site, visitFrom } from '../../data/site';
 import { posts } from '../../data/posts';
 
 export function getStaticPaths() {
@@ -209,8 +209,7 @@ const jsonLd = [
     <div class="stack">
       <h2 class="display h-sub">Visiting the <em>studio</em></h2>
       <p class="muted">
-        {s.name} is given at one studio: {site.fullAddress}. Clients visit from Folsom, El Dorado Hills, Carmichael and
-        Sacramento. {site.hoursLong}.
+        {s.name} is given at one studio: {site.fullAddress}. {visitFrom} {site.hoursLong}.
       </p>
       <p class="muted small">
         Services here are cosmetic skincare, not medical treatment, and results vary. For a medical skin concern, see

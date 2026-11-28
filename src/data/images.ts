@@ -22,7 +22,7 @@ import maskApply from '../assets/mask-apply.jpg';
 import rolledTowels from '../assets/rolled-towels.jpg';
 import heroFacialMask from '../assets/hero-facial-mask.jpg';
 
-// Every photo here except studio-cover.jpg is a stock photo, and the alt text says so.
+// studio-cover.jpg is Veronika's own portrait. Every other photo here is a stock photo, and the alt text says so.
 // Swap in real photos of the studio and of Veronika at work when they exist: replace the file, then fix the alt text.
 //
 // Credits (Unsplash License, free for commercial use, no attribution required):
@@ -82,7 +82,7 @@ export const images: Record<ImageKey, { src: ImageMetadata; alt: string; quality
   },
   studioCover: {
     src: studioCover,
-    alt: 'The cover portrait from the Golden State Glam booking page: a woman with long blonde hair in a black blazer.',
+    alt: 'Veronika Reil, licensed esthetician and owner of Golden State Glam in Fair Oaks.',
   },
   newClient: {
     src: firstVisit,

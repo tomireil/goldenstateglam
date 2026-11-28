@@ -71,7 +71,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Where is Golden State Glam?',
-    a: 'My studio is at 7996 California Ave, Suite A, Fair Oaks, CA 95628. Every appointment happens here. Clients visit from Folsom, El Dorado Hills, Carmichael and Sacramento.',
+    a: 'My studio is at 7996 California Ave, Suite A, Fair Oaks, CA 95628. Every appointment happens here. Clients visit from Folsom, El Dorado Hills, Carmichael, Orangevale, Citrus Heights and Sacramento.',
   },
   {
     q: 'What are your business hours?',

@@ -46,7 +46,9 @@ export const hours = [
 ];
 
 // Surrounding towns clients visit from. Shown low on the page, on purpose.
-export const cities = ['Folsom', 'El Dorado Hills', 'Carmichael', 'Sacramento', 'Orangevale', 'Citrus Heights'];
+export const cities = ['Folsom', 'El Dorado Hills', 'Carmichael', 'Orangevale', 'Citrus Heights', 'Sacramento'];
+/** The one sentence about nearby towns. Use it everywhere so the list never differs from page to page. */
+export const visitFrom = `Clients visit from ${cities.slice(0, -1).join(', ')} and ${cities.at(-1)}.`;
 
 // Real Google reviews, quoted as published on the live site.
 export const reviews = [

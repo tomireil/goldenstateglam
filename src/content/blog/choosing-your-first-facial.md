@@ -1,5 +1,5 @@
 ---
-title: "How to choose your first facial in Fair Oaks"
+title: "How to Choose Your First Facial in Fair Oaks"
 description: "How to pick a first facial at Golden State Glam in Fair Oaks. Start with the New Client Signature Facial at $150 for 80 minutes. Book online."
 pubDate: 2026-11-01
 updatedDate: 2026-11-01
@@ -16,7 +16,7 @@ The menu is a set of cosmetic facials. It is not a medical visit, and it does no
 
 **Hydration.** The [Korean Glass Skin Facial](/services/korean-glass-skin/) is $165 and 75 minutes, with serum, a hydrating mask, and facial massage.
 
-**Relaxation.** [Facial massage and relaxation](/services/#glow) is the slower end of the menu. The Lymphatic Drainage Facial Massage is $110 and 70 minutes, with a $50 deposit. The Deep Relax & Sleep Ritual is $180 and 90 minutes, with an $80 deposit for new clients. Facial Sculpting Therapy is $150 and 80 minutes. It is self-care, with massage, warm towels, and aromatherapy. It is not a treatment for anxiety or sleep disorders.
+**Relaxation.** [Facial massage and relaxation](/services/#glow) is the slower end of the menu. The Lymphatic Drainage Facial Massage is $110 and 70 minutes, with a $50 deposit. The Deep Relax & Sleep Ritual is $180 and 90 minutes, with an $80 deposit for new clients. Facial Sculpting Therapy is $150 and 80 minutes, a moisture-first facial for dry or mature skin with facial massage. The Deep Relax & Sleep Ritual is self-care, with massage, warm towels, and aromatherapy. It is not a treatment for anxiety or sleep disorders.
 
 ## Match the time you actually have
 
@@ -30,6 +30,6 @@ Before the appointment, share sensitivities, allergies, recent procedures, and p
 
 ## How to book
 
-Use Book now on this site. It opens the studio’s booking site, where you continue on to choose a time. If you are stuck between two facials, send a message through the booking site’s contact form before you reserve.
+Use Book now on this site. It opens the studio’s booking site, where you continue on to choose a time. If you are stuck between two facials, text me at (916) 304-3810 before you reserve.
 
 Check the confirmation for the address, the time, and any deposit before you leave home.

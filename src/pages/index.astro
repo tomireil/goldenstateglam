@@ -6,7 +6,7 @@ import Stars from '../components/Stars.astro';
 import FacialGallery from '../components/FacialGallery.astro';
 import FaqList from '../components/FaqList.astro';
 import { images } from '../data/images';
-import { cities, reviews, site, visitSteps } from '../data/site';
+import { cities, reviews, site, visitSteps, visitFrom } from '../data/site';
 import { faqJsonLd, homeFaqs } from '../data/faqs';
 import { priceFrom, priceTo, services } from '../data/facials';
 
@@ -127,7 +127,7 @@ const description = `Facials in Fair Oaks, CA, by licensed esthetician ${site.ow
         <address>
           <strong>{site.fullAddress}</strong>
           <span>{site.hoursLong}</span>
-          <span class="small">Clients visit from {cities.slice(0, -1).join(', ')} and {cities.at(-1)}.</span>
+          <span class="small">{visitFrom}</span>
         </address>
         <div class="actions">
           <a class="btn" href={site.bookingUrl}>Book now <Arrow /></a>

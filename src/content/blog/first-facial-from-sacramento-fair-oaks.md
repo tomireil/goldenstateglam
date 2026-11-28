@@ -40,7 +40,7 @@ For a first visit, though, start with the New Client Signature Facial. If a deep
 
 When you book, tell me about allergies, prescriptions and recent skin treatments. If you use retinol, read [Using Retinol? What to Know Before a Facial](/blog/retinol-before-facial-fair-oaks/) first.
 
-You don’t need to arrive knowing your skin type. The American Academy of Dermatology’s [everyday skin care advice](https://www.aad.org/public/everyday-care/skin-care-basics/care/skin-care-tips-dermatologists-use) is to use products that match your skin’s needs, whether it’s oily, dry, normal, combination or sensitive. Choosing a facial follows the same logic: start from your skin, not the menu.
+You don’t need to arrive knowing your skin type. The American Academy of Dermatology’s [everyday skin care advice](https://www.aad.org/public/everyday-care/skin-care-secrets/routine/healthier-looking-skin) is to use products that match your skin’s needs, whether it’s oily, dry, normal, combination or sensitive. Choosing a facial follows the same logic: start from your skin, not the menu.
 
 ## Is a facial a treatment for a skin condition?
 

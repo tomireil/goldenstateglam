@@ -23,13 +23,14 @@ interface Props {
   /** Absolute URL of a 1200x630 preview image. Defaults to the site-wide one. */
   ogImage?: string;
   ogImageAlt?: string;
+  ogType?: 'website' | 'article';
 }
 
 const { path, jsonLd = [], noindex = false } = Astro.props;
 const entry = (seo as Record<string, any>)[path] ?? {};
 const title = Astro.props.title ?? entry.title ?? site.name;
 const description = Astro.props.description || entry.description || '';
-const ogType = entry.ogType ?? 'website';
+const ogType = Astro.props.ogType ?? entry.ogType ?? 'website';
 const canonical = new URL(path, site.url).href;
 const customOg = Astro.props.ogImage;
 const ogImage = customOg ?? `${site.url}/og.jpg`;
@@ -88,6 +89,8 @@ const blocks = [business, ...(entry.jsonld ?? []), ...jsonLd]
     <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#faf5ef" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Plain-language summary of Golden State Glam" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {blocks.map((b) => <script type="application/ld+json" set:html={JSON.stringify(b)} />)}

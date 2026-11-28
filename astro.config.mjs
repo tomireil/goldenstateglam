@@ -14,6 +14,8 @@ for (const file of readdirSync(new URL('./src/content/blog/', import.meta.url)))
 }
 const newestPost = Object.values(lastmod).sort().pop();
 if (newestPost) lastmod['/blog/'] = newestPost;
+// Pages edited by hand. Update the date when you change one.
+Object.assign(lastmod, { '/about/': '2026-11-28', '/contact/': '2026-11-28', '/faq/': '2026-11-28' });
 const menuSynced = read('./src/data/facials.ts').match(/Last synced with GlossGenius: (\d{4}-\d{2}-\d{2})/)?.[1];
 
 // Static site, deployed to Cloudflare Pages. Build output: dist/

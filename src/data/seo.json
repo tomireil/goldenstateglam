@@ -125,7 +125,7 @@
     "jsonld": []
   },
   "/blog/choosing-your-first-facial/": {
-    "title": "How to Choose Your First Facial in Fair Oaks Studio",
+    "title": "How to Choose Your First Facial in Fair Oaks",
     "description": "How to pick a first facial at Golden State Glam in Fair Oaks. Start with the New Client Signature Facial at $150 for 80 minutes. Book online.",
     "ogType": "article",
     "jsonld": [
@@ -337,15 +337,15 @@
     ]
   },
   "/blog/hydration-focused-facials/": {
-    "title": "What a Hydration-Focused Facial Includes, Fair Oaks",
-    "description": "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with serum, a hydrating mask, and facial massage. Book online.",
+    "title": "Hydrating Facial in Fair Oaks: What's Included",
+    "description": "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with layered hydrating serums and a nourishing mask. Book online.",
     "ogType": "article",
     "jsonld": [
       {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "What a hydration-focused facial includes",
-        "description": "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with serum, a hydrating mask, and facial massage. Book online.",
+        "description": "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with layered hydrating serums and a nourishing mask. Book online.",
         "datePublished": "2026-11-08T00:00:00.000Z",
         "dateModified": "2026-11-08T00:00:00.000Z",
         "mainEntityOfPage": "https://goldenstateglam.com/blog/hydration-focused-facials/",
@@ -390,7 +390,7 @@
     ]
   },
   "/blog/mens-facial-shaving-sensitive-carmichael/": {
-    "title": "Men's Facial for Shaving-Sensitive Skin | Carmichael",
+    "title": "Men's Facial for Shaving-Sensitive Skin near Carmichael",
     "description": "The Men’s Deep Clean Facial at Golden State Glam in Fair Oaks considers shaving-sensitive skin. A practical guide for men visiting from Carmichael.",
     "ogType": "article",
     "jsonld": [

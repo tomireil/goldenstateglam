@@ -1,6 +1,6 @@
 ---
-title: "What a hydration-focused facial includes"
-description: "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with serum, a hydrating mask, and facial massage. Book online."
+title: "Hydrating Facial in Fair Oaks: What’s Included"
+description: "The Korean Glass Skin Facial at Golden State Glam in Fair Oaks is $165 for 75 minutes, with layered hydrating serums and a nourishing mask. Book online."
 pubDate: 2026-11-08
 updatedDate: 2026-11-08
 image: glowHands
@@ -14,7 +14,7 @@ These are cosmetic visits. Skin responds individually. Nothing on the menu promi
 
 The [Korean Glass Skin Facial](/services/korean-glass-skin/) is $165 and 75 minutes.
 
-The visit includes cleansing, exfoliation, serum application, a hydrating mask, and relaxing facial massage. It is the one to read if you want a dewy, refreshed appearance and you have 75 minutes. The name describes the style of the facial. It does not mean skin will look a specific way afterward.
+The visit includes cleansing, gentle exfoliation, layered hydrating serums, a soothing treatment, a nourishing mask, and moisturizer with SPF. It is the one to read if you want a dewy, refreshed appearance and you have 75 minutes. The name describes the style of the facial. It does not mean skin will look a specific way afterward.
 
 ## What to share ahead of time
 

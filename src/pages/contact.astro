@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site } from '../data/site';
+import { site, visitFrom } from '../data/site';
 
 const ways = [
   { kicker: 'Fastest', title: 'Book online', note: 'Pick a facial and a time', href: site.bookingUrl, dark: true },
@@ -43,7 +43,7 @@ const ways = [
         <h2>{site.street}</h2>
         <p>{site.cityLine}</p>
         <p>{site.hoursShort}</p>
-        <p>Clients visit from Folsom, El Dorado Hills, Carmichael and Sacramento.</p>
+        <p>{visitFrom}</p>
         <p class="actions">
           <a class="link" href={site.mapsUrl}>Open in Google Maps</a>
           <a class="link" href={site.osmUrl}>Open in OpenStreetMap</a>

@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import Arrow from '../components/Arrow.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { images } from '../data/images';
-import { hours, site } from '../data/site';
+import { hours, site, visitFrom } from '../data/site';
 ---
 
 <Base path="/about/">
@@ -50,8 +50,8 @@ import { hours, site } from '../data/site';
       <div class="stack" style="gap: 18px">
         <h2 class="display h-section">One studio, <em>four days a week</em></h2>
         <p style="color: var(--text-strong); max-width: 460px">
-          Every visit happens at my studio at {site.fullAddress}. Clients visit from Folsom, El Dorado Hills,
-          Carmichael and Sacramento. Current appointment times are on my booking site.
+          Every visit happens at my studio at {site.fullAddress}. {visitFrom} Current appointment times are on my
+          booking site.
         </p>
         <p class="actions">
           <a class="link" href={site.reviewsUrl}>Read my Google reviews</a>

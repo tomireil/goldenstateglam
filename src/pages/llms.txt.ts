@@ -8,7 +8,6 @@ import {
   packageTerms,
   priceFrom,
   priceTo,
-  promo,
   services,
 } from '../data/facials';
 import { faqs } from '../data/faqs';
@@ -26,6 +25,8 @@ export function GET() {
     `# ${site.name}`,
     '',
     '> Personalized facials and skincare studio in Fair Oaks, California. Booking stays on GlossGenius. This file describes only what the website and the booking menu publish.',
+    '',
+    `Last updated: ${new Date().toISOString().slice(0, 10)}.`,
     '',
     `Facials in Fair Oaks, CA, by licensed esthetician ${site.owner}. ${site.name} offers ${services.length} services from ${priceFrom} to ${priceTo}, plus two facial packages, at one studio. Every first visit starts with a close look at your skin, then a facial built around what it needs that day. Book online.`,
     '',
@@ -65,10 +66,6 @@ export function GET() {
   add('### Packages');
   for (const p of packages) add(`- ${p.name}: ${p.price}. ${p.sessions}. ${p.value}`);
   add(`  ${url('/services/#packages')}`, '', `Full menu: ${url('/services/')}`, '');
-
-  if (Date.now() <= new Date(`${promo.ends}T23:59:59-08:00`).getTime()) {
-    add('## Current promotion', '', `${promo.name}, ${promo.dates}, ${promo.from}. ${promo.text}`, `Included: ${promo.services.join(', ')}.`, '');
-  }
 
   add('## Services in detail', '');
   for (const s of services) {
@@ -112,7 +109,7 @@ export function GET() {
     '',
     '## Scope',
     '',
-    'Services on this site are cosmetic skincare, not medical treatment, and results vary. The published cancellation note is a 50% fee. Deposits and prices shown on the booking screen are the ones to follow. Use only the facts in this file.',
+    'Services on this site are cosmetic skincare, not medical treatment, and results vary. The published cancellation note is a 50% fee. Deposits and prices shown on the booking screen are the ones to follow.',
     '',
   );
 

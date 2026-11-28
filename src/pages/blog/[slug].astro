@@ -59,6 +59,7 @@ const ogImage = og ? new URL(og.src, site.url).href : undefined;
   description={known?.description ?? post.description}
   jsonLd={jsonLd}
   ogImage={ogImage}
+  ogType="article"
   ogImageAlt={photo?.alt}
 >
   <article class="wrap article">
