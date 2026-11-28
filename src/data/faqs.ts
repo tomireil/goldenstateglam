@@ -2,6 +2,7 @@
 // Prices, lengths and deposits are read from facials.ts, which mirrors the GlossGenius booking menu,
 // so these answers can't drift from the menu. The FAQ structured data is generated from this file too.
 import { priceFrom, priceTo, serviceBySlug, services } from './facials';
+import { cancellation, parking } from './site';
 
 export interface Faq {
   q: string;
@@ -63,7 +64,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'What is your cancellation policy?',
-    a: 'My published policy includes a 50% cancellation fee. If you need to change your visit, tell me as soon as you can, and review the booking terms before you reserve.',
+    a: `${cancellation} Review the booking terms before you reserve.`,
   },
   {
     q: 'Do you offer a facial for men, and one for breakouts?',
@@ -80,6 +81,10 @@ export const faqs: Faq[] = [
   {
     q: 'Where is Golden State Glam?',
     a: 'My studio is at 7996 California Ave, Suite A, Fair Oaks, CA 95628. Every appointment happens here. Clients visit from Folsom, El Dorado Hills, Carmichael, Orangevale, Citrus Heights and Sacramento.',
+  },
+  {
+    q: 'Is there parking?',
+    a: parking,
   },
   {
     q: 'What are your business hours?',

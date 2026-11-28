@@ -12,7 +12,7 @@ import {
 } from '../data/facials';
 import { faqs } from '../data/faqs';
 import { posts } from '../data/posts';
-import { cities, site } from '../data/site';
+import { cancellation, cities, parking, site } from '../data/site';
 
 const url = (path: string) => `${site.url}${path}`;
 
@@ -44,6 +44,8 @@ export function GET() {
     `- Address: ${site.fullAddress}`,
     '- Hours: Monday, Wednesday, Friday, and Saturday, 10 AM to 6 PM. Closed Tuesday, Thursday, and Sunday. An open day does not mean every hour is free.',
     '- Coordinates: 38.6418981, -121.2681382',
+    `- Parking: ${parking}`,
+    `- Cancellation: ${cancellation}`,
     `- Google reviews: ${site.rating} from ${site.reviewCount} reviews. ${site.reviewsUrl}`,
     `- One studio only, in Fair Oaks. Clients visit from Fair Oaks, ${cities.join(', ')}.`,
     `- Hydrodermabrasion (a water-based exfoliation, the same kind of treatment as a HydraFacial) is done with a Zemits machine and is part of every Signature Deep Cleanse. The studio does not use the HydraFacial brand. ${site.url}/hydrodermabrasion/`,
@@ -111,7 +113,7 @@ export function GET() {
     '',
     '## Scope',
     '',
-    'Services on this site are cosmetic skincare, not medical treatment, and results vary. The published cancellation note is a 50% fee. Deposits and prices shown on the booking screen are the ones to follow.',
+    'Services on this site are cosmetic skincare, not medical treatment, and results vary. Deposits and prices shown on the booking screen are the ones to follow.',
     '',
   );
 
