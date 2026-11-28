@@ -68,6 +68,10 @@ export interface Service {
   bestFor?: string;
   /** Variants the client picks between when booking (the Italian peel systems). */
   options?: { name: string; price?: string; desc?: string; bestFor?: string }[];
+  /** Questions people ask before booking this service. Answer only from facts already on this page. */
+  questions?: { q: string; a: string }[];
+  /** A pointer to a related service, shown under "Best for": the text, then a link to that service. */
+  seeAlso?: { text: string; slug: string };
   /** The plain search term for this treatment when the booking name doesn't say it, e.g. "back facial". Shown in the page heading. */
   term?: string;
   /** Page title for search results, when the default "<name> in Fair Oaks | Golden State Glam" would miss the search term. Keep it to 60 characters. */
@@ -85,6 +89,10 @@ export const services: Service[] = [
   // ---- Signature & Deep Cleansing
   {
     slug: 'new-client-signature',
+    questions: [
+      { q: 'What happens at a first visit?', a: 'It starts with a short consultation and a close look at your skin. Then you get a full facial: double cleanse, gentle exfoliation, a nourishing mask, facial massage, hydration and SPF. You leave with a simple home care plan.' },
+      { q: 'Should I come without makeup?', a: 'Come with or without makeup. The double cleanse takes care of it.' },
+    ],
     name: 'New Client Signature Facial',
     short: 'New Client Signature',
     category: 'signature',
@@ -122,6 +130,10 @@ export const services: Service[] = [
   },
   {
     slug: 'signature-deep-cleanse',
+    questions: [
+      { q: 'How often should I get a deep cleansing facial?', a: 'Most clients come back every four to six weeks.' },
+      { q: 'Will my skin be red after extractions?', a: 'Slight redness after extractions is normal. It usually fades within a few hours.' },
+    ],
     name: 'Signature Deep Cleanse',
     term: 'deep cleansing facial',
     seoTitle: 'Deep Cleansing Facial in Fair Oaks | Golden State Glam',
@@ -148,7 +160,7 @@ export const services: Service[] = [
       'Hydration with SPF',
     ],
     expect: [
-      'Clearer, smoother, brighter-looking skin after the first visit.',
+      'Most clients see clearer, smoother-looking skin after the first visit.',
       'Slight redness after extractions is normal. It usually fades within a few hours.',
     ],
     goodToKnow: [
@@ -162,6 +174,11 @@ export const services: Service[] = [
   },
   {
     slug: 'clear-skin-facial',
+    questions: [
+      { q: 'How many visits will I need?', a: 'Breakout-prone skin responds best to a series. Most clients start with six visits, two weeks apart.' },
+      { q: 'Can a facial treat severe acne?', a: 'This is a cosmetic treatment. Severe or painful acne is best seen by a dermatologist first.' },
+    ],
+    seeAlso: { text: 'Breakouts on your back too? See the', slug: 'back-reset' },
     name: 'Clear Skin Facial',
     term: 'acne facial',
     seoTitle: 'Clear Skin Acne Facial in Fair Oaks | Golden State Glam',
@@ -188,7 +205,7 @@ export const services: Service[] = [
       'A simple home routine',
     ],
     expect: [
-      'Less visible congestion and calmer-looking skin after the first visit.',
+      'Skin usually looks calmer and less congested after the first visit.',
       'Some redness after extractions is normal. It settles within a day.',
     ],
     goodToKnow: [
@@ -202,6 +219,9 @@ export const services: Service[] = [
   },
   {
     slug: 'mens-deep-clean',
+    questions: [
+      { q: 'Should I shave before a men’s facial?', a: 'Shave the day before, not the morning of your visit. Beards are welcome.' },
+    ],
     name: 'Men’s Deep Clean Facial',
     short: 'Men’s Deep Clean',
     category: 'signature',
@@ -237,6 +257,10 @@ export const services: Service[] = [
   // ---- Hydration & Glow
   {
     slug: 'korean-glass-skin',
+    questions: [
+      { q: 'What is a Korean glass skin facial?', a: 'It’s a hydrating facial. Lightweight hydrating serums are layered onto the skin, followed by a soothing treatment and a nourishing mask. No strong exfoliants are used.' },
+      { q: 'Is it OK for sensitive skin?', a: 'Yes. It’s gentle enough for sensitive skin, and nothing harsh is used.' },
+    ],
     name: 'Korean Glass Skin Facial',
     short: 'Korean Glass Skin',
     category: 'glow',
@@ -259,7 +283,7 @@ export const services: Service[] = [
       'A nourishing mask',
       'Moisturizer with SPF',
     ],
-    expect: ['Plump, luminous skin the same day.', 'Nothing harsh is used, so there’s no redness and no downtime.'],
+    expect: ['Plump, luminous skin the same day.', 'Nothing harsh is used, so redness is unlikely and there’s no downtime.'],
     goodToKnow: ['Gentle enough for sensitive skin.', 'A good choice in winter, after travel, or before photos.'],
     bestFor: 'dull, dehydrated, or rough-feeling skin',
     need: 'Glow and hydration',
@@ -267,6 +291,11 @@ export const services: Service[] = [
   },
   {
     slug: 'lift-firm-facial',
+    questions: [
+      { q: 'How far ahead of an event should I book?', a: 'Three to five days ahead.' },
+      { q: 'Does it use needles?', a: 'No. There are no needles and no downtime.' },
+    ],
+    seeAlso: { text: 'Prefer a gentler, moisture-first facial for dry or mature skin? See', slug: 'facial-sculpting-therapy' },
     name: 'Lift & Firm Facial',
     short: 'Lift & Firm Facial',
     category: 'glow',
@@ -276,10 +305,10 @@ export const services: Service[] = [
     deposit: '$50 deposit for new clients',
     image: 'glowHands',
     focus: '55% 25%',
-    lead: 'A firming facial with peptides, lifting massage and LED light, for skin that’s lost some bounce.',
+    lead: 'A firming facial with peptides, sculpting massage and LED light, for skin that’s lost some bounce.',
     intro: [
       'A facial for fine lines and skin that looks tired. An enzyme exfoliation clears the surface, then a peptide treatment and a firming mask do the skincare work.',
-      'The lifting massage and LED light finish the job. No needles, no downtime.',
+      'The sculpting massage and LED light finish the job. No needles, no downtime.',
     ],
     includes: [
       'Cleanse',
@@ -290,7 +319,7 @@ export const services: Service[] = [
       'A firming mask',
       'SPF',
     ],
-    expect: ['Skin that looks tighter and more awake the same day.', 'The effect builds with regular visits.'],
+    expect: ['Skin that looks more awake the same day.', 'The effect builds with regular visits.'],
     goodToKnow: ['No needles and no downtime.', 'For an event, book it three to five days ahead.'],
     bestFor: 'fine lines, dullness, and early signs of aging',
     need: 'A lift',
@@ -298,6 +327,11 @@ export const services: Service[] = [
   },
   {
     slug: 'lymphatic-drainage-facial-massage',
+    questions: [
+      { q: 'Is this medical lymphatic drainage?', a: 'No. This is a cosmetic facial massage. It isn’t medical lymphatic drainage or a permanent lift.' },
+      { q: 'How long does the result last?', a: 'The de-puffing effect is temporary.' },
+    ],
+    seeAlso: { text: 'Want gua sha tools and shoulder massage too? See the', slug: 'sculpt-drain-facial' },
     name: 'Lymphatic Drainage Facial Massage',
     short: 'Lymphatic Drainage Facial Massage',
     category: 'glow',
@@ -325,12 +359,15 @@ export const services: Service[] = [
     ],
     goodToKnow: [
       'This is a cosmetic facial massage. It isn’t medical lymphatic drainage or a permanent lift.',
-      'Want gua sha tools and shoulder massage too? See the Sculpt & Drain Facial.',
     ],
     bestFor: 'facial puffiness, tension, stress, and anyone who loves a hands-on facial massage',
   },
   {
     slug: 'deep-relax-sleep-ritual',
+    questions: [
+      { q: 'Is it OK to fall asleep?', a: 'Yes. A guided sleep meditation and soft sound therapy play while you rest under a mask. Falling asleep is the idea.' },
+      { q: 'Is this a treatment for anxiety or sleep problems?', a: 'No. It’s a relaxation ritual, not a medical treatment for stress, anxiety or sleep problems.' },
+    ],
     name: 'Deep Relax & Sleep Ritual',
     short: 'Deep Relax & Sleep Ritual',
     category: 'glow',
@@ -367,6 +404,9 @@ export const services: Service[] = [
   },
   {
     slug: 'facial-sculpting-therapy',
+    questions: [
+      { q: 'Who is Facial Sculpting Therapy for?', a: 'It suits mature skin, visible fine lines, dryness and loss of radiance. The steps are chosen for your skin on the day.' },
+    ],
     name: 'Facial Sculpting Therapy',
     short: 'Facial Sculpting Therapy',
     category: 'glow',
@@ -394,6 +434,10 @@ export const services: Service[] = [
   },
   {
     slug: 'sculpt-drain-facial',
+    questions: [
+      { q: 'What is gua sha?', a: 'Gua sha is a smooth stone tool that glides over the skin to ease puffiness and relax tight facial muscles.' },
+      { q: 'Can I book it during a breakout?', a: 'It’s not recommended over active breakouts or irritated skin.' },
+    ],
     name: 'Sculpt & Drain Facial',
     term: 'gua sha facial',
     seoTitle: 'Gua Sha Facial in Fair Oaks | Sculpt & Drain Facial',
@@ -405,9 +449,9 @@ export const services: Service[] = [
     deposit: '$50 deposit',
     image: 'sculptDrain',
     focus: '50% 30%',
-    lead: 'A 60-minute gua sha and lymphatic massage facial for puffiness, tension and a more defined jawline.',
+    lead: 'A 60-minute gua sha and lymphatic massage facial for puffiness and facial tension.',
     intro: [
-      'Gua sha is a smooth stone tool that glides over the skin to move fluid and release tight facial muscles. Here it’s paired with lymphatic-style massage for your face, neck and shoulders.',
+      'Gua sha is a smooth stone tool that glides over the skin to ease puffiness and relax tight facial muscles. Here it’s paired with lymphatic-style massage for your face, neck and shoulders.',
       'Warm towels start the visit and a cooling mask ends it.',
     ],
     includes: [
@@ -419,7 +463,7 @@ export const services: Service[] = [
       'SPF',
     ],
     expect: [
-      'Less puffiness, a more defined jawline, and a face that feels relaxed.',
+      'A jawline that looks less puffy, and a face that feels relaxed.',
       'Results are temporary and build with regular visits.',
     ],
     goodToKnow: [
@@ -433,6 +477,10 @@ export const services: Service[] = [
   // ---- Body Skin Treatments
   {
     slug: 'back-reset',
+    questions: [
+      { q: 'How far ahead of an event should I book a back facial?', a: 'One to two weeks ahead of a wedding or vacation.' },
+      { q: 'What should I wear?', a: 'Wear a loose top. Skip heavy workouts and hot showers for the rest of the day.' },
+    ],
     name: 'Back Reset',
     term: 'back facial',
     seoTitle: 'Back Facial in Fair Oaks (Back Reset) | Golden State Glam',
@@ -470,6 +518,11 @@ export const services: Service[] = [
   // ---- Peelings
   {
     slug: 'chemical-peel',
+    questions: [
+      { q: 'Does a chemical peel hurt?', a: 'Expect light tingling during the peel.' },
+      { q: 'How long is the downtime after a chemical peel?', a: 'Expect mild flaking for two to five days. Stop retinol and exfoliating acids five days before your visit.' },
+    ],
+    seeAlso: { text: 'Stubborn dark spots or texture? See the', slug: 'advanced-italian-skin-renewal' },
     name: 'Chemical Peel',
     short: 'Chemical Peel',
     category: 'peels',
@@ -513,6 +566,10 @@ export const services: Service[] = [
   // ---- Exopeel & Dermoaroma
   {
     slug: 'advanced-italian-skin-renewal',
+    questions: [
+      { q: 'How is this different from a standard chemical peel?', a: 'It’s a step up. Each of the four formulas targets a different concern, and you should expect more flaking: three to seven days.' },
+      { q: 'Who shouldn’t book this peel?', a: 'It’s not suitable during pregnancy, on sunburned skin, or within six months of taking isotretinoin.' },
+    ],
     name: 'Advanced Italian Skin Renewal',
     seoTitle: 'Advanced Chemical Peel in Fair Oaks | Italian Skin Renewal',
     short: 'Advanced Italian Skin Renewal',
@@ -526,7 +583,7 @@ export const services: Service[] = [
     lead: 'A stronger professional peel, with four Italian formulas for dark spots, texture, aging skin or body areas.',
     intro: [
       'This is a step up from a standard chemical peel. Each of the four formulas targets a different concern, and I assess your skin before choosing one.',
-      'Expect more flaking than a standard peel, and a bigger change in tone and texture once it settles.',
+      'Expect more flaking than a standard peel, and a more noticeable change in how tone and texture look once it settles.',
     ],
     includes: [
       'Skin assessment',
@@ -550,7 +607,7 @@ export const services: Service[] = [
       {
         name: 'Radiance Brightening Peel',
         desc: 'The brightening peel. It combines azelaic acid, azeloglycine, encapsulated retinol and resorcinol to exfoliate and brighten, for a more even-looking complexion.',
-        bestFor: 'dark spots, uneven-looking pigmentation, dullness, and signs of sun damage',
+        bestFor: 'dark spots, uneven-looking pigmentation, and the look of sun-related dullness and uneven tone',
       },
       {
         name: 'Restructa Skin Texture & Clarity',
@@ -571,6 +628,9 @@ export const services: Service[] = [
   },
   {
     slug: 'exopeel-premium-skin-renewal',
+    questions: [
+      { q: 'How much recovery time should I plan for?', a: 'Skin may feel tight for a day or two, followed by several days of peeling. Plan it at least two weeks before any event.' },
+    ],
     name: 'Exopeel Premium Skin Renewal',
     short: 'Exopeel Premium Skin Renewal',
     category: 'premium',
@@ -580,9 +640,9 @@ export const services: Service[] = [
     deposit: '$80 deposit for new clients',
     image: 'exopeel',
     focus: '50% 50%',
-    lead: 'Our most advanced peel: a 105-minute skin resurfacing treatment for tone, texture and fine lines.',
+    lead: 'My most advanced peel: a 105-minute treatment for the look of tone, texture and fine lines.',
     intro: [
-      'Exopeel is a professional peel system from Europe that renews the surface of the skin. Every treatment starts with a skin assessment, and the protocol is chosen for your skin alone.',
+      'Exopeel is a professional peel system from Europe that exfoliates the surface of the skin. Every treatment starts with a skin assessment, and the protocol is chosen for your skin alone.',
       'It asks more of your skin than my other peels, so plan for a few days of recovery.',
     ],
     includes: [
@@ -710,7 +770,7 @@ export const packages: Package[] = [
     name: 'Signature Skin Maintenance: 6 Sessions',
     price: '$990',
     sessions: 'Six 90-minute treatments',
-    desc: 'Six Signature Deep Cleanse facials for skin that needs steady care. Every visit is adjusted to how your skin is doing, to keep congestion under control and hydration up, with skincare guidance along the way. The best value if facials are part of your routine.',
+    desc: 'Six Signature Deep Cleanse facials for skin that needs steady care. Every visit is adjusted to how your skin is doing, to help keep skin clear and hydrated, with skincare guidance along the way. The best value if facials are part of your routine.',
     value: 'Regular value $1,080. You save $90.',
     image: 'package6',
   },

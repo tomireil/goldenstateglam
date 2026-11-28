@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import FaqList from '../../components/FaqList.astro';
-import { categories, services, type Service } from '../../data/facials';
+import { categories, services, type Service, serviceBySlug } from '../../data/facials';
 import { faqJsonLd, type Faq } from '../../data/faqs';
 import { images } from '../../data/images';
 import { site, visitFrom } from '../../data/site';
@@ -39,11 +39,12 @@ const tabs = [
   { id: 'know', label: 'Good to know', items: s.goodToKnow },
 ];
 
-// Questions answered from the booking menu's own numbers.
+// The service's own questions first, then price and deposit, answered from the booking menu's numbers.
 const priceAnswer = s.price.startsWith('from')
   ? `The published price starts at ${s.price.replace('from ', '')} and the visit is ${s.time}. The final price depends on the option you choose.`
   : `The published price is ${s.price} and the visit is ${s.time}.`;
 const faqs: Faq[] = [
+  ...(s.questions ?? []),
   {
     q: `How much is the ${s.name}, and how long is it?`,
     a: `${priceAnswer} Confirm the price and length on the booking screen.`,
@@ -114,6 +115,11 @@ const jsonLd = [
       {s.bestFor && (
         <p class="best">
           <span>Best for</span> {s.bestFor}.
+        </p>
+      )}
+      {s.seeAlso && (
+        <p class="muted">
+          {s.seeAlso.text} <a href={`/services/${s.seeAlso.slug}/`}>{serviceBySlug(s.seeAlso.slug).name}</a>.
         </p>
       )}
 
@@ -203,7 +209,7 @@ const jsonLd = [
 
   <section class="wrap section extra">
     <div class="stack">
-      <h2 class="display h-sub">Price and <em>deposit</em></h2>
+      <h2 class="display h-sub">Common <em>questions</em></h2>
       <FaqList items={faqs} />
     </div>
     <div class="stack">

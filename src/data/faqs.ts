@@ -54,6 +54,14 @@ export const faqs: Faq[] = [
     a: `For most services, yes. The booking menu lists a $50 deposit on most facials and $80 on some longer or more advanced treatments, in many cases for new clients only. The ${first.name} lists a ${first.deposit}. Each service page shows its deposit, and whatever the booking screen shows is the one to follow.`,
   },
   {
+    q: 'How often should I get a facial?',
+    a: `Most clients come back every four to six weeks. For breakouts, the ${clear.name} works best as a series: most clients start with six visits, two weeks apart.`,
+  },
+  {
+    q: 'Who will do my facial?',
+    a: 'I will. I’m Veronika Reil, the owner and a licensed esthetician, and I do every treatment myself.',
+  },
+  {
     q: 'What is your cancellation policy?',
     a: 'My published policy includes a 50% cancellation fee. If you need to change your visit, tell me as soon as you can, and review the booking terms before you reserve.',
   },
