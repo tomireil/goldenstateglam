@@ -50,7 +50,9 @@ const business = {
         name: s.name,
         url: `${site.url}/services/${s.slug}/`,
         priceCurrency: 'USD',
-        price: s.offerPrice,
+        ...(s.price.startsWith('from')
+          ? { priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'USD', minPrice: s.offerPrice } }
+          : { price: s.offerPrice }),
       },
     })),
   },

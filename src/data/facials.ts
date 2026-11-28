@@ -67,7 +67,11 @@ export interface Service {
   goodToKnow: string[];
   bestFor?: string;
   /** Variants the client picks between when booking (the Italian peel systems). */
-  options?: { name: string; desc: string; bestFor: string }[];
+  options?: { name: string; price?: string; desc?: string; bestFor?: string }[];
+  /** The plain search term for this treatment when the booking name doesn't say it, e.g. "back facial". Shown in the page heading. */
+  term?: string;
+  /** Page title for search results, when the default "<name> in Fair Oaks | Golden State Glam" would miss the search term. Keep it to 60 characters. */
+  seoTitle?: string;
   /** Homepage picker: pill label and short tag. Only the featured facials have these. */
   need?: string;
   tag?: string;
@@ -119,6 +123,8 @@ export const services: Service[] = [
   {
     slug: 'signature-deep-cleanse',
     name: 'Signature Deep Cleanse',
+    term: 'deep cleansing facial',
+    seoTitle: 'Deep Cleansing Facial in Fair Oaks | Golden State Glam',
     short: 'Signature Deep Cleanse',
     category: 'signature',
     price: '$180',
@@ -157,6 +163,8 @@ export const services: Service[] = [
   {
     slug: 'clear-skin-facial',
     name: 'Clear Skin Facial',
+    term: 'acne facial',
+    seoTitle: 'Clear Skin Acne Facial in Fair Oaks | Golden State Glam',
     short: 'Clear Skin Facial',
     category: 'signature',
     price: '$160',
@@ -387,6 +395,8 @@ export const services: Service[] = [
   {
     slug: 'sculpt-drain-facial',
     name: 'Sculpt & Drain Facial',
+    term: 'gua sha facial',
+    seoTitle: 'Gua Sha Facial in Fair Oaks | Sculpt & Drain Facial',
     short: 'Sculpt & Drain Facial',
     category: 'glow',
     price: '$150',
@@ -424,6 +434,8 @@ export const services: Service[] = [
   {
     slug: 'back-reset',
     name: 'Back Reset',
+    term: 'back facial',
+    seoTitle: 'Back Facial in Fair Oaks (Back Reset) | Golden State Glam',
     short: 'Back Reset',
     category: 'body',
     price: '$160',
@@ -461,7 +473,7 @@ export const services: Service[] = [
     name: 'Chemical Peel',
     short: 'Chemical Peel',
     category: 'peels',
-    price: '$120',
+    price: 'from $120',
     offerPrice: '120.00',
     time: '45 min',
     deposit: '$50 deposit for new clients',
@@ -486,12 +498,23 @@ export const services: Service[] = [
     ],
     goodToKnow: [peelAftercare, peelNotFor],
     bestFor: 'dullness, uneven tone, fine lines, and marks left by breakouts',
+    // The six 45-minute peels on the booking menu, with their prices. The booking menu also has a $450, 120-minute
+    // "Peeling System + microneedling with Exosomes" option, left off here while the microneedling pages are on hold.
+    options: [
+      { name: 'Lactic Acid Peel (Circadia)', price: '$120' },
+      { name: 'Mandelic Peel + DMAE (Simildiet)', price: '$130' },
+      { name: 'Azelaic Acid Peel (Simildiet)', price: '$130' },
+      { name: 'MandelicClear Peel (Circadia)', price: '$140' },
+      { name: 'Yellow Peel (Simildiet)', price: '$160' },
+      { name: 'DermaFrost Peel (Circadia)', price: '$170' },
+    ],
   },
 
   // ---- Exopeel & Dermoaroma
   {
     slug: 'advanced-italian-skin-renewal',
     name: 'Advanced Italian Skin Renewal',
+    seoTitle: 'Advanced Chemical Peel in Fair Oaks | Italian Skin Renewal',
     short: 'Advanced Italian Skin Renewal',
     category: 'premium',
     price: 'from $220',

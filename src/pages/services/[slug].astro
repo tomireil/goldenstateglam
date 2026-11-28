@@ -58,7 +58,7 @@ const faqs: Faq[] = [
 
 // Search results cut titles at about 60 characters and descriptions at about 160, so long names get a shorter form.
 const fullTitle = `${s.name} in Fair Oaks | ${site.name}`;
-const title = fullTitle.length <= 60 ? fullTitle : `${s.name} in Fair Oaks, CA`;
+const title = s.seoTitle ?? (fullTitle.length <= 60 ? fullTitle : `${s.name} in Fair Oaks, CA`);
 const longDesc = `${s.name} in Fair Oaks: ${s.price} for ${s.time}. ${s.lead}`;
 const descBase = longDesc.length <= 160 ? longDesc : `${s.name}: ${s.price}, ${s.time}. ${s.lead}`;
 const description = `${descBase}${descBase.length < 132 ? ' Book online.' : ''}`;
@@ -74,7 +74,15 @@ const jsonLd = [
     url: pageUrl,
     provider: { '@id': `${site.url}/#business` },
     areaServed: { '@type': 'City', name: 'Fair Oaks', containedInPlace: { '@type': 'State', name: 'California' } },
-    offers: { '@type': 'Offer', priceCurrency: 'USD', price: s.offerPrice, url: site.bookingUrl },
+    // A "from" price is published as a starting price, not a fixed one.
+    offers: s.price.startsWith('from')
+      ? {
+          '@type': 'Offer',
+          priceCurrency: 'USD',
+          priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'USD', minPrice: s.offerPrice },
+          url: site.bookingUrl,
+        }
+      : { '@type': 'Offer', priceCurrency: 'USD', price: s.offerPrice, url: site.bookingUrl },
   },
   {
     '@context': 'https://schema.org',
@@ -97,7 +105,10 @@ const jsonLd = [
         ><span>{s.short}</span>
       </nav>
       <p class="eyebrow eyebrow--rule">{category.name}</p>
-      <h1 class="display h-page">{s.name} <em>in Fair Oaks</em></h1>
+      <h1 class="display h-page">
+        {s.name}{s.term ? ',' : ''}{' '}
+        <em>{s.term ? `${/^[aeiou]/i.test(s.term) ? 'an' : 'a'} ${s.term} in Fair Oaks` : 'in Fair Oaks'}</em>
+      </h1>
       <p class="pull">{s.lead}</p>
       {s.intro?.map((p) => <p class="lede">{p}</p>)}
       {s.bestFor && (
@@ -179,8 +190,9 @@ const jsonLd = [
             {s.options.map((o) => (
               <article class="option">
                 <h3>{o.name}</h3>
-                <p>{o.desc}</p>
-                <p class="small muted">Best for: {o.bestFor}.</p>
+                {o.price && <p class="option__price">{o.price}</p>}
+                {o.desc && <p>{o.desc}</p>}
+                {o.bestFor && <p class="small muted">Best for: {o.bestFor}.</p>}
               </article>
             ))}
           </div>
@@ -402,6 +414,12 @@ const jsonLd = [
     font-size: 27px;
     line-height: 1.05;
     color: var(--ink);
+  }
+
+  .option__price {
+    font-family: var(--serif);
+    font-size: 24px;
+    color: var(--bronze);
   }
 
   .extra {

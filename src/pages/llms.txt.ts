@@ -79,7 +79,8 @@ export function GET() {
     add('', 'Good to know:', ...s.goodToKnow.map((i) => `- ${i}`));
     if (s.options) {
       add('', 'Options chosen at booking:');
-      for (const o of s.options) add(`- ${o.name}. ${o.desc} Best for: ${o.bestFor}.`);
+      for (const o of s.options)
+        add(`- ${o.name}${o.price ? `: ${o.price}` : ''}.${o.desc ? ` ${o.desc}` : ''}${o.bestFor ? ` Best for: ${o.bestFor}.` : ''}`);
     }
     add('');
   }
