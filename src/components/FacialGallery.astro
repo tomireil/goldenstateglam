@@ -31,6 +31,7 @@ import { site } from '../data/site';
             class="panel__img"
             src={images[f.image].src}
             alt={images[f.image].alt}
+            quality={images[f.image].quality}
             widths={[480, 800, 1200]}
             sizes="(min-width: 1024px) 620px, 100vw"
             loading={i === 0 ? 'eager' : 'lazy'}

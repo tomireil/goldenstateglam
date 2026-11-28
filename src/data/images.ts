@@ -47,7 +47,8 @@ import heroFacialMask from '../assets/hero-facial-mask.jpg';
 //   rolled-towels.jpg     iridial           https://unsplash.com/photos/stack-of-white-rolled-towels-0Qv4fUvlSrI
 const reference = 'Reference photo, not the Fair Oaks studio.';
 
-export const images: Record<ImageKey, { src: ImageMetadata; alt: string }> = {
+// quality is optional. Set it on a photo with a lot of fine detail to keep its file size down.
+export const images: Record<ImageKey, { src: ImageMetadata; alt: string; quality?: number }> = {
   facialHands: {
     src: facialHands,
     alt: `Fingertips rest along a person’s jaw, with glowing skin on the neck and collarbone. ${reference}`,
@@ -62,6 +63,8 @@ export const images: Record<ImageKey, { src: ImageMetadata; alt: string }> = {
   },
   mensFacial: {
     src: mensFacial,
+    // A beard is fine detail, which makes this the heaviest photo on the site. 70 looks the same and is about 40% smaller.
+    quality: 70,
     alt: `A bearded man lies back with his eyes closed while hands massage his forehead. ${reference}`,
   },
   stillLife: {

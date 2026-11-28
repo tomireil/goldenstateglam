@@ -143,6 +143,7 @@ const jsonLd = [
         class="detail__photo arch"
         src={images[s.image].src}
         alt={images[s.image].alt}
+        quality={images[s.image].quality}
         widths={[520, 1040]}
         sizes="(min-width: 980px) 520px, 100vw"
         loading="eager"
@@ -239,6 +240,7 @@ const jsonLd = [
                 <Image
                   src={images[o.image].src}
                   alt={images[o.image].alt}
+                  quality={images[o.image].quality}
                   widths={[400, 800]}
                   sizes="(min-width: 980px) 380px, 100vw"
                   style={`object-position: ${o.focus}`}
