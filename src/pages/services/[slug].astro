@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import CtaBand from '../../components/CtaBand.astro';
@@ -64,13 +64,25 @@ const longDesc = `${s.name} in Fair Oaks: ${s.price} for ${s.time}. ${s.lead}`;
 const descBase = longDesc.length <= 160 ? longDesc : `${s.name}: ${s.price}, ${s.time}. ${s.lead}`;
 const description = `${descBase}${descBase.length < 132 ? ' Book online.' : ''}`;
 
+// A plain service type for search engines, in place of the menu's own category labels.
+const massageLed = ['lymphatic-drainage-facial-massage', 'deep-relax-sleep-ritual', 'sculpt-drain-facial'];
+const serviceType = massageLed.includes(s.slug)
+  ? 'Facial massage'
+  : ({ signature: 'Facial', glow: 'Facial', body: 'Back facial', peels: 'Chemical peel', premium: 'Chemical peel' } as Record<string, string>)[
+      s.category
+    ] ?? category.name;
+
+// Preview image for sharing: this service's own photo, cropped to 1200x630.
+const og = await getImage({ src: images[s.image].src, width: 1200, height: 630, format: 'jpg', quality: images[s.image].quality ?? 82 });
+const ogImage = new URL(og.src, site.url).href;
+
 const jsonLd = [
   faqJsonLd(faqs),
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: s.name,
-    serviceType: category.name,
+    serviceType,
     description: [s.lead, ...(s.intro ?? [])].join(' '),
     url: pageUrl,
     provider: { '@id': `${site.url}/#business` },
@@ -97,7 +109,7 @@ const jsonLd = [
 ];
 ---
 
-<Base path={path} jsonLd={jsonLd} title={title} description={description}>
+<Base path={path} jsonLd={jsonLd} title={title} description={description} ogImage={ogImage} ogImageAlt={images[s.image].alt}>
   <section class="wrap detail">
     <div class="detail__text stack" style="gap: 24px">
       <nav class="breadcrumb" aria-label="Breadcrumb">

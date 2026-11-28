@@ -13,7 +13,7 @@
     "sameAs": [
       "https://www.instagram.com/goldenstateglam_",
       "https://goldenstateglam.glossgenius.com/",
-      "https://share.google/g26GFPJJW9PTZ9sUn"
+      "https://www.google.com/maps?cid=2197126393242146583"
     ],
     "employee": {
       "@type": "Person",
@@ -38,7 +38,7 @@
       "latitude": 38.6418981,
       "longitude": -121.2681382
     },
-    "hasMap": "https://www.google.com/maps/search/?api=1&query=7996%20California%20Ave%2C%20Suite%20A%2C%20Fair%20Oaks%2C%20CA%2095628",
+    "hasMap": "https://www.google.com/maps?cid=2197126393242146583",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -110,7 +110,10 @@
           "name": "California"
         }
       }
-    ]
+    ],
+    "founder": {
+      "@id": "https://goldenstateglam.com/#owner"
+    }
   },
   "/about/": {
     "title": "Veronika Reil, Fair Oaks Esthetician | Golden State Glam",
@@ -146,9 +149,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
@@ -199,9 +200,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
@@ -252,9 +251,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
@@ -305,9 +302,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
@@ -358,9 +353,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
@@ -411,9 +404,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
@@ -464,9 +455,7 @@
           "url": "https://goldenstateglam.com/about/"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Golden State Glam",
-          "url": "https://goldenstateglam.com"
+          "@id": "https://goldenstateglam.com/#business"
         }
       },
       {
