@@ -137,6 +137,10 @@ export const services: Service[] = [
   {
     slug: 'signature-deep-cleanse',
     questions: [
+      {
+        q: 'Do you offer HydraFacial?',
+        a: 'I offer hydrodermabrasion with a Zemits machine. It’s the same kind of water-based treatment as a HydraFacial, from a different brand. It’s part of this facial when it suits your skin.',
+      },
       { q: 'How often should I get a deep cleansing facial?', a: 'Most clients come back every four to six weeks.' },
       { q: 'Will my skin be red after extractions?', a: 'Slight redness after extractions is normal. It usually fades within a few hours.' },
     ],
